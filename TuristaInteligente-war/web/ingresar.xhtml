@@ -19,15 +19,11 @@
                     <h:outputText styleClass="bold" value="Clave"/>
                     <h:inputSecret style="width:180px" value="#{credentials.password}" />
                     <a4j:commandLink id="submit" styleClass="btn small grayDark" value="Ingresar" action="#{authenticator.authenticate}"  render="msgs">                                               
-                    </a4j:commandLink>
-                    <br />
-                    <a4j:commandLink id="registrar" styleClass="btn small grayDark" value="Registrar" oncomplete="#{rich:component('registrarUsuarioPanel')}.show()"
-                                   render="panelRegistrar"/>                                               
+                    </a4j:commandLink>                                                               
                     <br />
                     <rich:messages id="msgs" showDetail="false" />
                 </h:panelGrid>
             </h:panelGrid>
-        </h:form>
-        <ui:include src="registrar.xhtml"/> 
+        </h:form>      
     </ui:define>
 </ui:composition>
