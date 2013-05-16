@@ -1,0 +1,968 @@
+/* CSS Document */
+input[type="text"],
+input[type="password"],
+input[type="file"],
+textarea,
+select {
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  -webkit-transition: border 0.2s linear, -webkit-box-shadow 0.2s linear;
+
+  outline: none;
+  background-color: #fcfcfc;
+  border: 1px solid #dddddd;
+  padding: 4px
+}
+
+input[type="text"]:hover,
+input[type="password"]:hover,
+input[type="file"]:hover,
+textarea:hover,
+select:hover {
+  -moz-box-shadow: 0 0 3px #bbbbbb;
+  -webkit-box-shadow: 0 0 3px #bbbbbb;
+  box-shadow: 0 0 3px #bbbbbb;
+
+  background-color: #fefefe;
+  border: 1px solid #eeeeee
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="file"]:focus,
+textarea:focus,
+select:focus {
+  -moz-box-shadow: 0 0 3px #a5c2a4;
+  -webkit-box-shadow: 0 0 3px #a5c2a4;
+  box-shadow: 0 0 3px #a5c2a4;
+
+  background-color: #ffffff;
+  border: 1px solid #a5c2a4
+}
+
+input[type="text"][disabled="disabled"],
+input[type="password"][disabled="disabled"],
+input[type="file"][disabled="disabled"],
+textarea[disabled="disabled"],
+select[disabled="disabled"] {
+  color: #c0c0c0;
+  background-color: #fafafa;
+  border: 2px solid #c0c0c0
+}
+
+img {
+  border: 0
+}
+
+a {
+  display: inline-block;
+  margin: 4px;
+  font-size: 11px;
+  color: #1c5a19;
+  text-decoration: none;
+  border-bottom: 1px solid transparent
+}
+
+a:hover,
+a:focus {
+  color: #53994f;
+  border-bottom: 1px dotted #53994f
+}
+
+.small-font {
+  font-size: 10px !important
+}
+
+.small-font * {
+  font-size: 10px !important
+}
+
+.big-font,
+.big-font * {
+  font-size: 13px
+}
+
+.bold {
+  font-weight: bold
+}
+
+.normal {
+  font-weight: normal
+}
+
+.header {
+  background: url("/paywise/images/table-header1.png") repeat-x;
+  color: #353535
+}
+
+.headert {
+  position: relative;
+  width: 100%;
+  height: 101px;
+  background: url('/paywise/images/logo1-background.png') repeat-x
+}
+
+.headert .logo {
+  width: 100%;
+  height: 101px;
+  background: url('/paywise/images/logo1.png') no-repeat top left;
+}
+
+.headert .status {
+  position: absolute;
+  right: 15px;
+  bottom: 5px;
+  width: 26px;
+  height: 26px;
+}
+
+.headert-separator {
+  width: 100%;
+  height: 8px;
+  background-color: #285a24
+}
+
+.section-toolbar {
+  padding: 3px;
+  background-color: #f0f0f0;
+  border-bottom: 1px solid #e0e0e0
+}
+
+.section-toolbar-small {
+  padding: 2px;
+  background-color: #f0f0f0;
+  border-bottom: 1px solid #e0e0e0
+}
+
+.section-toolbar-small img {
+  margin-right: 2px
+}
+
+.content-title {
+  color: #086203;
+  background: #d4fcd7 url('/paywise/images/header-background2.png') repeat-x;
+  padding: 12px;
+  height: 25px;
+  font-size: 24px;
+  font-weight: bold;
+  border-bottom: 1px solid #e0e0e0
+}
+
+.main {
+  padding-right: 15px;
+  height: 100%
+}
+
+.main .sidebar {
+  vertical-align: top;
+  padding: 0 15px 0 15px;
+  width: 220px;
+}
+
+.main .content {
+  vertical-align: top;
+  border: 1px solid #d9d9d9
+}
+
+.c-top {
+  vertical-align: top;
+}
+
+.c-ctop {
+  vertical-align: top;
+  width: 1%
+}
+
+.cmid {
+  vertical-align: middle
+}
+
+.ccmpt {
+  white-space: nowrap;
+  width: 1%
+}
+
+.cmpnw {
+  width: 1%;
+  white-space: nowrap
+}
+
+.expr {
+  width: 100%;
+  text-align: right
+}
+
+.c-expand {
+  width: 100%
+}
+
+.c-center {
+  text-align: center
+}
+
+.c-50 {
+  width: 50%
+}
+
+.c-image {
+  width: 18px
+}
+
+.c-detail {
+  width: 200px
+}
+
+.c-label {
+  color: #ffffff;
+  background-color: #5cb356;
+  padding: 2px 4px 2px 4px;
+  border-bottom: 1px solid #ffffff;
+}
+
+.c-info {
+  border-left: 1px solid #ffffff;
+  border-bottom: 1px solid #ffffff;
+  background-color: #d5eee5;
+  padding: 2px 4px 2px 4px;
+}
+
+.c-bor-l1 {
+  width: 10px;
+  height: 22px;
+  background: url("/paywise/images/border-left1.png") no-repeat right
+}
+
+.c-bor-r1 {
+  width: 7px;
+  height: 22px;
+  background: url("/paywise/images/border-right1.png") no-repeat
+}
+
+.r-selected {
+  background-color: #e2f6e2 !important
+}
+
+a.image,
+a.image:link,
+a.image:visited {
+  padding: 0
+}
+
+.datatable .hc {
+  font-size: 12px;
+  background: url("/paywise/images/table-header1.png") repeat-x;
+  color: #353535
+}
+
+.datatable .hc * {
+  font-size: 12px;
+  color: #353535;
+}
+
+.datatable .hc input {
+  color: #000000
+}
+
+.row1 {
+  border: 0;
+  white-space: nowrap;
+}
+
+.row2 {
+  background-color: #f7f7f7;
+  border: 0;
+  white-space: nowrap;
+}
+
+a.button {
+  text-decoration: none;
+  border: 0;
+}
+
+a.button:hover,
+a.button:focus {
+  border: 0;
+  opacity: .8
+}
+
+.required {
+  font-size: 10px;
+  color: #999999
+}
+
+.asterisk {
+  color: red
+}
+
+.buttons1 {
+  border-top: 1px solid gray;
+  padding-top: 4px
+}
+
+.right {
+  margin-right: 0;
+  margin-left: auto;
+}
+
+.rght {
+  text-align: right
+}
+
+.left {
+  text-align: left
+}
+
+.mg8 {
+  margin: 8px
+}
+
+.mgLR5 {
+  margin-left: 5px;
+  margin-right: 5px
+}
+
+.paddR4 {
+  padding-right: 4px
+}
+
+.padd8 {
+  padding: 8px
+}
+
+.padd5 {
+  padding: 5px
+}
+
+.padd10 {
+  padding: 10px
+}
+
+.no-data {
+  display: block;
+  font-weight: bold;
+  font-size: 13px;
+  color: #ffffff;
+  padding: 6px;
+  text-align: center
+}
+
+.detail-tab-active {
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.detail-tab-inactive {
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.detail-tab-disabled {
+  font-size: 12px;
+}
+
+.detail-tabpanel-content {
+  background-color: transparent;
+  border-width: 1px 0 0 0;
+}
+
+.message-info {
+  padding: 6px;
+  font-size: 14px;
+  background-color: #ffffcc;
+  border: 1px solid #999900;
+  margin: 2px
+}
+
+.message-error {
+  color: #cc0033;
+  padding: 6px;
+  font-size: 14px;
+  background-color: #ffffcc;
+  border: 1px solid #999900;
+  margin: 2px
+}
+
+.r-align {
+  text-align: right
+}
+
+.l-align {
+  text-align: left
+}
+
+.user-box1 {
+  color: #1c751f;
+  border: 1px solid #d9d9d9;
+  border-bottom: 1px solid #c2c2c2;
+  border-right: 1px solid #c2c2c2;
+  background-color: #ffffff;
+  padding: 8px
+}
+
+.user-box1 * {
+  color: #1c751f
+}
+
+.title {
+  font-size: 11px
+}
+
+.title * {
+  font-size: 11px
+}
+
+.title1 {
+  display: block;
+  font-size: 13px;
+  font-weight: bold;
+  border-bottom: 1px solid gray;
+  margin-bottom: 4px
+}
+
+/*************/
+.rich-tabpanel-content {
+  border-width: 1px 0 0 0;
+  background-color: transparent
+}
+
+.rich-panel,
+.rich-panelbar,
+.rich-stglpanel {
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+
+  border: 1px solid #d9d9d9
+}
+
+.rich-panel-header,
+.rich-stglpanel-header {
+  border: 0;
+  padding: 4px 0 2px 4px;
+  font-size: 12px;
+  font-weight: bold;
+  border-bottom: 1px solid #d9d9d9;
+  color: #353535;
+  height: 18px;
+  background: url("/paywise/images/header-background1.png") repeat-x
+}
+
+.rich-panelbar-header {
+  border: 0;
+  padding: 6px 0 4px 6px;
+  font-size: 12px;
+  font-weight: normal;
+  border-bottom: 1px solid #d9d9d9;
+  color: #707070;
+  height: 18px;
+  background: url("/paywise/images/header-background1.png") repeat-x
+}
+
+.rich-panelbar-header-act {
+  border: 0;
+  padding: 6px 0 4px 6px;
+  font-size: 12px;
+  font-weight: bold;
+  border-bottom: 1px solid #d9d9d9;
+  color: #353535;
+  height: 18px;
+  background: url("/paywise/images/header-background1.png") repeat-x
+}
+
+.rich-panel-body,
+.rich-stglpanel-body {
+  font-size: 12px !important;
+  background-color: #fcfcfc
+}
+
+.rich-panel-body *,
+.rich-stglpanel-body * {
+  font-size: 12px !important
+}
+
+.calendario {
+  text-align: center;
+}
+
+.schedule-title {
+  display: block;
+  color: red;
+}
+
+.schedule-subtitle {
+  display: block;
+  color: yellow;
+}
+
+.schedule-entry {
+  background-color: blue
+}
+
+.comment {
+  padding-bottom: 15px
+}
+
+.comment .ctitle {
+  display: block;
+  font-weight: bold
+}
+
+.comment .csubtitle {
+  display: block;
+  font-size: 10px;
+  color: gray;
+  font-weight: bold
+}
+
+.comment .ccontent {
+  border-top: 1px solid darkgray;
+  padding-top: 4px;
+  color: #404040
+}
+
+.aliases {
+  border: 1px solid lightgray;
+  border-left: 1px solid gray;
+  border-top: 1px solid gray;
+  padding: 4px;
+  width: 160px;
+  height: 180px;
+  overflow: scroll;
+}
+
+.section-breadcrumb {
+  font-weight: bold;
+  font-size: 14px;
+  padding: 8px
+}
+
+.section-breadcrumb * {
+  font-weight: bold;
+  font-size: 14px
+}
+
+.section-breadcrumb a {
+  color: #0066cb;
+  text-decoration: none
+}
+
+.section-breadcrumb a:hover,
+.section-breadcrumb a:focus {
+  color: #2484e4;
+  border-bottom: 1px solid #2484e4
+}
+
+.rpps {
+  background-color: #ffffff;
+  border: 1px solid #cdcdcd;
+  height: 300px;
+  overflow-x: hidden;
+  overflow-y: auto
+}
+
+.scrse {
+  background-color: #ffffff;
+  border: 1px solid #cdcdcd;
+  width: 620px;
+  height: 300px;
+  overflow-x: auto;
+  overflow-y: auto
+}
+
+.jhk {
+  background-color: #ffffff;
+  border: 1px solid #cdcdcd;
+  width: 370px;
+  height: 150px;
+  overflow-x: auto;
+  overflow-y: auto
+}
+
+.hre {
+  margin: 15px 5px 15px 5px;
+  border-top: 1px solid #808080
+}
+
+.btl {
+  font-size: 15px;
+  font-weight: bold
+}
+
+a.bt1 {
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+
+  display: inline-block;
+  text-decoration: none;
+  padding: 3px 8px 3px 8px;
+  margin-right: 2px;
+  font-size: 15px;
+  font-weight: bold;
+  border: 1px solid #336bc7;
+  background-color: #618bd0;
+  color: #ffffff
+}
+
+a.bt1:hover,
+a.bt1:focus {
+  text-decoration: none;
+  background-color: #7aa4e8
+}
+
+a.bt1s {
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+
+  display: inline-block;
+  text-decoration: none;
+  padding: 3px 8px 3px 8px;
+  margin-right: 2px;
+  font-size: 15px;
+  font-weight: bold;
+  border: 1px solid #d3930b;
+  background-color: #ffb71c;
+  color: #ffffff
+}
+
+a.bt1s:hover,
+a.bt1s:focus {
+  text-decoration: none;
+  background-color: #ffb412
+}
+
+a.bt2 {
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+
+  display: inline-block;
+  text-decoration: none;
+  padding: 2px 6px 2px 6px;
+  margin-top: 2px;
+  font-size: 12px;
+  font-weight: bold;
+  border: 1px solid #133c7f;
+  background-color: #c4e2f5;
+  color: #133c7f
+}
+
+a.bt2:hover,
+a.bt2:focus {
+  text-decoration: none;
+  background-color: #7aa4e8
+}
+
+.pd4 {
+  padding: 4px
+}
+
+.pd8 {
+  padding: 8px
+}
+
+.center {
+  text-align: center
+}
+
+.cfd {
+  border: 1px solid #606060;
+  background: #ffffff;
+  margin: 0 0 5px 0
+}
+
+.bfms {
+  display: block;
+  margin-top: 8px;
+  color: #4264b9;
+  font-weight: bold;
+  font-size: 18px
+}
+
+.gf {
+  margin-top: 35px;
+  margin-bottom: 35px;
+  text-align: center
+}
+
+.gff {
+  margin-top: 8px;
+  background-color: #ffffff;
+  font-weight: bold !important;
+  font-size: 20px !important
+}
+
+.s1 {
+  display: block;
+  text-align: center;
+  margin-top: 8px;
+  padding: 4px;
+  background-color: #e0e0e0
+}
+
+.st1 {
+  display: block;
+  font-weight: bold;
+  font-size: 22px
+}
+
+.st2 {
+  display: block;
+  font-size: 20px
+}
+
+.e1 {
+  text-align: center;
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid #404040;
+}
+
+.et1 {
+  display: block;
+  font-size: 20px
+}
+
+.et2 * {
+  font-size: 18px
+}
+
+.f1 {
+  padding: 10px;
+  border: 1px solid #404040;
+}
+
+.ft1 {
+  text-align: center;
+  display: block;
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 6px
+}
+
+.ft2 * {
+  font-size: 13px
+}
+
+.ft3 {
+  margin-bottom: 4px;
+  display: block;
+  font-weight: bold
+}
+
+.ft4 {
+  font-size: 15px;
+  display: block;
+  font-weight: bold
+}
+
+.mgc {
+  margin: 0 auto
+}
+
+.jh {
+  border-top: 1px solid #003c9a;
+  height: 1px;
+  margin: 4px
+}
+
+.dser {
+  margin: 20px;
+  font-size: 20px;
+  text-align: center
+}
+
+.dser * {
+  text-align: center;
+  font-size: 20px
+}
+
+.fge {
+  display: block;
+  margin: 20px;
+  text-align: center;
+  font-size: 20px
+}
+
+.kjh {
+  position: relative
+}
+
+.phl {
+  position: absolute;
+  top: 1px;
+  left: 5px;
+  font-size: 14px !important;
+}
+
+.phl * {
+  font-size: 14px !important;
+}
+
+.phr {
+  position: absolute;
+  top: 6px;
+  right: 5px;
+  font-size: 14px;
+  font-weight: bold
+}
+
+.red {
+  color: red
+}
+
+.green {
+  color: green
+}
+
+a.botonsa {
+  -moz-box-shadow: 0 0 4px #ededed;
+  -webkit-box-shadow: 0 0 4px #ededed;
+  box-shadow: 0 0 4px #ededed;
+
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+
+  text-decoration: none;
+  outline: none;
+  display: inline-block;
+  margin-left: 2px;
+  font-size: 11px;
+  font-weight: bold;
+  border: 1px solid #dcdcdc;
+  color: #086203;
+  background: url('/paywise/images/bg1.png') repeat-x bottom;
+  padding: 2px 8px 3px 8px
+}
+
+a.botonsa span {
+  display: inline-block;
+  width: 7px;
+  height: 9px;
+  margin-right: 3px;
+  background: url('/paywise/images/bulb1.png') no-repeat
+}
+
+a.botonsa:hover,
+a.botonsa:focus {
+  color: #279622;
+  background: #fcfcfc none
+}
+
+a.botonsr {
+  -moz-box-shadow: 0 0 4px #ededed;
+  -webkit-box-shadow: 0 0 4px #ededed;
+  box-shadow: 0 0 4px #ededed;
+
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+
+  text-decoration: none;
+  outline: none;
+  display: inline-block;
+  margin-left: 2px;
+  font-size: 11px;
+  font-weight: bold;
+  border: 1px solid #dcdcdc;
+  color: #db6f6f;
+  background: url('/paywise/images/bg1.png') repeat-x bottom;
+  padding: 2px 8px 3px 8px
+}
+
+a.botonsr:hover,
+a.botonsr:focus {
+  color: #cd1111;
+  background: #f0f0f0 none
+}
+
+.btool {
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+
+  display: inline-block;
+  white-space: nowrap;
+  font-size: 12px;
+  list-style: none
+}
+
+.btool * {
+  font-size: 12px
+}
+
+.btool a {
+  -moz-box-shadow: 0 0 4px #ededed;
+  -webkit-box-shadow: 0 0 4px #ededed;
+  box-shadow: 0 0 4px #ededed;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+
+  text-decoration: none;
+  outline: none;
+  display: inline-block;
+  margin-left: 2px;
+  font-size: 12px;
+  font-weight: bold;
+  border: 1px solid #dcdcdc;
+  color: #086203;
+  background: url('/paywise/images/bg1.png') repeat-x bottom;
+  padding: 4px 12px 5px 12px
+}
+
+.btool a:hover,
+.btool a:focus {
+  color: #279622;
+  background: #fcfcfc none
+}
+
+.version {
+  display: block;
+  font-weight: bold;
+  font-size: 12px;
+  margin: 0 auto;
+  padding-top: 20px
+}
+
+a.boton {
+  -moz-box-shadow: 0 0 4px #ededed;
+  -webkit-box-shadow: 0 0 4px #ededed;
+  box-shadow: 0 0 4px #ededed;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+
+  text-decoration: none;
+  outline: none;
+  display: inline-block;
+  margin-left: 2px;
+  font-size: 12px;
+  font-weight: bold;
+  border: 1px solid #dcdcdc;
+  color: #086203;
+  background: url('/paywise/images/bg1.png') repeat-x bottom;
+  padding: 4px 12px 5px 12px
+}
+
+a.boton:hover,
+a.boton:focus {
+  color: #279622;
+  background: #fcfcfc none
+}
+
+.version {
+  display: block;
+  text-align: center;
+  font-weight: bold;
+  font-size: 11px;
+  margin: 0 auto;
+  padding-top: 20px
+}
+
+.nw {
+  white-space: nowrap
+}

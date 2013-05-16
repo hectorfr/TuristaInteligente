@@ -1,0 +1,33 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"           
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:rich="http://richfaces.org/rich"                   
+                template="/templates/login.xhtml">
+    <ui:define name="top"> 
+
+    </ui:define>
+
+    <ui:define name="content">
+        <h:form>           
+            <h:panelGrid columns="2">
+                <h:panelGrid width="100%" columns="2" cellpadding="0" cellspacing="4">
+                    <h:outputText styleClass="bold" value="Usuario"/>
+                    <h:inputText style="width:180px" value="#{credentials.username}" 
+                                 autocomplete="true"/>
+                    <h:outputText styleClass="bold" value="Clave"/>
+                    <h:inputSecret style="width:180px" value="#{credentials.password}" />
+                    <a4j:commandLink id="submit" styleClass="btn small grayDark" value="Ingresar" action="#{authenticator.authenticate}"  render="msgs">                                               
+                    </a4j:commandLink>
+                    <br />
+                    <a4j:commandLink id="registrar" styleClass="btn small grayDark" value="Registrar" oncomplete="#{rich:component('registrarUsuarioPanel')}.show()"
+                                   render="panelRegistrar"/>                                               
+                    <br />
+                    <rich:messages id="msgs" showDetail="false" />
+                </h:panelGrid>
+            </h:panelGrid>
+        </h:form>
+        <ui:include src="registrar.xhtml"/> 
+    </ui:define>
+</ui:composition>

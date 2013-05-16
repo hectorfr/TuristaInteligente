@@ -1,0 +1,737 @@
+/* override bootstrap
+================================================== */
+body {
+  background-color: #fff;
+}
+.main-content {
+	margin-top: 65px;
+}
+
+/* override richfaces
+================================================== */
+.extdt-maindiv {
+	border-top: solid 1px #0D3373;	
+}
+.rich-tabpanel-content {
+	padding: 10px;
+}
+.extdt-cell {
+	font-size: 12px;
+	padding: 8px;
+}
+.rich-calendar-input {
+	width: 65px;
+	height: auto;
+	margin-right: 5px;
+}
+.special tr[id]{
+ display:none;
+ }
+tr.extdt-subheader th {
+	font-weight: bold;
+	color: #044783;
+	padding: 6px;
+}
+th.extdt-subheadercell,
+th.extdt-empty-cell {
+	background: #e5ecf2;
+	font-size: 14px;
+}
+.extdt-subheadercell {
+	font-family: 'Helvetica', Arial, Verdana, sans-serif
+}
+.rich-filter-input,
+form#crearFacturaForm input[type="text"] {
+	color: #0D3373;
+	height: auto;
+}
+
+/* Sortable header
+================================================== */
+.extdt-sortable-header {
+	white-space: normal;
+}
+
+.topbar-inner {
+	background: #05549c; /* Old browsers */
+	background: -moz-linear-gradient(top,  #05549c 0%, #0d3c66 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#05549c), color-stop(100%,#0d3c66)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #05549c 0%,#0d3c66 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #05549c 0%,#0d3c66 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #05549c 0%,#0d3c66 100%); /* IE10+ */
+	background: linear-gradient(top,  #05549c 0%,#0d3c66 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#05549c', endColorstr='#0d3c66',GradientType=0 ); /* IE6-9 */
+	border-top: 1px solid #2773b7;
+}
+.topbar-logo {
+	background: url('../images/sprite.png') no-repeat -256px -6px;
+	width: 45px;
+	height: 40px;
+	display: block;
+	text-indent: -999px;
+	margin: 0 20px;
+	overflow: hidden;
+}
+/* menu z-index */
+ul.nav {
+	z-index: 100;
+} 
+li.f-level > ul.nav-sub {
+	z-index: 101;
+}
+/* menu */
+ul.nav {}
+li.f-level {
+	position: relative;
+}
+.topbar div > ul li.f-level {}
+li.f-level > ul.nav-sub {
+	display: none;
+	position: absolute;
+	margin: 0;
+	background-color: #6b6b6b;
+	-moz-border-radius-topleft: 0px;
+	-moz-border-radius-topright: 0px;
+	-moz-border-radius-bottomright: 5px;
+	-moz-border-radius-bottomleft: 5px;
+	-webkit-border-radius: 0px 0px 5px 5px;
+	border-radius: 0px 0px 5px 5px;
+}
+li.f-level:hover > ul.nav-sub {
+	display: block;
+}
+/*remve bullets*/
+li.f-level,
+li.s-level {
+	list-style-type: none;
+}
+/*estado itemes*/
+.topbar div > ul li.f-level a {
+	color: #fff;
+	font-size: 14px;
+	text-shadow: 0px 1px 2px #000000;
+	filter: dropshadow(color=#000000, offx=0, offy=1);
+	border-right: solid 1px #3670a3;
+}
+.topbar div > ul li.f-level.first a {
+	border-left: solid 1px #3670a3;
+}
+.topbar div > ul li.f-level a:hover{
+	background: #f4ce0e; /* Old browsers */
+	background: -moz-linear-gradient(top,  #f4ce0e 0%, #edb005 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f4ce0e), color-stop(100%,#edb005)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #f4ce0e 0%,#edb005 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #f4ce0e 0%,#edb005 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #f4ce0e 0%,#edb005 100%); /* IE10+ */
+	background: linear-gradient(top,  #f4ce0e 0%,#edb005 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f4ce0e', endColorstr='#edb005',GradientType=0 ); /* IE6-9 */
+	color: #333;
+	text-shadow: none;
+	padding: 10px 11px 11px 10px;
+	border: none;
+}
+.topbar ul.nav li.f-level.first > a:hover {
+	padding: 10px 11px 11px 11px;
+}
+li.s-level {
+	margin: 5px 0;
+}
+.topbar div > ul li.f-level.inicio {
+	width: 57px;
+}
+.inicio {
+	display: block;
+	background: url('../images/sprite.png') no-repeat 14px -76px;
+	width: 35px;
+	text-indent: -999px;
+	overflow: hidden;
+}
+.topbar div > ul li.f-level a.inicio:hover {
+	background: #F4CE0E url('../images/sprite.png') no-repeat -61px -76px;
+}	
+.topbar div > ul li.s-level a {
+	width: 150px;
+	color: #fff;
+	margin: 0 5px;
+	line-height: 1em;
+	border: none;
+	padding: 5px;
+	font-size: 12px;
+}
+.topbar div > ul li.s-level a:hover {
+	background-color: #383838;
+	color: #333;
+	padding: 5px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+.footer-inner {
+	color: #989898;
+	padding: 10px 0;
+	overflow: hidden;
+	line-height: 33px;
+}
+.footer-sys-logo {
+	background: url('../images/sprite.png') no-repeat -5px -127px;
+	height: 33px;
+	padding-left: 80px;
+}
+.footer-ice-logo {
+	background: url('../images/sprite.png') no-repeat -251px -79px;
+	color: #0D3273;
+	height: 33px;
+	line-height: 33px;
+	padding-left: 50px;
+}
+
+/* exit link */
+a.salir {	
+	background: url(../images/sprite.png) no-repeat -218px -216px;
+	width: 80px;
+	text-indent: 15px;
+	color: #fff;
+	-moz-text-shadow: 0px 1px 1px #000000;
+	-webkit-text-shadow: 0px 1px 1px #000000;
+	text-shadow: 0px 1px 1px #000000;
+	height: 40px;
+	line-height: 40px;
+	cursor: pointer;
+}
+
+/* breadcrumb
+================================================== */
+#breadcrumb {
+	padding: 5px 10px;
+	font-size: 11px;
+	-webkit-border-radius: 5px;
+	   -moz-border-radius: 5px;
+	        border-radius: 5px;
+	-webkit-box-shadow: 0 1px 0 rgba(000, 000, 000, 0.35);
+	   -moz-box-shadow: 0 1px 0 rgba(000, 000, 000, 0.35);
+	        box-shadow: 0 1px 0 rgba(000, 000, 000, 0.35);
+    background: #f5f5f5; /* Old browsers */
+	background: -moz-linear-gradient(top,  #f5f5f5 0%, #e9e9e9 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f5f5f5), color-stop(100%,#e9e9e9)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #f5f5f5 0%,#e9e9e9 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #f5f5f5 0%,#e9e9e9 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #f5f5f5 0%,#e9e9e9 100%); /* IE10+ */
+	background: linear-gradient(top,  #f5f5f5 0%,#e9e9e9 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f5f5f5', endColorstr='#e9e9e9',GradientType=0 ); /* IE6-9 */
+}
+
+/* Titulos y subtitulos
+================================================== */
+h1 {
+	color: #044783;
+	margin-bottom: 10px;
+}
+h2 {
+	color: #044783;
+	font-size: 24px;
+}
+.page-title {}
+.page-title.subir-reporte {
+	background: url('../images/sprite.png') no-repeat -254px -589px;
+	padding-left: 60px;
+}
+.page-title.factura-listado {
+	background: url('../images/sprite.png') no-repeat -262px -499px;
+	padding-left: 45px;
+}
+.sub-title {
+	color: #777;
+	font-weight: normal;
+	font-size: 18px;
+}
+
+/* Dashboard
+================================================== */
+
+.dashboard {
+	overflow: hidden;
+	padding: 5px 0;
+}
+
+.user-logged {
+	border-bottom: solid 1px #ccc;
+	font-size: 16px;
+	color: #044783;
+	padding: 0 0 10px 25px;
+	background: url('../images/sprite.png') no-repeat -271px -633px;
+	
+}
+.first.graph {
+	border-right: solid 1px #9db8d3;
+}
+.span-half.graph {
+	margin-left: 10px;
+}
+.span-half.first.graph {
+	margin-left: 0px;
+	padding-right: 10px;
+}
+.gray-round {
+	background: #f7f7f7;
+	padding: 15px;
+	-webkit-box-shadow: 0px 1px 1px rgba(000, 000, 000, 0.3);
+	   -moz-box-shadow: 0px 1px 1px rgba(000, 000, 000, 0.3);
+	        box-shadow: 0px 1px 1px rgba(000, 000, 000, 0.3);
+	-webkit-border-radius: 5px;
+	   -moz-border-radius: 5px;
+	        border-radius: 5px;
+}
+
+/* titulos dashboard */
+.dashboard h2.facturacion {
+	background: url('../images/sprite.png') no-repeat -262px -561px;
+	line-height: 35px;
+	padding-left: 45px;
+	margin-bottom: 10px;
+}
+
+.gray-round h2 {
+	font-weight: normal;
+	margin-bottom: 15px;
+}
+/* ancho de tablas debajo de graficos */
+.dashboard .rich-extdt-maindiv {
+	width: 100% !important
+}
+/* ancho de tablas en dashboard gris */
+.gray-round .rich-table {
+	width: 100%;
+}
+/* fondo de encabezado de tablas */
+.gray-round .rich-table-subheader {
+	background: #DFE7EF;
+}
+/* fonts de encabezado de tablas */
+.gray-round .rich-table-subheadercell {
+	font-size: 12px;
+	font-weight: bold;
+	color: #063770;
+}
+.gray-round .rich-table-row .rich-table-cell:first-child {
+	width: 100px;
+}
+.gray-round .rich-table-cell {
+	font-size: 12px;
+}
+
+.dashboard .rich-panel {
+	border: 0;
+}
+.dashboard .rich-panel-body {
+	padding: 0;
+}
+
+/* Tabs
+================================================== */
+td.rich-tab-bottom-line {
+	border-bottom: solid 2px #0172d0;
+}
+.rich-tab-bottom-line > table {
+	height: 35px;
+}
+/* -------- celda activa -------- */
+td.rich-tabhdr-cell-active {} 
+
+/* remueve 1px desde el top - bajaba el tab activo para tapar td.rich-tab-bottom-line */
+td.rich-tabhdr-cell-active table {
+	top: 0 !important;
+}
+	/* -------- remueve borde de tabs -------- */
+	td.rich-tabhdr-side-border {
+		background-image: none;
+	}
+	
+	/* -------- contenido de celda del tab, remueve border-top -------- */
+	td.rich-tabhdr-side-cell {
+		border: none;
+	}
+	/* -------- Tab activo, remueve fondo y borde -------- */
+	td.rich-tab-active {
+		background-color: #0172d0;
+		background-image: none;
+		border: none;
+		color: #fff;
+		padding: 10px 15px;
+	}
+	td.rich-tab-active:hover {
+		background-color: #005eab;
+	}
+	
+/* -------- celda inactiva -------- */	
+td.rich-tab-inactive {
+	background-image: none;
+	background: #cee6fb;
+	color: #0172d0;
+	border: 0;
+}
+	/* padding de tabs inactivos */
+	.rich-tab-header.rich-tab-inactive {
+		padding: 6px 14px;
+	}
+	td.rich-tab-inactive:hover {
+		background: #a9d7ff;
+	}
+
+/* GLOBALES DE TABS ** PRIMER NIVEL */
+/* tamaño de fuentes de tabs, cursor pointer */
+td.rich-tab-inactive,
+td.rich-tab-active {
+	font-size: 14px;
+	cursor: pointer;
+	-moz-border-radius-topleft: 5px;
+	-moz-border-radius-topright: 5px;
+	-moz-border-radius-bottomright: 0px;
+	-moz-border-radius-bottomleft: 0px;
+	-webkit-border-radius: 5px 5px 0px 0px;
+	border-radius: 5px 5px 0px 0px; 			
+}
+
+td.rich-tab-inactive,
+td.rich-tab-active {
+	   -moz-transition: background 0.2s ease-in-out;
+	-webkit-transition: background 0.2s ease-in-out;
+	        transition: background 0.2s ease-in-out;
+}
+
+/* agrega padding para que el tab inactivo sea más pequeño */
+td.rich-tabhdr-cell-inactive {
+	padding-top: 7px;
+}
+
+/* Tabs anidadas
+================================================== */
+
+td.rich-tabpanel-content .rich-tab-bottom-line > table {
+	height: auto;
+}
+
+/* remueve borde azul */
+td.rich-tabpanel-content td.rich-tab-bottom-line {
+	border-bottom: solid 1px #0172d0;
+}
+/* remueve borde gris de rich-tabpanel dentro de rich-tabpanel */
+td.rich-tabpanel-content td.rich-tabpanel-content {
+	border: none;
+	padding: 10px 0;
+}
+
+td.rich-tabpanel-content td.rich-tab-bottom-line  {
+	padding-top: 10px;	
+}
+
+/* Nuevo padding de tabs anidados */
+td.rich-tabpanel-content td.rich-tab-bottom-line td.rich-tab-header.rich-tab-inactive,
+td.rich-tabpanel-content td.rich-tab-bottom-line td.rich-tab-header.rich-tab-active {
+	padding: 5px 10px;
+	font-size: 12px
+}
+
+/* -------- celda inactiva -------- */
+/* remueve padding para que el tab inactivo sea más pequeño */
+td.rich-tabpanel-content .rich-tabhdr-cell-inactive {
+	padding-top: 0px;
+}
+
+/* Boton de accion a la par de los tabs
+================================================== */
+
+.btn-tab-action {} /* define espacio a modificar */
+
+/* nueva posicion absoluta de tabs */ 
+.btn-tab-action .rich-tabpanel {
+	margin-top: -38px;
+}
+
+/* corrige posicion absoluta para tabs anidados */
+.btn-tab-action .rich-tabpanel .rich-tabpanel {
+	margin-top: 0;
+}
+
+/* padding left de tabs, para posicionar boton */
+.btn-tab-action td.rich-tab-bottom-line {
+	padding-left: 120px;
+}
+
+/* Corrige padding left en tabs anidados */
+.btn-tab-action .rich-tabpanel .rich-tabpanel td.rich-tab-bottom-line {
+	padding-left: 0px;
+} 	
+/* celda sin datos
+================================================== */
+
+.extdt-noData-cell.extdt-cell {
+	font-size: 16px;
+	padding: 40px;
+	color: #666;
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+/* Modal box
+================================================== */
+/* draggable header */
+.rich-mpnl-header-cell {
+	height: auto;
+}
+.rich-mpnl-header {
+	height: 15px;
+	z-index: 15;
+	position: relative;
+}
+.rich-mpnl-header {
+	padding: 2px;
+}
+/* orden de icono de cerrar */
+.rich-mpnl-body {
+	position: relative;
+}
+.rich-mpnl-body h3 {
+	font-size: 14px;
+}
+.modalPanel-cerrar {
+	position: absolute;
+	top: 3px;
+	right: 3px;
+	z-index: 20;
+}
+/* titulo */
+.rich-mpnl-body h2 {
+	font-size: 14px;
+}
+
+form#crearFacturaForm,
+form#crearFacturaForm .btn.small {
+	margin-bottom: 0;
+}
+form#crearFacturaForm select,
+form#crearFacturaForm input[type="text"],
+#modificarFacturaPanelContentTable select,
+#modificarFacturaPanelContentTable input[type="text"] {
+	margin: 5px 0;
+}
+
+/* modalbox modificar factura */
+#modificarFacturaPanelContentTable {
+	width: 480px !important;
+}
+#modificarFacturaPanelContentTable .pg-label {
+	width: auto;
+}
+#modificarFacturaPanelContentTable .rich-mpnl-body form table td {
+	padding-right: 10px;
+	vertical-align: top;
+}
+/* Panelgrid
+================================================== */
+
+.panel-grid {}
+.panel-grid td {
+	padding: 10px;
+	border-bottom: solid 1px #e1e1e1;
+} 
+.panel-grid .pg-label {
+	font-weight: bold;
+}
+
+/* panel grid en modal panel */
+.rich-mpnl-panel .pg-label {
+	width: 125px;
+	display: block;
+}
+.rich-mpnl-panel .panel-grid {
+	margin-bottom: 10px;
+}
+
+/* calendar
+================================================== */
+.rich-calendar-popup td {
+	padding: 0;
+}
+
+/* iconos botones
+================================================== */
+span.modificar,
+span.eliminar,
+span.activar,
+span.rechazar,
+span.trama,
+span.generar-trama,
+span.enviar,
+span.reversar {
+	width: 12px; 
+	height: 12px;
+	display: block;
+	float: left;
+}
+span.modificar {
+	background: url('../images/sprite.png') no-repeat -53px -1083px; 
+}
+span.eliminar {
+	background: url('../images/sprite.png') no-repeat -134px -1083px;
+}
+span.activar {
+	background: url('../images/sprite.png') no-repeat -184px -1084px; 
+	width: 16px; 
+	height: 12px;
+}
+span.rechazar {
+	background: url("../images/sprite.png") no-repeat scroll -215px -1084px transparent;
+    height: 12px;
+    width: 12px;
+}
+span.trama {
+	background: url('../images/sprite.png') no-repeat -103px -1120px; 
+	width: 11px; 
+	height: 12px;
+}
+span.generar-trama {
+	background: url('../images/sprite.png') no-repeat -124px -1120px; 
+	width: 26px; 
+	height: 12px;
+}
+span.enviar {
+	background: url('../images/sprite.png') no-repeat -160px -1120px; 
+	width: 18px; 
+	height: 12px;
+}
+span.reversar {
+	background: url('../images/sprite.png') no-repeat -185px -1118px; 
+}
+
+/* Subir reportes
+================================================== */
+
+table.subir-reporte label {
+	padding-top: 0;
+	padding-right: 10px;
+	color: #004a87;
+	font-weight: bold;
+}
+table.subir-reporte td {
+	padding: 5px 0;
+}
+
+/* elimina borde de list upload */
+.rich-fileupload-list-decor {
+	border: 0;
+}
+.rich-fileupload-toolbar-decor {
+	-moz-border-radius-topleft: 5px;
+	-moz-border-radius-topright: 5px;
+	-moz-border-radius-bottomright: 0px;
+	-moz-border-radius-bottomleft: 0px;
+	-webkit-border-radius: 5px 5px 0px 0px;
+	border-radius: 5px 5px 0px 0px; 
+	border-left: none;	
+}
+.rich-fileupload-button-border {
+	margin-left: 10px;
+}
+.rich-fileupload-list-overflow {
+	background: #ebeff3;
+	-moz-border-radius-topleft: 0px;
+	-moz-border-radius-topright: 0px;
+	-moz-border-radius-bottomright: 5px;
+	-moz-border-radius-bottomleft: 5px;
+	-webkit-border-radius:  0px 0px 5px 5px;
+	border-radius: 0px 0px 5px 5px; 
+	border-left: none;		
+}
+.rich-fileupload-toolbar-decor {}
+
+/* liquidaciones */
+.monto-pagar {
+	margin-right: 10px;
+}
+.agregar-facturas {
+	line-height: 1.5em;
+}
+.btn .icon {
+	display: block;
+	float: left;
+	margin-right: 5px;
+}
+.agregar-facturas .icon {
+	background: url('../images/sprite.png') no-repeat -272px -690px;
+	width: 16px;
+	height: 17px;
+}
+/* botones */
+.btn.parcial {}
+.parcial .icon {
+	background: url('../images/sprite.png') no-repeat -273px -729px;
+	width: 13px;
+	height: 13px;
+	margin-right: 0;
+}
+
+/* tablas de liquidaciones */
+/* fondo thead */
+.rich-table-header {
+	background: #e8edf3;
+}
+/* fondo thead continue */
+.rich-table-header-continue {
+	background: #bbcbde;
+}
+/* color de thead */
+.rich-table-headercell  {
+	color: #034883;
+}
+/* margin bottom de tabla entera */
+table.rich-table {
+	margin-bottom: 15px;
+}	
+
+/* Rich tooltip
+================================================== */
+
+.rich-tool-tip {
+	background-color: #aec4e6;
+	padding: 7px;
+	border: none;
+	font-size: 11px;
+	color: #044783;
+	        text-shadow: none;
+	-webkit-text-shadow: none;
+	   -moz-text-shadow: none;
+	-webkit-box-shadow: 0px 1px 2px rgba(000, 000, 000, 0.75);
+	   -moz-box-shadow: 0px 1px 2px rgba(000, 000, 000, 0.75);
+	        box-shadow: 0px 1px 2px rgba(000, 000, 000, 0.75);
+	-webkit-border-radius: 4px;
+	   -moz-border-radius: 4px;
+	        border-radius: 4px;
+	top: 0;
+}
+
+/* reportes
+================================================== */
+
+table.reportes td {
+	padding: 10px 10px 10px 0;
+	border-bottom: solid 1px #BDBDBD;
+}
+
+/* dash */
+.dash-home {
+	overflow: hidden;
+}
+.d-left {
+	float: left;
+	width: 300px;
+	padding: 60px 30px 0;;
+}
+.d-left h2 {
+	color: #555;
+}
+.d-right {
+	width: 493px;
+	height: 232px;
+	background: url(../images/iceinicio.gif) no-repeat;
+	float: right;
+	margin-right: 100px
+}

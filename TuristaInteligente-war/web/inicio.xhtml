@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:rich="http://richfaces.org/rich"          
+                xmlns:p="http://primefaces.prime.com.tr/ui"
+                template="/templates/template.xhtml">
+
+    <ui:define name="top">
+        <h1>Tarjetas</h1>
+    </ui:define>
+
+    <ui:define name="content">        
+            <h:form>                               
+                <p class="user-logged">
+
+                    <h:outputText value="Bienvenido #{currentUser.nombreUsuario}"/>
+                    <div class="dash-home">
+                <div class="d-left">
+                    <h1>Bienvenidos</h1>
+                    <h2>Sistema de Facturación</h2>
+                </div>
+                
+            </div>   
+                </p>
+            </h:form>            
+    </ui:define>    
+</ui:composition>

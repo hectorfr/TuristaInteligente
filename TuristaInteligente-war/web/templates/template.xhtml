@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:rich="http://richfaces.org/rich"  
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:a4j="http://richfaces.org/a4j"
+    lang="en">
+    <f:view contentType="text/html">
+        <h:head>
+            <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8"/>
+            <meta charset="utf-8"/>
+            <title>Sistema de Insumos para Gestión de Facturación</title>
+            <meta name="description" content=""/>
+            <meta name="author" content=""/>
+            
+            <link href="#{request.contextPath}/css/bootstrap.css" rel="stylesheet"/>
+            <link href="#{request.contextPath}/css/ice.css" rel="stylesheet"/>                                     
+
+            <!--[if IE 7]>
+            <link href="#{request.contextPath}/css/ie7.css" rel="stylesheet"/>      
+            <![endif]-->
+
+            <!--[if lt IE 9]>
+                        <script src="js/selectivizr-min.js"></script>
+                        <![endif]-->            
+
+        </h:head>
+
+        <h:body>
+            <div class="topbar">
+                <div class="topbar-inner">
+                    <div class="container-fluid">
+                        <!--<h:outputLink class="pull-left topbar-logo" value="#{request.contextPath}/inicio.jsf"  >
+                            <h:outputText value="ICE"/>                              
+                        </h:outputLink> -->
+
+                        <ul class="nav">
+                            <li class="f-level first">
+                                <h:outputLink class="inicio" value="#{request.contextPath}/inicio.jsf"  >
+                                    <h:outputText value="Inicio"/>                              
+                                </h:outputLink> 
+                            </li>                            
+                            <li class="f-level" ><a href="#">Administraci&#243;n</a>
+                                <ul class="nav-sub">
+                                    <li class="s-level">
+                                        <h:outputLink value="#{request.contextPath}/equipo/listado.jsf">
+                                            <h:outputText value="Equipos"/>
+                                        </h:outputLink>
+                                        <h:outputLink value="#{request.contextPath}/usuario/modificarUsuario.jsf">
+                                            <h:outputText value="Usuarios"/>
+                                        </h:outputLink>
+                                    </li>                                                                                   
+                                </ul>
+                            </li> 
+                        </ul>                          
+                    </div>
+                </div>
+            </div>
+
+            <div class="container-fluid main-content">
+                <div class="content">
+                    <div class="title">
+                        <ui:insert name="title"></ui:insert>
+                        <p class="pull-right">                            
+                            <a4j:status>
+                                <f:facet name="start">
+                                    <h:graphicImage url="/images/loadinfo-active.gif" width="24" height="24"/>
+                                </f:facet>
+                                <f:facet name="stop">                           
+                                </f:facet>
+                            </a4j:status>
+                        </p>
+                    </div>          
+                    <ui:insert name="section-breadcrumb"></ui:insert>
+                    <ui:insert name="content"></ui:insert>
+                    <div class="dashboard clearfix">
+                        <ui:insert name="dashboard"></ui:insert>
+                    </div>
+                    <footer>
+                        <div class="footer-inner">
+                            <div class="footer-sys-logo pull-left">
+                                Sistema de Facturación
+                            </div> <!-- fin footer logo -->
+                            <p class="pull-right">Todos los derechos reservados</p>
+                        </div>
+                    </footer> <!-- footer -->
+                </div> <!-- content -->
+            </div> <!-- containerfluid -->
+        </h:body>
+    </f:view>
+</html>
