@@ -32,12 +32,21 @@
 
                 <h:outputLabel for="segundoApellido" value="Segundo Apellido:"/>
                 <h:inputText id="segundoApellido" value="#{cliente.segundoApellido}" maxlength="25"/>
+                                
 
                 <h:outputLabel for="email" value="Email*:"/>
                 <h:inputText id="email" value="#{cliente.email}" 
                              required="true" requiredMessage="Debe ingresar el email del cliente"
                              maxlength="100"/>
 
+                <h:outputLabel for="primerTelefono" value="Télefono*:"/>
+                <h:inputText id="primerTelefono" value="#{cliente.telefono}" 
+                             required="true" requiredMessage="Debe ingresar el teléfono del cliente"
+                             maxlength="25"/>
+
+                <h:outputLabel for="segundoTelefono" value="Segundo Teléfono:"/>
+                <h:inputText id="segundoTelefono" value="#{cliente.telefono2}" maxlength="25"/>
+                
                 <h:outputLabel for="cedula" value="Cédula:"/>
                 <h:inputText id="cedula" value="#{cliente.cedula}" maxlength="20"/>
 

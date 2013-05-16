@@ -23,7 +23,7 @@
             <h:outputText   value="¿Está seguro que desea eliminar el cliente #{requestedClienteById.nombreCliente}? "/> 
             <br /><br />
             <h:panelGrid columns="2" id="panelEliminar" styleClass="panel-grid">
-                <a4j:commandLink action="Eliminar" render="msgs2" value="Si" styleClass="btn small primary">      
+                <a4j:commandLink action="#{clienteManagedBean.delete}" render="msgs2" value="Si" styleClass="btn small primary">      
                     <f:param name="idCliente" value="#{requestedClienteById.idCliente}"/>
                 </a4j:commandLink>                        
                 <a4j:commandLink value="No" styleClass="btn small danger"

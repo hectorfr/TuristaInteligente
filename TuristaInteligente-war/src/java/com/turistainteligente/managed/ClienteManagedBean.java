@@ -52,8 +52,8 @@ public class ClienteManagedBean implements Serializable {
         } catch (Exception e) {
             log.log(Level.SEVERE, "Error al crear el cliente {0}", e.getMessage());
             Util.addErrorMessage("Error al crear el cliente");
+            e.printStackTrace();
             return null;
-
         }
 
 

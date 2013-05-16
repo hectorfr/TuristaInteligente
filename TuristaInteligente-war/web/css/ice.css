@@ -8,13 +8,13 @@ body {
 }
 
 .topbar-inner {
-background: #555555; /* Old browsers */
-background: -moz-linear-gradient(top, #555555 0%, #333333 100%); /* FF3.6+ */
-background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#555555), color-stop(100%,#333333)); /* Chrome,Safari4+ */
-background: -webkit-linear-gradient(top, #555555 0%,#333333 100%); /* Chrome10+,Safari5.1+ */
-background: -o-linear-gradient(top, #555555 0%,#333333 100%); /* Opera 11.10+ */
-background: -ms-linear-gradient(top, #555555 0%,#333333 100%); /* IE10+ */
-background: linear-gradient(to bottom, #555555 0%,#333333 100%); /* W3C */
+background: #D50606; /* Old browsers */
+background: -moz-linear-gradient(top, #D50606 0%, #333333 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#D50606), color-stop(100%,#333333)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top, #D50606 0%,#333333 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top, #D50606 0%,#333333 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top, #D50606 0%,#333333 100%); /* IE10+ */
+background: linear-gradient(to bottom, #D50606 0%,#333333 100%); /* W3C */
 border-top: 1px solid #F78B49;
 }
 .topbar-logo {
@@ -632,15 +632,15 @@ table.subir-reporte td {
 /* tablas de liquidaciones */
 /* fondo thead */
 .rich-table-header {
-	background: #e8edf3;
+	background: #D50606;
 }
 /* fondo thead continue */
 .rich-table-header-continue {
-	background: #bbcbde;
+	background: #D50606;
 }
 /* color de thead */
 .rich-table-headercell  {
-	color: #034883;
+	color: #D50606;
 }
 /* margin bottom de tabla entera */
 table.rich-table {
@@ -684,7 +684,7 @@ table.rich-table {
 .d-right {
 	width: 493px;
 	height: 232px;
-	background: url(../images/iceinicio.gif) no-repeat;
+	background: url(../images/turistaLogo.jpg) no-repeat;
 	float: right;
 	margin-right: 100px
 }
@@ -877,7 +877,7 @@ button, input[type="reset"], input[type="submit"], input[type="button"] {
 	color: #000000;
 	background-repeat: repeat-x;
 	background-position: top left;
-	background-color: #BED6F8;s
+	background-color: #BED6F8;
 }
 button[disabled], input[type="reset"][disabled], input[type="submit"][disabled], input[type="button"][disabled] {
 	color: #8DB7F3;
