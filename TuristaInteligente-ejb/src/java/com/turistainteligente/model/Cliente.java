@@ -37,7 +37,7 @@ public class Cliente implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "IDCLIENTE")
-    private Integer idcliente;
+    private Integer idCliente;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 25)
@@ -47,10 +47,10 @@ public class Cliente implements Serializable {
     @NotNull
     @Size(min = 1, max = 25)
     @Column(name = "PRIMERAPELLIDO")
-    private String primerapellido;
+    private String primerApellido;
     @Size(max = 25)
     @Column(name = "SEGUNDOAPELLIDO")
-    private String segundoapellido;
+    private String segundoApellido;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 25)
@@ -59,42 +59,42 @@ public class Cliente implements Serializable {
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 50)
+    @Size(min = 1, max = 100)
     @Column(name = "EMAIL")
     private String email;
     @Size(max = 20)
     @Column(name = "CEDULA")
     private String cedula;
-    @Size(max = 50)
+    @Size(max = 100)
     @Column(name = "EMPRESA")
     private String empresa;
     @Size(max = 25)
     @Column(name = "TELEFONO2")
     private String telefono2;
-    @OneToMany(mappedBy = "idcliente", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "idCliente", fetch = FetchType.LAZY)
     private List<Reservacion> reservacionList;
 
     public Cliente() {
     }
 
-    public Cliente(Integer idcliente) {
-        this.idcliente = idcliente;
+    public Cliente(Integer idCliente) {
+        this.idCliente = idCliente;
     }
 
-    public Cliente(Integer idcliente, String nombre, String primerapellido, String telefono, String email) {
-        this.idcliente = idcliente;
+    public Cliente(Integer idCliente, String nombre, String primerApellido, String telefono, String email) {
+        this.idCliente = idCliente;
         this.nombre = nombre;
-        this.primerapellido = primerapellido;
+        this.primerApellido = primerApellido;
         this.telefono = telefono;
         this.email = email;
     }
 
-    public Integer getIdcliente() {
-        return idcliente;
+    public Integer getIdCliente() {
+        return idCliente;
     }
 
-    public void setIdcliente(Integer idcliente) {
-        this.idcliente = idcliente;
+    public void setIdCliente(Integer idCliente) {
+        this.idCliente = idCliente;
     }
 
     public String getNombre() {
@@ -105,20 +105,20 @@ public class Cliente implements Serializable {
         this.nombre = nombre;
     }
 
-    public String getPrimerapellido() {
-        return primerapellido;
+    public String getPrimerApellido() {
+        return primerApellido;
     }
 
-    public void setPrimerapellido(String primerapellido) {
-        this.primerapellido = primerapellido;
+    public void setPrimerApellido(String primerApellido) {
+        this.primerApellido = primerApellido;
     }
 
-    public String getSegundoapellido() {
-        return segundoapellido;
+    public String getSegundoApellido() {
+        return segundoApellido;
     }
 
-    public void setSegundoapellido(String segundoapellido) {
-        this.segundoapellido = segundoapellido;
+    public void setSegundoApellido(String segundoApellido) {
+        this.segundoApellido = segundoApellido;
     }
 
     public String getTelefono() {
@@ -173,7 +173,7 @@ public class Cliente implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idcliente != null ? idcliente.hashCode() : 0);
+        hash += (idCliente != null ? idCliente.hashCode() : 0);
         return hash;
     }
 
@@ -184,7 +184,7 @@ public class Cliente implements Serializable {
             return false;
         }
         Cliente other = (Cliente) object;
-        if ((this.idcliente == null && other.idcliente != null) || (this.idcliente != null && !this.idcliente.equals(other.idcliente))) {
+        if ((this.idCliente == null && other.idCliente != null) || (this.idCliente != null && !this.idCliente.equals(other.idCliente))) {
             return false;
         }
         return true;
@@ -192,7 +192,11 @@ public class Cliente implements Serializable {
 
     @Override
     public String toString() {
-        return "com.turistainteligente.model.Cliente[ idcliente=" + idcliente + " ]";
+        return "com.turistainteligente.model.Cliente[ idCliente=" + idCliente + " ]";
+    }
+    
+    public String getNombreCliente() {
+        return getNombre() + getPrimerApellido() + getSegundoApellido();
     }
     
 }

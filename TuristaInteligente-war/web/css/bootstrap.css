@@ -241,13 +241,11 @@ body {
 	color: #529fec;	
 }
 a {
-  color: #0069d6;
   text-decoration: none;
   line-height: inherit;
   font-weight: inherit;
 }
 a:hover {
-  color: #00438a;
   text-decoration: underline;
 }
 .pull-right {
@@ -645,6 +643,12 @@ form .input {
 input[type=checkbox], input[type=radio] {
   cursor: pointer;
 }
+
+textarea, input[type="text"], input[type="password"], select {
+	background-image: none !important;
+	border-color: #999 !important;
+}
+
 input,
 textarea,
 select,
@@ -1590,7 +1594,7 @@ a.menu:after, .dropdown-toggle:after {
 }
 footer {
   margin-top: 17px;
-  border-top: 1px solid #a5a9ae;
+  border-top: 1px solid #F88C4A;
 }
 .page-header {
   margin-bottom: 17px;
@@ -1744,16 +1748,15 @@ footer {
 }
 .btn.primary {
   color: #ffffff;
-  background-color: #0064cd;
-  background-repeat: repeat-x;
-  background-image: -khtml-gradient(linear, left top, left bottom, from(#049cdb), to(#0064cd));
-  background-image: -moz-linear-gradient(top, #049cdb, #0064cd);
-  background-image: -ms-linear-gradient(top, #049cdb, #0064cd);
-  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #049cdb), color-stop(100%, #0064cd));
-  background-image: -webkit-linear-gradient(top, #049cdb, #0064cd);
-  background-image: -o-linear-gradient(top, #049cdb, #0064cd);
-  background-image: linear-gradient(top, #049cdb, #0064cd);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#049cdb', endColorstr='#0064cd', GradientType=0);
+background: #444444; /* Old browsers */
+background: -moz-linear-gradient(top,  #444444 0%, #333333 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#444444), color-stop(100%,#333333)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #444444 0%,#333333 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #444444 0%,#333333 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #444444 0%,#333333 100%); /* IE10+ */
+background: linear-gradient(to bottom,  #444444 0%,#333333 100%); /* W3C */
+
+
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
   border-color: #0064cd #0064cd #003f81;
   border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);

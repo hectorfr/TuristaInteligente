@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j">
+
+    <rich:popupPanel id="eliminarClientePanel" modal="true" autosized="true"
+                     onmaskclick="#{rich:component('eliminarClientePanel')}.hide()">
+        <f:facet name="header">
+            <h:outputText value="Eliminar Cliente" />
+        </f:facet>
+        <f:facet name="controls">
+            <h:outputLink value="#" onclick="#{rich:component('eliminarClientePanel')}.hide();
+                    return false;">
+                <h:graphicImage value="/images/crossed.png"/>  
+            </h:outputLink>
+        </f:facet>
+
+        <h:form  >
+            <h:outputText   value="¿Está seguro que desea eliminar el cliente #{requestedClienteById.nombreCliente}? "/> 
+            <br /><br />
+            <h:panelGrid columns="2" id="panelEliminar" styleClass="panel-grid">
+                <a4j:commandLink action="Eliminar" render="msgs2" value="Si" styleClass="btn small primary">      
+                    <f:param name="idCliente" value="#{requestedClienteById.idCliente}"/>
+                </a4j:commandLink>                        
+                <a4j:commandLink value="No" styleClass="btn small danger"
+                                   onclick="#{rich:component('eliminarClientePanel')}.hide()">
+                </a4j:commandLink>
+            </h:panelGrid>
+            <rich:messages id="msgs2" /> 
+        </h:form>
+    </rich:popupPanel>
+</ui:composition>

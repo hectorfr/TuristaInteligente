@@ -97,7 +97,7 @@ public class Reservacion implements Serializable {
     private TarifaPaquete idtarifa;
     @JoinColumn(name = "IDCLIENTE", referencedColumnName = "IDCLIENTE")
     @ManyToOne(fetch = FetchType.LAZY)
-    private Cliente idcliente;
+    private Cliente idCliente;
     @JoinColumn(name = "IDPROVEEDOR", referencedColumnName = "IDPROVEEDOR")
     @ManyToOne(fetch = FetchType.LAZY)
     private Proveedor idproveedor;
@@ -242,14 +242,6 @@ public class Reservacion implements Serializable {
         this.idtarifa = idtarifa;
     }
 
-    public Cliente getIdcliente() {
-        return idcliente;
-    }
-
-    public void setIdcliente(Cliente idcliente) {
-        this.idcliente = idcliente;
-    }
-
     public Proveedor getIdproveedor() {
         return idproveedor;
     }
@@ -320,6 +312,20 @@ public class Reservacion implements Serializable {
      */
     public void setIdUsuario(Usuario idUsuario) {
         this.idUsuario = idUsuario;
+    }
+
+    /**
+     * @return the idCliente
+     */
+    public Cliente getIdCliente() {
+        return idCliente;
+    }
+
+    /**
+     * @param idCliente the idCliente to set
+     */
+    public void setIdCliente(Cliente idCliente) {
+        this.idCliente = idCliente;
     }
     
 }

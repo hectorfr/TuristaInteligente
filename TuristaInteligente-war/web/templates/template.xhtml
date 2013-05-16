@@ -24,8 +24,27 @@
 
             <!--[if lt IE 9]>
                         <script src="js/selectivizr-min.js"></script>
-                        <![endif]-->            
-
+                        <![endif]-->    
+            <script>
+                function introKey() {
+                    if (!event) {
+                        var event = window.event;
+                    }
+                    if (event.keyCode == 13) {
+                        var targ;
+                        if (event.target)
+                            targ = event.target;
+                        else if (event.srcElement)
+                            targ = event.srcElement;
+                        if (targ.nodeType == 3)
+                            targ = targ.parentNode;
+                        if (targ)
+                            targ.blur();
+                        return false;
+                    } else
+                        return true;
+                }
+            </script>
         </h:head>
 
         <h:body>
@@ -45,12 +64,9 @@
                             <li class="f-level" ><a href="#">Administraci&#243;n</a>
                                 <ul class="nav-sub">
                                     <li class="s-level">
-                                        <h:outputLink value="#{request.contextPath}/equipo/listado.jsf">
-                                            <h:outputText value="Equipos"/>
-                                        </h:outputLink>
-                                        <h:outputLink value="#{request.contextPath}/usuario/modificarUsuario.jsf">
-                                            <h:outputText value="Usuarios"/>
-                                        </h:outputLink>
+                                        <h:outputLink value="#{request.contextPath}/cliente/listado.jsf">
+                                            <h:outputText value="Cliente"/>
+                                        </h:outputLink>                                        
                                     </li>                                                                                   
                                 </ul>
                             </li> 
