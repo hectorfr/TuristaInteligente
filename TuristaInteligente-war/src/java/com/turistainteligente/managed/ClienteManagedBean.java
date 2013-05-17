@@ -39,11 +39,11 @@ public class ClienteManagedBean implements Serializable {
     @Inject
     @LoggedIn
     private Usuario currentUser;
-    
-        public String create() {
+
+    public String create() {
         try {
-//            cliente.setUsuarioRegistro(currentUser.getCorreo());
-//            cliente.setFechaRegistro(new Date());
+            cliente.setUsrRegistro(currentUser.getEmail());
+            cliente.setFecRegistro(new Date());
             clienteFacadeLocal.create(cliente);
             Util.addSuccessMessage("Cliente creado con éxito");
             log.log(Level.INFO, "Cliente {0} creado", cliente.getNombre() + cliente.getPrimerApellido());
@@ -52,15 +52,12 @@ public class ClienteManagedBean implements Serializable {
         } catch (Exception e) {
             log.log(Level.SEVERE, "Error al crear el cliente {0}", e.getMessage());
             Util.addErrorMessage("Error al crear el cliente");
-            e.printStackTrace();
             return null;
         }
-
-
     }
 
     public String delete() {
-        try {            
+        try {
             clienteFacadeLocal.remove(getRequestedClienteById());
             Util.addSuccessMessage("Cliente eliminado con éxito");
             log.log(Level.INFO, "Cliente {0} eliminado", getRequestedClienteById().getNombre() + getRequestedClienteById().getPrimerApellido());
@@ -69,16 +66,13 @@ public class ClienteManagedBean implements Serializable {
             log.log(Level.SEVERE, "Error al eliminar el cliente{0}", e.getMessage());
             Util.addErrorMessage("Error al eliminar el cliente");
             return null;
-
         }
-
-
     }
 
     public String update() {
         try {
-//            getRequestedClienteById().setUsuarioModificacion(currentUser.getCorreo());
-//            getRequestedClienteById().setFechaModificacion(new Date());
+            cliente.setUsrRegistro(getRequestedClienteById().getEmail());
+            cliente.setFecRegistro(new Date());
             clienteFacadeLocal.edit(getRequestedClienteById());
             log.log(Level.INFO, "Cliente {0} modificado con exito", getRequestedClienteById().getNombre() + getRequestedClienteById().getPrimerApellido());
             Util.addSuccessMessage("Cliente modificado con éxito");
@@ -86,12 +80,8 @@ public class ClienteManagedBean implements Serializable {
         } catch (Exception e) {
             log.log(Level.SEVERE, "Error al modificar el cliente {0}", e.getMessage());
             Util.addErrorMessage("Error al modificar el cliente");
-
             return null;
-
         }
-
-
     }
 
     @Named
@@ -151,6 +141,7 @@ public class ClienteManagedBean implements Serializable {
         cliente = new Cliente();
 
     }
+
     /**
      * Creates a new instance of ClienteManagedBean
      */

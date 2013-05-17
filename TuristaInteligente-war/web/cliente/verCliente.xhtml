@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j">
+
+    <rich:popupPanel id="verClientePanel" modal="true" autosized="true"
+                     onmaskclick="#{rich:component('verClientePanel')}.hide()">
+        <f:facet name="header">
+            <h:outputText value="Información del cliente #{requestedClienteById.nombreCliente}" />
+        </f:facet>
+        <f:facet name="controls">
+            <h:outputLink value="#" onclick="#{rich:component('verClientePanel')}.hide();
+                    return false;">
+                <h:graphicImage value="/images/crossed.png"/>  
+            </h:outputLink>
+        </f:facet>
+        <h:form>
+            <h:panelGrid columns="2" id="panelVer" styleClass="panel-grid">
+                <h:outputLabel for="nombreCliente" value="Nombre Completo:"/>
+                <h:outputText id="nombreCliente" value="#{requestedClienteById.nombre} #{requestedClienteById.primerApellido} #{requestedClienteById.segundoApellido}"/>
+
+                <h:outputLabel for="primerTelefono" value="Télefono:"/>
+                <h:outputText id="primerTelefono" value="#{requestedClienteById.telefono}" />
+
+                <h:outputLabel for="segundoTelefono" value="Segundo Teléfono:"/>
+                <h:outputText id="segundoTelefono" value="#{requestedClienteById.telefono2}" />
+
+                <h:outputLabel for="email" value="Email:"/>
+                <h:outputText id="email" value="#{requestedClienteById.email}" />
+
+                <h:outputLabel for="cedula" value="Cédula:"/>
+                <h:outputText id="cedula" value="#{requestedClienteById.cedula}" />
+
+                <h:outputLabel for="empresa" value="Empresa:"/>
+                <h:outputText id="empresa" value="#{requestedClienteById.empresa}" />                                
+            </h:panelGrid>
+        </h:form>
+    </rich:popupPanel>
+</ui:composition>
+

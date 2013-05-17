@@ -5,6 +5,7 @@
 package com.turistainteligente.model;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -17,6 +18,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -71,6 +74,21 @@ public class Cliente implements Serializable {
     @Size(max = 25)
     @Column(name = "TELEFONO2")
     private String telefono2;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
+    @Column(name = "USR_REGISTRO")
+    private String usrRegistro;
+    @Basic(optional = false)
+    @NotNull
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "FEC_REGISTRO")
+    private Date fecRegistro;
+    @Column(name = "USR_MODIFICACION")
+    private String usrModificacion;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "FEC_MODIFICACION")
+    private Date fecModificacion;
     @OneToMany(mappedBy = "idCliente", fetch = FetchType.LAZY)
     private List<Reservacion> reservacionList;
 
@@ -196,7 +214,63 @@ public class Cliente implements Serializable {
     }
     
     public String getNombreCliente() {
-        return getNombre() + getPrimerApellido() + getSegundoApellido();
+        return getNombre() + " " + getPrimerApellido() + " " + getSegundoApellido();
+    }
+
+    /**
+     * @return the usrRegistro
+     */
+    public String getUsrRegistro() {
+        return usrRegistro;
+    }
+
+    /**
+     * @param usrRegistro the usrRegistro to set
+     */
+    public void setUsrRegistro(String usrRegistro) {
+        this.usrRegistro = usrRegistro;
+    }
+
+    /**
+     * @return the fecRegistro
+     */
+    public Date getFecRegistro() {
+        return fecRegistro;
+    }
+
+    /**
+     * @param fecRegistro the fecRegistro to set
+     */
+    public void setFecRegistro(Date fecRegistro) {
+        this.fecRegistro = fecRegistro;
+    }
+
+    /**
+     * @return the usrModificacion
+     */
+    public String getUsrModificacion() {
+        return usrModificacion;
+    }
+
+    /**
+     * @param usrModificacion the usrModificacion to set
+     */
+    public void setUsrModificacion(String usrModificacion) {
+        this.usrModificacion = usrModificacion;
+    }
+
+    /**
+     * @return the fecModificacion
+     */
+    public Date getFecModificacion() {
+        return fecModificacion;
+    }
+
+    /**
+     * @param fecModificacion the fecModificacion to set
+     */
+    public void setFecModificacion(Date fecModificacion) {
+        this.fecModificacion = fecModificacion;
     }
     
 }

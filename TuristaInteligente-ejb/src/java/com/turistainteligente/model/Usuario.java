@@ -5,6 +5,7 @@
 package com.turistainteligente.model;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -18,6 +19,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -51,10 +54,7 @@ public class Usuario implements Serializable {
     private String primerApellido;
     @Size(max = 25)
     @Column(name = "SEGUNDOAPELLIDO")
-    private String segundoApellido;
-    @Size(max = 25)
-    @Column(name = "NOMBREUSUARIO")
-    private String nombreUsuario;
+    private String segundoApellido;    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 25)
@@ -63,7 +63,7 @@ public class Usuario implements Serializable {
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 50)
+    @Size(min = 1, max = 100)
     @Column(name = "EMAIL")
     private String email;
     @Basic(optional = false)
@@ -73,13 +73,21 @@ public class Usuario implements Serializable {
     @Size(max = 15)
     @Column(name = "TELEFONO")
     private String telefono;
-    @Size(max = 15)
-    @Column(name = "TELEFONO2")
-    private String telefono2;
-    // @Pattern(regexp="^\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{4})$", message="Invalid phone/fax format, should be as xxx-xxx-xxxx")//if the field contains phone or fax number consider using this annotation to enforce field validation
-    @Size(max = 15)
-    @Column(name = "FAX")
-    private String fax;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
+    @Column(name = "USR_REGISTRO")
+    private String usrRegistro;
+    @Basic(optional = false)
+    @NotNull
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "FEC_REGISTRO")
+    private Date fecRegistro;
+    @Column(name = "USR_MODIFICACION")
+    private String usrModificacion;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "FEC_MODIFICACION")
+    private Date fecModificacion;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsuario", fetch = FetchType.LAZY)
     private List<Reservacion> reservacionList;
 
@@ -131,14 +139,6 @@ public class Usuario implements Serializable {
         this.segundoApellido = segundoApellido;
     }
 
-    public String getNombreUsuario() {
-        return nombreUsuario;
-    }
-
-    public void setNombreUsuario(String nombreUsuario) {
-        this.nombreUsuario = nombreUsuario;
-    }
-
     public String getPassword() {
         return password;
     }
@@ -169,22 +169,6 @@ public class Usuario implements Serializable {
 
     public void setTelefono(String telefono) {
         this.telefono = telefono;
-    }
-
-    public String getTelefono2() {
-        return telefono2;
-    }
-
-    public void setTelefono2(String telefono2) {
-        this.telefono2 = telefono2;
-    }
-
-    public String getFax() {
-        return fax;
-    }
-
-    public void setFax(String fax) {
-        this.fax = fax;
     }
 
     @XmlTransient
@@ -219,6 +203,62 @@ public class Usuario implements Serializable {
     @Override
     public String toString() {
         return "com.turistainteligente.model.Usuario[ idUsuario=" + idUsuario + " ]";
+    }
+
+    /**
+     * @return the usrRegistro
+     */
+    public String getUsrRegistro() {
+        return usrRegistro;
+    }
+
+    /**
+     * @param usrRegistro the usrRegistro to set
+     */
+    public void setUsrRegistro(String usrRegistro) {
+        this.usrRegistro = usrRegistro;
+    }
+
+    /**
+     * @return the fecRegistro
+     */
+    public Date getFecRegistro() {
+        return fecRegistro;
+    }
+
+    /**
+     * @param fecRegistro the fecRegistro to set
+     */
+    public void setFecRegistro(Date fecRegistro) {
+        this.fecRegistro = fecRegistro;
+    }
+
+    /**
+     * @return the usrModificacion
+     */
+    public String getUsrModificacion() {
+        return usrModificacion;
+    }
+
+    /**
+     * @param usrModificacion the usrModificacion to set
+     */
+    public void setUsrModificacion(String usrModificacion) {
+        this.usrModificacion = usrModificacion;
+    }
+
+    /**
+     * @return the fecModificacion
+     */
+    public Date getFecModificacion() {
+        return fecModificacion;
+    }
+
+    /**
+     * @param fecModificacion the fecModificacion to set
+     */
+    public void setFecModificacion(Date fecModificacion) {
+        this.fecModificacion = fecModificacion;
     }
     
 }

@@ -29,5 +29,5 @@ public interface UsuarioFacadeLocal {
 
     int count();
  
-    Usuario buscarUsuarioPorNombre(String usuario);
+    Usuario buscarUsuarioPorEmail(String email);
 }

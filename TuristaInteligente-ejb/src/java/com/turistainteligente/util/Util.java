@@ -5,10 +5,7 @@
 package com.turistainteligente.util;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import javax.enterprise.inject.Produces;
 
 import javax.faces.application.FacesMessage;
@@ -24,9 +21,34 @@ import javax.servlet.http.HttpServletResponse;
  */
 public final class Util {
 
+    public enum TipoUsuario {
+
+        A, N;
+
+        @Override
+        public String toString() {
+            switch (this) {
+                case A:
+                    return "Adeministrador";
+                case N:
+                    return "Normal";
+                default:
+                    return "";
+            }
+        }
+    }
     
-    
-   public static void sendMail(String sendTo, String emailSubjectTxt, String emailMsgTxt) {
+    @Named
+    @Produces
+    public List<SelectItem> getTipoUsuarioValues() {
+        List<SelectItem> items = new ArrayList<SelectItem>();
+        for (Util.TipoUsuario tu : Util.TipoUsuario.values()) {
+            items.add(new SelectItem(tu, tu.toString()));
+        }
+        return items;
+    }
+
+    public static void sendMail(String sendTo, String emailSubjectTxt, String emailMsgTxt) {
 //        Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
         try {
             new MailEvento().sendSSLMessage(sendTo, emailSubjectTxt,
@@ -69,10 +91,12 @@ public final class Util {
     public static void addFatal(String message) {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, message, null));
     }
-        public static HttpServletResponse getResponse() {
+
+    public static HttpServletResponse getResponse() {
         return (HttpServletResponse) getExternalContext().getResponse();
     }
-            public static FacesContext getFacesContext() {
+
+    public static FacesContext getFacesContext() {
         return FacesContext.getCurrentInstance();
     }
 

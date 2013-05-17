@@ -14,14 +14,14 @@ import javax.faces.bean.ViewScoped;
  */
 @ManagedBean
 @ViewScoped
-public class clienteFilteringBean implements Serializable {
+public class ClienteFilteringBean implements Serializable {
     private String nombreFilter;
     private String emailFilter;
     private String telefonoFilter;
     /**
      * Creates a new instance of clienteFilteringBean
      */
-    public clienteFilteringBean() {
+    public ClienteFilteringBean() {
     }
 
     /**

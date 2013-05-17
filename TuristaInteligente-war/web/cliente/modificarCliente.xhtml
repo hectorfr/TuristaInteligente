@@ -19,8 +19,8 @@
             </h:outputLink>
         </f:facet>
         <h:form>
-            <h:panelGrid columns="2" id="panelCrear" styleClass="panel-grid">
-                <h:outputLabel for="nombreCliente" value="Nombre}*:"/>
+            <h:panelGrid columns="2" id="panelModificar" styleClass="panel-grid">
+                <h:outputLabel for="nombreCliente" value="Nombre*:"/>
                 <h:inputText id="nombreCliente" value="#{requestedClienteById.nombre}" 
                              required="true" requiredMessage="Debe ingresar un nombre del requestedClienteById"
                              maxlength="25"/>
@@ -33,6 +33,14 @@
                 <h:outputLabel for="segundoApellido" value="Segundo Apellido:"/>
                 <h:inputText id="segundoApellido" value="#{requestedClienteById.segundoApellido}" maxlength="25"/>
 
+                <h:outputLabel for="primerTelefono" value="Télefono*:"/>
+                <h:inputText id="primerTelefono" value="#{requestedClienteById.telefono}" 
+                             required="true" requiredMessage="Debe ingresar el teléfono del cliente"
+                             maxlength="25"/>
+
+                <h:outputLabel for="segundoTelefono" value="Segundo Teléfono:"/>
+                <h:inputText id="segundoTelefono" value="#{requestedClienteById.telefono2}" maxlength="25"/>
+
                 <h:outputLabel for="email" value="Email*:"/>
                 <h:inputText id="email" value="#{requestedClienteById.email}" 
                              required="true" requiredMessage="Debe ingresar el email del requestedClienteById"
@@ -43,11 +51,11 @@
 
                 <h:outputLabel for="empresa" value="Empresa:"/>
                 <h:inputText id="empresa" value="#{requestedClienteById.empresa}" maxlength="100"/>
-            </h:panelGrid>
-            <br />
-            <a4j:commandButton action="#{clienteManagedBean.update}" value="Modificar"  styleClass="btn primary">
-                <f:param name="idCliente" value="#{requestedClienteById.idCliente}" />
-            </a4j:commandButton>
+                
+                <a4j:commandButton action="#{clienteManagedBean.update}" value="Modificar"  styleClass="btn primary">
+                    <f:param name="idCliente" value="#{requestedClienteById.idCliente}" />
+                </a4j:commandButton>
+            </h:panelGrid>            
             <br />
             <rich:messages id="msgs2"/>
         </h:form>

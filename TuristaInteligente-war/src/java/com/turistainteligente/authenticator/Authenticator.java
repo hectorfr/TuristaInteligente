@@ -36,11 +36,11 @@ public class Authenticator implements Serializable {
         try {
             String username = credentials.getUsername();
             String password = credentials.getPassword();
-            Usuario u = usuarioFacadeLocal.buscarUsuarioPorNombre(username);
+            Usuario u = usuarioFacadeLocal.buscarUsuarioPorEmail(username);
             if (u != null && u.getPassword().equals(password)) {
                 setCurrentUser(u);                
-                log.log(Level.INFO, "Usuario {0} ingreso al sistema.", getCurrentUser(). getNombreUsuario());
-                Util.addInfo("Bienvenido " + currentUser.getNombreUsuario()+"!");                
+                log.log(Level.INFO, "Usuario {0} ingreso al sistema.", getCurrentUser().getEmail());
+                Util.addInfo("Bienvenido " + currentUser.getNombre()+"!");                
                 return "inicio?faces-redirect=true";
             } else {
                 Util.addError("Usuario y/o clave incorrectos");

@@ -28,14 +28,13 @@ public class UsuarioFacade extends AbstractFacade<Usuario> implements UsuarioFac
         super(Usuario.class);
     }
     
-    public Usuario buscarUsuarioPorNombre(String usuario) {
+    @Override
+    public Usuario buscarUsuarioPorEmail(String email) {
         try {
-            return (Usuario) em.createQuery("Select u from Usuario u where u.nombreUsuario = ?1").setParameter(1, usuario).getSingleResult();
-        } catch(NonUniqueResultException nure) {
-            nure.printStackTrace();
+            return (Usuario) em.createQuery("Select u from Usuario u where u.email = ?1").setParameter(1, email).getSingleResult();
+        } catch(NonUniqueResultException nure) {            
             return null;
-        } catch(Exception e) {
-            e.printStackTrace();
+        } catch(Exception e) {            
             return null;
         }
     }
