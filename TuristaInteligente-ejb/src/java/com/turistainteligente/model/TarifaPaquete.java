@@ -5,22 +5,22 @@
 package com.turistainteligente.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -29,162 +29,194 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author HectorFlechaRoja
  */
 @Entity
-@Table(name = "tarifapaquete")
+@Table(name = "tarifa_paquete")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "TarifaPaquete.findAll", query = "SELECT t FROM TarifaPaquete t")})
 public class TarifaPaquete implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "IDTARIFA")
-    private Integer idtarifa;
+    @NotNull
+    @Column(name = "ID_TARIFA_PAQUETE")
+    private Integer idTarifaPaquete;
+    @Column(name = "CANT_ADULTO_NAC")
+    private Integer cantAdultoNac;
+    @Column(name = "CANT_ADULTO_INT")
+    private Integer cantAdultoInt;
+    @Column(name = "CANT_NINIO_NAC")
+    private Integer cantNinioNac;
+    @Column(name = "CANT_NINIO_INT")
+    private Integer cantNinioInt;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "ADULTONAC")
-    private Double adultonac;
-    @Column(name = "ADULTOEXT")
-    private Double adultoext;
-    @Column(name = "NINIONAC")
-    private Double ninionac;
-    @Column(name = "NINIOEXT")
-    private Double ninioext;
+    @Column(name = "MONTO_ADULTO_NAC")
+    private BigDecimal montoAdultoNac;
+    @Column(name = "MONTO_ADULTO_INT")
+    private BigDecimal montoAdultoInt;
+    @Column(name = "MONTO_NINIO_NAC")
+    private BigDecimal montoNinioNac;
+    @Column(name = "MONTO_NINIO_INT")
+    private BigDecimal montoNinioInt;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "TOTAL")
-    private double total;
-    @Column(name = "IMPUESTOS")
-    private Double impuestos;
+    @Size(min = 1, max = 50)
+    @Column(name = "USR_REGISTRO")
+    private String usrRegistro;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "INDINTER")
-    private boolean indinter;
-    @JoinColumn(name = "IDPROVEEDOR", referencedColumnName = "IDPROVEEDOR")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Proveedor idproveedor;
-    @JoinColumn(name = "IDPAQUETE", referencedColumnName = "IDPAQUETE")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Paquete idpaquete;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idtarifa", fetch = FetchType.LAZY)
-    private List<ReservacionTarifaPaq> reservacionTarifaPaqList;
-    @OneToMany(mappedBy = "idtarifa", fetch = FetchType.LAZY)
-    private List<Reservacion> reservacionList;
+    @Column(name = "FEC_REGISTRO")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fecRegistro;
+    @Size(max = 50)
+    @Column(name = "USR_MODIFICACION")
+    private String usrModificacion;
+    @Column(name = "FEC_MODIFICACION")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fecModificacion;
+    @OneToMany(mappedBy = "idTarifaPaquete", fetch = FetchType.LAZY)
+    private List<TipoPaqueteNac> tipoPaqueteNacList;
+    @OneToMany(mappedBy = "idTarifaPaquete", fetch = FetchType.LAZY)
+    private List<TipoPaqueteInt> tipoPaqueteIntList;
 
     public TarifaPaquete() {
     }
 
-    public TarifaPaquete(Integer idtarifa) {
-        this.idtarifa = idtarifa;
+    public TarifaPaquete(Integer idTarifaPaquete) {
+        this.idTarifaPaquete = idTarifaPaquete;
     }
 
-    public TarifaPaquete(Integer idtarifa, double total, boolean indinter) {
-        this.idtarifa = idtarifa;
-        this.total = total;
-        this.indinter = indinter;
+    public TarifaPaquete(Integer idTarifaPaquete, String usrRegistro, Date fecRegistro) {
+        this.idTarifaPaquete = idTarifaPaquete;
+        this.usrRegistro = usrRegistro;
+        this.fecRegistro = fecRegistro;
     }
 
-    public Integer getIdtarifa() {
-        return idtarifa;
+    public Integer getIdTarifaPaquete() {
+        return idTarifaPaquete;
     }
 
-    public void setIdtarifa(Integer idtarifa) {
-        this.idtarifa = idtarifa;
+    public void setIdTarifaPaquete(Integer idTarifaPaquete) {
+        this.idTarifaPaquete = idTarifaPaquete;
     }
 
-    public Double getAdultonac() {
-        return adultonac;
+    public Integer getCantAdultoNac() {
+        return cantAdultoNac;
     }
 
-    public void setAdultonac(Double adultonac) {
-        this.adultonac = adultonac;
+    public void setCantAdultoNac(Integer cantAdultoNac) {
+        this.cantAdultoNac = cantAdultoNac;
     }
 
-    public Double getAdultoext() {
-        return adultoext;
+    public Integer getCantAdultoInt() {
+        return cantAdultoInt;
     }
 
-    public void setAdultoext(Double adultoext) {
-        this.adultoext = adultoext;
+    public void setCantAdultoInt(Integer cantAdultoInt) {
+        this.cantAdultoInt = cantAdultoInt;
     }
 
-    public Double getNinionac() {
-        return ninionac;
+    public Integer getCantNinioNac() {
+        return cantNinioNac;
     }
 
-    public void setNinionac(Double ninionac) {
-        this.ninionac = ninionac;
+    public void setCantNinioNac(Integer cantNinioNac) {
+        this.cantNinioNac = cantNinioNac;
     }
 
-    public Double getNinioext() {
-        return ninioext;
+    public Integer getCantNinioInt() {
+        return cantNinioInt;
     }
 
-    public void setNinioext(Double ninioext) {
-        this.ninioext = ninioext;
+    public void setCantNinioInt(Integer cantNinioInt) {
+        this.cantNinioInt = cantNinioInt;
     }
 
-    public double getTotal() {
-        return total;
+    public BigDecimal getMontoAdultoNac() {
+        return montoAdultoNac;
     }
 
-    public void setTotal(double total) {
-        this.total = total;
+    public void setMontoAdultoNac(BigDecimal montoAdultoNac) {
+        this.montoAdultoNac = montoAdultoNac;
     }
 
-    public Double getImpuestos() {
-        return impuestos;
+    public BigDecimal getMontoAdultoInt() {
+        return montoAdultoInt;
     }
 
-    public void setImpuestos(Double impuestos) {
-        this.impuestos = impuestos;
+    public void setMontoAdultoInt(BigDecimal montoAdultoInt) {
+        this.montoAdultoInt = montoAdultoInt;
     }
 
-    public boolean getIndinter() {
-        return indinter;
+    public BigDecimal getMontoNinioNac() {
+        return montoNinioNac;
     }
 
-    public void setIndinter(boolean indinter) {
-        this.indinter = indinter;
+    public void setMontoNinioNac(BigDecimal montoNinioNac) {
+        this.montoNinioNac = montoNinioNac;
     }
 
-    public Proveedor getIdproveedor() {
-        return idproveedor;
+    public BigDecimal getMontoNinioInt() {
+        return montoNinioInt;
     }
 
-    public void setIdproveedor(Proveedor idproveedor) {
-        this.idproveedor = idproveedor;
+    public void setMontoNinioInt(BigDecimal montoNinioInt) {
+        this.montoNinioInt = montoNinioInt;
     }
 
-    public Paquete getIdpaquete() {
-        return idpaquete;
+    public String getUsrRegistro() {
+        return usrRegistro;
     }
 
-    public void setIdpaquete(Paquete idpaquete) {
-        this.idpaquete = idpaquete;
+    public void setUsrRegistro(String usrRegistro) {
+        this.usrRegistro = usrRegistro;
+    }
+
+    public Date getFecRegistro() {
+        return fecRegistro;
+    }
+
+    public void setFecRegistro(Date fecRegistro) {
+        this.fecRegistro = fecRegistro;
+    }
+
+    public String getUsrModificacion() {
+        return usrModificacion;
+    }
+
+    public void setUsrModificacion(String usrModificacion) {
+        this.usrModificacion = usrModificacion;
+    }
+
+    public Date getFecModificacion() {
+        return fecModificacion;
+    }
+
+    public void setFecModificacion(Date fecModificacion) {
+        this.fecModificacion = fecModificacion;
     }
 
     @XmlTransient
-    public List<ReservacionTarifaPaq> getReservacionTarifaPaqList() {
-        return reservacionTarifaPaqList;
+    public List<TipoPaqueteNac> getTipoPaqueteNacList() {
+        return tipoPaqueteNacList;
     }
 
-    public void setReservacionTarifaPaqList(List<ReservacionTarifaPaq> reservacionTarifaPaqList) {
-        this.reservacionTarifaPaqList = reservacionTarifaPaqList;
+    public void setTipoPaqueteNacList(List<TipoPaqueteNac> tipoPaqueteNacList) {
+        this.tipoPaqueteNacList = tipoPaqueteNacList;
     }
 
     @XmlTransient
-    public List<Reservacion> getReservacionList() {
-        return reservacionList;
+    public List<TipoPaqueteInt> getTipoPaqueteIntList() {
+        return tipoPaqueteIntList;
     }
 
-    public void setReservacionList(List<Reservacion> reservacionList) {
-        this.reservacionList = reservacionList;
+    public void setTipoPaqueteIntList(List<TipoPaqueteInt> tipoPaqueteIntList) {
+        this.tipoPaqueteIntList = tipoPaqueteIntList;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idtarifa != null ? idtarifa.hashCode() : 0);
+        hash += (idTarifaPaquete != null ? idTarifaPaquete.hashCode() : 0);
         return hash;
     }
 
@@ -195,7 +227,7 @@ public class TarifaPaquete implements Serializable {
             return false;
         }
         TarifaPaquete other = (TarifaPaquete) object;
-        if ((this.idtarifa == null && other.idtarifa != null) || (this.idtarifa != null && !this.idtarifa.equals(other.idtarifa))) {
+        if ((this.idTarifaPaquete == null && other.idTarifaPaquete != null) || (this.idTarifaPaquete != null && !this.idTarifaPaquete.equals(other.idTarifaPaquete))) {
             return false;
         }
         return true;
@@ -203,7 +235,7 @@ public class TarifaPaquete implements Serializable {
 
     @Override
     public String toString() {
-        return "com.turistainteligente.model.TarifaPaquete[ idtarifa=" + idtarifa + " ]";
+        return "com.turistainteligente.model.TarifaPaquete[ idTarifaPaquete=" + idTarifaPaquete + " ]";
     }
     
 }

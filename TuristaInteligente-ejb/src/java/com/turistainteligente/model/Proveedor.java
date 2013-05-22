@@ -5,19 +5,19 @@
 package com.turistainteligente.model;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -35,10 +35,10 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Proveedor implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "IDPROVEEDOR")
-    private Integer idproveedor;
+    @NotNull
+    @Column(name = "ID_PROVEEDOR")
+    private Integer idProveedor;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
@@ -49,72 +49,91 @@ public class Proveedor implements Serializable {
     @Size(min = 1, max = 25)
     @Column(name = "TELEFONO")
     private String telefono;
-    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Size(max = 25)
-    @Column(name = "EMAIL")
-    private String email;
+    @Column(name = "SEGUNDO_TELEFONO")
+    private String segundoTelefono;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
-    @Column(name = "CUENTABANCARIA")
-    private String cuentabancaria;
+    @Column(name = "PRIMERA_CUENTA")
+    private String primeraCuenta;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 25)
-    @Column(name = "BANCO")
-    private String banco;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 25)
-    @Column(name = "CEDULAJURIDICA")
-    private String cedulajuridica;
+    @Size(min = 1, max = 50)
+    @Column(name = "BANCO_PRIM_CUENTA")
+    private String bancoPrimCuenta;
     @Size(max = 50)
-    @Column(name = "CUENTABANCARIA2")
-    private String cuentabancaria2;
-    @Column(name = "IND_SINPE")
-    private Boolean indSinpe;
-    @Column(name = "IND_CUENTA_CORRIENTE")
-    private Boolean indCuentaCorriente;
-    @Column(name = "IND_COLONES")
-    private Boolean indColones;
-    @Column(name = "IND_DOLARES")
-    private Boolean indDolares;
-    @Column(name = "IMP_SWIFT")
-    private Boolean impSwift;
-    @Column(name = "IMP_AVA")
-    private Boolean impAva;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "COMISION")
-    private Double comision;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idproveedor", fetch = FetchType.LAZY)
-    private List<TarifaPaquete> tarifaPaqueteList;
-    @OneToMany(mappedBy = "idproveedor", fetch = FetchType.LAZY)
+    @Column(name = "SEGUNDA_CUENTA")
+    private String segundaCuenta;
+    @Size(max = 50)
+    @Column(name = "BANCO_SDA_CUENTA")
+    private String bancoSdaCuenta;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "IND_SINPE_PRIM_CUENTA")
+    private char indSinpePrimCuenta;
+    @Column(name = "IND_SINPE_SDA_CUENTA")
+    private Character indSinpeSdaCuenta;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "IND_MONEDA_PRIM_CUENTA")
+    private char indMonedaPrimCuenta;
+    @Column(name = "IND_MONEDA_SDA_CUENTA")
+    private Character indMonedaSdaCuenta;
+    @Column(name = "IND_IMP_SWIFT")
+    private Character indImpSwift;
+    @Column(name = "IND_IMP_AVA")
+    private Character indImpAva;
+    @Column(name = "IND_COMISION")
+    private Character indComision;
+    @Column(name = "IND_CREDITO")
+    private Character indCredito;
+    @Column(name = "CANT_DIAS_CREDITO")
+    private Integer cantDiasCredito;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 50)
+    @Column(name = "USR_REGISTRO")
+    private String usrRegistro;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "FEC_REGISTRO")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fecRegistro;
+    @Size(max = 50)
+    @Column(name = "USR_MODIFICACION")
+    private String usrModificacion;
+    @Column(name = "FEC_MODIFICACION")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fecModificacion;
+    @ManyToMany(mappedBy = "proveedorList", fetch = FetchType.LAZY)
     private List<Reservacion> reservacionList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idproveedor", fetch = FetchType.LAZY)
-    private List<ReservacionProveedor> reservacionProveedorList;
 
     public Proveedor() {
     }
 
-    public Proveedor(Integer idproveedor) {
-        this.idproveedor = idproveedor;
+    public Proveedor(Integer idProveedor) {
+        this.idProveedor = idProveedor;
     }
 
-    public Proveedor(Integer idproveedor, String nombre, String telefono, String cuentabancaria, String banco, String cedulajuridica) {
-        this.idproveedor = idproveedor;
+    public Proveedor(Integer idProveedor, String nombre, String telefono, String primeraCuenta, String bancoPrimCuenta, char indSinpePrimCuenta, char indMonedaPrimCuenta, String usrRegistro, Date fecRegistro) {
+        this.idProveedor = idProveedor;
         this.nombre = nombre;
         this.telefono = telefono;
-        this.cuentabancaria = cuentabancaria;
-        this.banco = banco;
-        this.cedulajuridica = cedulajuridica;
+        this.primeraCuenta = primeraCuenta;
+        this.bancoPrimCuenta = bancoPrimCuenta;
+        this.indSinpePrimCuenta = indSinpePrimCuenta;
+        this.indMonedaPrimCuenta = indMonedaPrimCuenta;
+        this.usrRegistro = usrRegistro;
+        this.fecRegistro = fecRegistro;
     }
 
-    public Integer getIdproveedor() {
-        return idproveedor;
+    public Integer getIdProveedor() {
+        return idProveedor;
     }
 
-    public void setIdproveedor(Integer idproveedor) {
-        this.idproveedor = idproveedor;
+    public void setIdProveedor(Integer idProveedor) {
+        this.idProveedor = idProveedor;
     }
 
     public String getNombre() {
@@ -133,109 +152,148 @@ public class Proveedor implements Serializable {
         this.telefono = telefono;
     }
 
-    public String getEmail() {
-        return email;
+    public String getSegundoTelefono() {
+        return segundoTelefono;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setSegundoTelefono(String segundoTelefono) {
+        this.segundoTelefono = segundoTelefono;
     }
 
-    public String getCuentabancaria() {
-        return cuentabancaria;
+    public String getPrimeraCuenta() {
+        return primeraCuenta;
     }
 
-    public void setCuentabancaria(String cuentabancaria) {
-        this.cuentabancaria = cuentabancaria;
+    public void setPrimeraCuenta(String primeraCuenta) {
+        this.primeraCuenta = primeraCuenta;
     }
 
-    public String getBanco() {
-        return banco;
+    public String getBancoPrimCuenta() {
+        return bancoPrimCuenta;
     }
 
-    public void setBanco(String banco) {
-        this.banco = banco;
+    public void setBancoPrimCuenta(String bancoPrimCuenta) {
+        this.bancoPrimCuenta = bancoPrimCuenta;
     }
 
-    public String getCedulajuridica() {
-        return cedulajuridica;
+    public String getSegundaCuenta() {
+        return segundaCuenta;
     }
 
-    public void setCedulajuridica(String cedulajuridica) {
-        this.cedulajuridica = cedulajuridica;
+    public void setSegundaCuenta(String segundaCuenta) {
+        this.segundaCuenta = segundaCuenta;
     }
 
-    public String getCuentabancaria2() {
-        return cuentabancaria2;
+    public String getBancoSdaCuenta() {
+        return bancoSdaCuenta;
     }
 
-    public void setCuentabancaria2(String cuentabancaria2) {
-        this.cuentabancaria2 = cuentabancaria2;
+    public void setBancoSdaCuenta(String bancoSdaCuenta) {
+        this.bancoSdaCuenta = bancoSdaCuenta;
     }
 
-    public Boolean getIndSinpe() {
-        return indSinpe;
+    public char getIndSinpePrimCuenta() {
+        return indSinpePrimCuenta;
     }
 
-    public void setIndSinpe(Boolean indSinpe) {
-        this.indSinpe = indSinpe;
+    public void setIndSinpePrimCuenta(char indSinpePrimCuenta) {
+        this.indSinpePrimCuenta = indSinpePrimCuenta;
     }
 
-    public Boolean getIndCuentaCorriente() {
-        return indCuentaCorriente;
+    public Character getIndSinpeSdaCuenta() {
+        return indSinpeSdaCuenta;
     }
 
-    public void setIndCuentaCorriente(Boolean indCuentaCorriente) {
-        this.indCuentaCorriente = indCuentaCorriente;
+    public void setIndSinpeSdaCuenta(Character indSinpeSdaCuenta) {
+        this.indSinpeSdaCuenta = indSinpeSdaCuenta;
     }
 
-    public Boolean getIndColones() {
-        return indColones;
+    public char getIndMonedaPrimCuenta() {
+        return indMonedaPrimCuenta;
     }
 
-    public void setIndColones(Boolean indColones) {
-        this.indColones = indColones;
+    public void setIndMonedaPrimCuenta(char indMonedaPrimCuenta) {
+        this.indMonedaPrimCuenta = indMonedaPrimCuenta;
     }
 
-    public Boolean getIndDolares() {
-        return indDolares;
+    public Character getIndMonedaSdaCuenta() {
+        return indMonedaSdaCuenta;
     }
 
-    public void setIndDolares(Boolean indDolares) {
-        this.indDolares = indDolares;
+    public void setIndMonedaSdaCuenta(Character indMonedaSdaCuenta) {
+        this.indMonedaSdaCuenta = indMonedaSdaCuenta;
     }
 
-    public Boolean getImpSwift() {
-        return impSwift;
+    public Character getIndImpSwift() {
+        return indImpSwift;
     }
 
-    public void setImpSwift(Boolean impSwift) {
-        this.impSwift = impSwift;
+    public void setIndImpSwift(Character indImpSwift) {
+        this.indImpSwift = indImpSwift;
     }
 
-    public Boolean getImpAva() {
-        return impAva;
+    public Character getIndImpAva() {
+        return indImpAva;
     }
 
-    public void setImpAva(Boolean impAva) {
-        this.impAva = impAva;
+    public void setIndImpAva(Character indImpAva) {
+        this.indImpAva = indImpAva;
     }
 
-    public Double getComision() {
-        return comision;
+    public Character getIndComision() {
+        return indComision;
     }
 
-    public void setComision(Double comision) {
-        this.comision = comision;
+    public void setIndComision(Character indComision) {
+        this.indComision = indComision;
     }
 
-    @XmlTransient
-    public List<TarifaPaquete> getTarifaPaqueteList() {
-        return tarifaPaqueteList;
+    public Character getIndCredito() {
+        return indCredito;
     }
 
-    public void setTarifaPaqueteList(List<TarifaPaquete> tarifaPaqueteList) {
-        this.tarifaPaqueteList = tarifaPaqueteList;
+    public void setIndCredito(Character indCredito) {
+        this.indCredito = indCredito;
+    }
+
+    public Integer getCantDiasCredito() {
+        return cantDiasCredito;
+    }
+
+    public void setCantDiasCredito(Integer cantDiasCredito) {
+        this.cantDiasCredito = cantDiasCredito;
+    }
+
+    public String getUsrRegistro() {
+        return usrRegistro;
+    }
+
+    public void setUsrRegistro(String usrRegistro) {
+        this.usrRegistro = usrRegistro;
+    }
+
+    public Date getFecRegistro() {
+        return fecRegistro;
+    }
+
+    public void setFecRegistro(Date fecRegistro) {
+        this.fecRegistro = fecRegistro;
+    }
+
+    public String getUsrModificacion() {
+        return usrModificacion;
+    }
+
+    public void setUsrModificacion(String usrModificacion) {
+        this.usrModificacion = usrModificacion;
+    }
+
+    public Date getFecModificacion() {
+        return fecModificacion;
+    }
+
+    public void setFecModificacion(Date fecModificacion) {
+        this.fecModificacion = fecModificacion;
     }
 
     @XmlTransient
@@ -247,19 +305,10 @@ public class Proveedor implements Serializable {
         this.reservacionList = reservacionList;
     }
 
-    @XmlTransient
-    public List<ReservacionProveedor> getReservacionProveedorList() {
-        return reservacionProveedorList;
-    }
-
-    public void setReservacionProveedorList(List<ReservacionProveedor> reservacionProveedorList) {
-        this.reservacionProveedorList = reservacionProveedorList;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idproveedor != null ? idproveedor.hashCode() : 0);
+        hash += (idProveedor != null ? idProveedor.hashCode() : 0);
         return hash;
     }
 
@@ -270,7 +319,7 @@ public class Proveedor implements Serializable {
             return false;
         }
         Proveedor other = (Proveedor) object;
-        if ((this.idproveedor == null && other.idproveedor != null) || (this.idproveedor != null && !this.idproveedor.equals(other.idproveedor))) {
+        if ((this.idProveedor == null && other.idProveedor != null) || (this.idProveedor != null && !this.idProveedor.equals(other.idProveedor))) {
             return false;
         }
         return true;
@@ -278,7 +327,7 @@ public class Proveedor implements Serializable {
 
     @Override
     public String toString() {
-        return "com.turistainteligente.model.Proveedor[ idproveedor=" + idproveedor + " ]";
+        return "com.turistainteligente.model.Proveedor[ idProveedor=" + idProveedor + " ]";
     }
     
 }

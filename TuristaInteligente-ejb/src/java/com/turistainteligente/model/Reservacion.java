@@ -8,19 +8,16 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -41,244 +38,200 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Reservacion implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "IDRESERVACION")
-    private Integer idreservacion;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "FECHARESERVACION")
+    @Column(name = "ID_RESERVACION")
+    private Integer idReservacion;
+    @Column(name = "ID_TARIFA_RESERVACION")
+    private Integer idTarifaReservacion;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "IND_ESTADO")
+    private char indEstado;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "NUM_CONFIRMACION")
+    private int numConfirmacion;
+    @Column(name = "FECHA_PAGO_INICIO")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date fechareservacion;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "FECHAENTRADA")
+    private Date fechaPagoInicio;
+    @Column(name = "FECHA_PAGO_FINAL")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date fechaentrada;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "FECHASALIDA")
+    private Date fechaPagoFinal;
+    @Column(name = "FECHA_LLEGADA")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date fechasalida;
-    @Size(max = 10)
-    @Column(name = "HORARECOGIDA")
-    private String horarecogida;
-    @Size(max = 100)
-    @Column(name = "LUGARRECOGIDA")
-    private String lugarrecogida;
-    @Size(max = 200)
-    @Column(name = "CLIENTES")
-    private String clientes;
+    private Date fechaLlegada;
+    @Column(name = "FECHA_SALIDA")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechaSalida;
     @Basic(optional = false)
     @NotNull
-    @Lob
-    @Size(min = 1, max = 65535)
-    @Column(name = "DESCRIPCIONSERVICIO")
-    private String descripcionservicio;
-    @Lob
-    @Size(max = 65535)
-    @Column(name = "OBSERVACIONES")
-    private String observaciones;
+    @Size(min = 1, max = 50)
+    @Column(name = "USR_REGISTRO")
+    private String usrRegistro;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "FEC_REGISTRO")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fecRegistro;
     @Size(max = 50)
-    @Column(name = "usuarioMod")
-    private String usuarioMod;
-    @Column(name = "fechaMod")
+    @Column(name = "USR_MODIFICACION")
+    private String usrModificacion;
+    @Column(name = "FEC_MODIFICACION")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date fechaMod;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "fechaCreacion")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date fechaCreacion;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idreservacion", fetch = FetchType.LAZY)
-    private List<ReservacionTarifaPaq> reservacionTarifaPaqList;
-    @JoinColumn(name = "IDTARIFA", referencedColumnName = "IDTARIFA")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private TarifaPaquete idtarifa;
-    @JoinColumn(name = "IDCLIENTE", referencedColumnName = "IDCLIENTE")
+    private Date fecModificacion;
+    @JoinTable(name = "proveedores_reservacion", joinColumns = {
+        @JoinColumn(name = "ID_RESERVACION", referencedColumnName = "ID_RESERVACION")}, inverseJoinColumns = {
+        @JoinColumn(name = "ID_PROVEEDOR", referencedColumnName = "ID_PROVEEDOR")})
+    @ManyToMany(fetch = FetchType.LAZY)
+    private List<Proveedor> proveedorList;
+    @JoinColumn(name = "ID_CLIENTE", referencedColumnName = "ID_CLIENTE")
     @ManyToOne(fetch = FetchType.LAZY)
     private Cliente idCliente;
-    @JoinColumn(name = "IDPROVEEDOR", referencedColumnName = "IDPROVEEDOR")
+    @JoinColumn(name = "ID_PAQUETE", referencedColumnName = "ID_PAQUETE")
     @ManyToOne(fetch = FetchType.LAZY)
-    private Proveedor idproveedor;
-    @JoinColumn(name = "IDUSUARIO", referencedColumnName = "IDUSUARIO")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Usuario idUsuario;
-    @JoinColumn(name = "IDTARIFANETA", referencedColumnName = "IDTARIFANETA")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private TarifaNeta idtarifaneta;
-    @JoinColumn(name = "IDHOTEL", referencedColumnName = "IDHOTEL")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Hotel idhotel;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idreservacion", fetch = FetchType.LAZY)
-    private List<ReservacionProveedor> reservacionProveedorList;
+    private Paquete idPaquete;
 
     public Reservacion() {
     }
 
-    public Reservacion(Integer idreservacion) {
-        this.idreservacion = idreservacion;
+    public Reservacion(Integer idReservacion) {
+        this.idReservacion = idReservacion;
     }
 
-    public Reservacion(Integer idreservacion, Date fechareservacion, Date fechaentrada, Date fechasalida, String descripcionservicio, Date fechaCreacion) {
-        this.idreservacion = idreservacion;
-        this.fechareservacion = fechareservacion;
-        this.fechaentrada = fechaentrada;
-        this.fechasalida = fechasalida;
-        this.descripcionservicio = descripcionservicio;
-        this.fechaCreacion = fechaCreacion;
+    public Reservacion(Integer idReservacion, char indEstado, int numConfirmacion, String usrRegistro, Date fecRegistro) {
+        this.idReservacion = idReservacion;
+        this.indEstado = indEstado;
+        this.numConfirmacion = numConfirmacion;
+        this.usrRegistro = usrRegistro;
+        this.fecRegistro = fecRegistro;
     }
 
-    public Integer getIdreservacion() {
-        return idreservacion;
+    public Integer getIdReservacion() {
+        return idReservacion;
     }
 
-    public void setIdreservacion(Integer idreservacion) {
-        this.idreservacion = idreservacion;
+    public void setIdReservacion(Integer idReservacion) {
+        this.idReservacion = idReservacion;
     }
 
-    public Date getFechareservacion() {
-        return fechareservacion;
+    public Integer getIdTarifaReservacion() {
+        return idTarifaReservacion;
     }
 
-    public void setFechareservacion(Date fechareservacion) {
-        this.fechareservacion = fechareservacion;
+    public void setIdTarifaReservacion(Integer idTarifaReservacion) {
+        this.idTarifaReservacion = idTarifaReservacion;
     }
 
-    public Date getFechaentrada() {
-        return fechaentrada;
+    public char getIndEstado() {
+        return indEstado;
     }
 
-    public void setFechaentrada(Date fechaentrada) {
-        this.fechaentrada = fechaentrada;
+    public void setIndEstado(char indEstado) {
+        this.indEstado = indEstado;
     }
 
-    public Date getFechasalida() {
-        return fechasalida;
+    public int getNumConfirmacion() {
+        return numConfirmacion;
     }
 
-    public void setFechasalida(Date fechasalida) {
-        this.fechasalida = fechasalida;
+    public void setNumConfirmacion(int numConfirmacion) {
+        this.numConfirmacion = numConfirmacion;
     }
 
-    public String getHorarecogida() {
-        return horarecogida;
+    public Date getFechaPagoInicio() {
+        return fechaPagoInicio;
     }
 
-    public void setHorarecogida(String horarecogida) {
-        this.horarecogida = horarecogida;
+    public void setFechaPagoInicio(Date fechaPagoInicio) {
+        this.fechaPagoInicio = fechaPagoInicio;
     }
 
-    public String getLugarrecogida() {
-        return lugarrecogida;
+    public Date getFechaPagoFinal() {
+        return fechaPagoFinal;
     }
 
-    public void setLugarrecogida(String lugarrecogida) {
-        this.lugarrecogida = lugarrecogida;
+    public void setFechaPagoFinal(Date fechaPagoFinal) {
+        this.fechaPagoFinal = fechaPagoFinal;
     }
 
-    public String getClientes() {
-        return clientes;
+    public Date getFechaLlegada() {
+        return fechaLlegada;
     }
 
-    public void setClientes(String clientes) {
-        this.clientes = clientes;
+    public void setFechaLlegada(Date fechaLlegada) {
+        this.fechaLlegada = fechaLlegada;
     }
 
-    public String getDescripcionservicio() {
-        return descripcionservicio;
+    public Date getFechaSalida() {
+        return fechaSalida;
     }
 
-    public void setDescripcionservicio(String descripcionservicio) {
-        this.descripcionservicio = descripcionservicio;
+    public void setFechaSalida(Date fechaSalida) {
+        this.fechaSalida = fechaSalida;
     }
 
-    public String getObservaciones() {
-        return observaciones;
+    public String getUsrRegistro() {
+        return usrRegistro;
     }
 
-    public void setObservaciones(String observaciones) {
-        this.observaciones = observaciones;
+    public void setUsrRegistro(String usrRegistro) {
+        this.usrRegistro = usrRegistro;
     }
 
-    public String getUsuarioMod() {
-        return usuarioMod;
+    public Date getFecRegistro() {
+        return fecRegistro;
     }
 
-    public void setUsuarioMod(String usuarioMod) {
-        this.usuarioMod = usuarioMod;
+    public void setFecRegistro(Date fecRegistro) {
+        this.fecRegistro = fecRegistro;
     }
 
-    public Date getFechaMod() {
-        return fechaMod;
+    public String getUsrModificacion() {
+        return usrModificacion;
     }
 
-    public void setFechaMod(Date fechaMod) {
-        this.fechaMod = fechaMod;
+    public void setUsrModificacion(String usrModificacion) {
+        this.usrModificacion = usrModificacion;
     }
 
-    public Date getFechaCreacion() {
-        return fechaCreacion;
+    public Date getFecModificacion() {
+        return fecModificacion;
     }
 
-    public void setFechaCreacion(Date fechaCreacion) {
-        this.fechaCreacion = fechaCreacion;
-    }
-
-    @XmlTransient
-    public List<ReservacionTarifaPaq> getReservacionTarifaPaqList() {
-        return reservacionTarifaPaqList;
-    }
-
-    public void setReservacionTarifaPaqList(List<ReservacionTarifaPaq> reservacionTarifaPaqList) {
-        this.reservacionTarifaPaqList = reservacionTarifaPaqList;
-    }
-
-    public TarifaPaquete getIdtarifa() {
-        return idtarifa;
-    }
-
-    public void setIdtarifa(TarifaPaquete idtarifa) {
-        this.idtarifa = idtarifa;
-    }
-
-    public Proveedor getIdproveedor() {
-        return idproveedor;
-    }
-
-    public void setIdproveedor(Proveedor idproveedor) {
-        this.idproveedor = idproveedor;
-    }    
-
-    public TarifaNeta getIdtarifaneta() {
-        return idtarifaneta;
-    }
-
-    public void setIdtarifaneta(TarifaNeta idtarifaneta) {
-        this.idtarifaneta = idtarifaneta;
-    }
-
-    public Hotel getIdhotel() {
-        return idhotel;
-    }
-
-    public void setIdhotel(Hotel idhotel) {
-        this.idhotel = idhotel;
+    public void setFecModificacion(Date fecModificacion) {
+        this.fecModificacion = fecModificacion;
     }
 
     @XmlTransient
-    public List<ReservacionProveedor> getReservacionProveedorList() {
-        return reservacionProveedorList;
+    public List<Proveedor> getProveedorList() {
+        return proveedorList;
     }
 
-    public void setReservacionProveedorList(List<ReservacionProveedor> reservacionProveedorList) {
-        this.reservacionProveedorList = reservacionProveedorList;
+    public void setProveedorList(List<Proveedor> proveedorList) {
+        this.proveedorList = proveedorList;
+    }
+
+    public Cliente getIdCliente() {
+        return idCliente;
+    }
+
+    public void setIdCliente(Cliente idCliente) {
+        this.idCliente = idCliente;
+    }
+
+    public Paquete getIdPaquete() {
+        return idPaquete;
+    }
+
+    public void setIdPaquete(Paquete idPaquete) {
+        this.idPaquete = idPaquete;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idreservacion != null ? idreservacion.hashCode() : 0);
+        hash += (idReservacion != null ? idReservacion.hashCode() : 0);
         return hash;
     }
 
@@ -289,7 +242,7 @@ public class Reservacion implements Serializable {
             return false;
         }
         Reservacion other = (Reservacion) object;
-        if ((this.idreservacion == null && other.idreservacion != null) || (this.idreservacion != null && !this.idreservacion.equals(other.idreservacion))) {
+        if ((this.idReservacion == null && other.idReservacion != null) || (this.idReservacion != null && !this.idReservacion.equals(other.idReservacion))) {
             return false;
         }
         return true;
@@ -297,35 +250,7 @@ public class Reservacion implements Serializable {
 
     @Override
     public String toString() {
-        return "com.turistainteligente.model.Reservacion[ idreservacion=" + idreservacion + " ]";
-    }
-
-    /**
-     * @return the idUsuario
-     */
-    public Usuario getIdUsuario() {
-        return idUsuario;
-    }
-
-    /**
-     * @param idUsuario the idUsuario to set
-     */
-    public void setIdUsuario(Usuario idUsuario) {
-        this.idUsuario = idUsuario;
-    }
-
-    /**
-     * @return the idCliente
-     */
-    public Cliente getIdCliente() {
-        return idCliente;
-    }
-
-    /**
-     * @param idCliente the idCliente to set
-     */
-    public void setIdCliente(Cliente idCliente) {
-        this.idCliente = idCliente;
+        return "com.turistainteligente.model.Reservacion[ idReservacion=" + idReservacion + " ]";
     }
     
 }

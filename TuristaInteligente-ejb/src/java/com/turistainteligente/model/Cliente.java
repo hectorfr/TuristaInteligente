@@ -11,8 +11,6 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -37,57 +35,58 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Cliente implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "IDCLIENTE")
+    @NotNull
+    @Column(name = "ID_CLIENTE")
     private Integer idCliente;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 25)
+    @Size(min = 1, max = 50)
     @Column(name = "NOMBRE")
     private String nombre;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 25)
-    @Column(name = "PRIMERAPELLIDO")
+    @Size(min = 1, max = 50)
+    @Column(name = "PRIMER_APELLIDO")
     private String primerApellido;
-    @Size(max = 25)
-    @Column(name = "SEGUNDOAPELLIDO")
+    @Size(max = 50)
+    @Column(name = "SEGUNDO_APELLIDO")
     private String segundoApellido;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 25)
-    @Column(name = "TELEFONO")
-    private String telefono;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
     @Column(name = "EMAIL")
     private String email;
-    @Size(max = 20)
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 25)
+    @Column(name = "TELEFONO")
+    private String telefono;
+    @Size(max = 25)
+    @Column(name = "SEGUNDO_TELEFONO")
+    private String segundoTelefono;
+    @Size(max = 25)
     @Column(name = "CEDULA")
     private String cedula;
     @Size(max = 100)
     @Column(name = "EMPRESA")
     private String empresa;
-    @Size(max = 25)
-    @Column(name = "TELEFONO2")
-    private String telefono2;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 100)
+    @Size(min = 1, max = 50)
     @Column(name = "USR_REGISTRO")
     private String usrRegistro;
     @Basic(optional = false)
     @NotNull
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "FEC_REGISTRO")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date fecRegistro;
+    @Size(max = 50)
     @Column(name = "USR_MODIFICACION")
     private String usrModificacion;
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "FEC_MODIFICACION")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date fecModificacion;
     @OneToMany(mappedBy = "idCliente", fetch = FetchType.LAZY)
     private List<Reservacion> reservacionList;
@@ -99,12 +98,14 @@ public class Cliente implements Serializable {
         this.idCliente = idCliente;
     }
 
-    public Cliente(Integer idCliente, String nombre, String primerApellido, String telefono, String email) {
+    public Cliente(Integer idCliente, String nombre, String primerApellido, String email, String telefono, String usrRegistro, Date fecRegistro) {
         this.idCliente = idCliente;
         this.nombre = nombre;
         this.primerApellido = primerApellido;
-        this.telefono = telefono;
         this.email = email;
+        this.telefono = telefono;
+        this.usrRegistro = usrRegistro;
+        this.fecRegistro = fecRegistro;
     }
 
     public Integer getIdCliente() {
@@ -139,6 +140,14 @@ public class Cliente implements Serializable {
         this.segundoApellido = segundoApellido;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getTelefono() {
         return telefono;
     }
@@ -147,12 +156,12 @@ public class Cliente implements Serializable {
         this.telefono = telefono;
     }
 
-    public String getEmail() {
-        return email;
+    public String getSegundoTelefono() {
+        return segundoTelefono;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setSegundoTelefono(String segundoTelefono) {
+        this.segundoTelefono = segundoTelefono;
     }
 
     public String getCedula() {
@@ -171,12 +180,36 @@ public class Cliente implements Serializable {
         this.empresa = empresa;
     }
 
-    public String getTelefono2() {
-        return telefono2;
+    public String getUsrRegistro() {
+        return usrRegistro;
     }
 
-    public void setTelefono2(String telefono2) {
-        this.telefono2 = telefono2;
+    public void setUsrRegistro(String usrRegistro) {
+        this.usrRegistro = usrRegistro;
+    }
+
+    public Date getFecRegistro() {
+        return fecRegistro;
+    }
+
+    public void setFecRegistro(Date fecRegistro) {
+        this.fecRegistro = fecRegistro;
+    }
+
+    public String getUsrModificacion() {
+        return usrModificacion;
+    }
+
+    public void setUsrModificacion(String usrModificacion) {
+        this.usrModificacion = usrModificacion;
+    }
+
+    public Date getFecModificacion() {
+        return fecModificacion;
+    }
+
+    public void setFecModificacion(Date fecModificacion) {
+        this.fecModificacion = fecModificacion;
     }
 
     @XmlTransient
@@ -216,61 +249,4 @@ public class Cliente implements Serializable {
     public String getNombreCliente() {
         return getNombre() + " " + getPrimerApellido() + " " + getSegundoApellido();
     }
-
-    /**
-     * @return the usrRegistro
-     */
-    public String getUsrRegistro() {
-        return usrRegistro;
-    }
-
-    /**
-     * @param usrRegistro the usrRegistro to set
-     */
-    public void setUsrRegistro(String usrRegistro) {
-        this.usrRegistro = usrRegistro;
-    }
-
-    /**
-     * @return the fecRegistro
-     */
-    public Date getFecRegistro() {
-        return fecRegistro;
-    }
-
-    /**
-     * @param fecRegistro the fecRegistro to set
-     */
-    public void setFecRegistro(Date fecRegistro) {
-        this.fecRegistro = fecRegistro;
-    }
-
-    /**
-     * @return the usrModificacion
-     */
-    public String getUsrModificacion() {
-        return usrModificacion;
-    }
-
-    /**
-     * @param usrModificacion the usrModificacion to set
-     */
-    public void setUsrModificacion(String usrModificacion) {
-        this.usrModificacion = usrModificacion;
-    }
-
-    /**
-     * @return the fecModificacion
-     */
-    public Date getFecModificacion() {
-        return fecModificacion;
-    }
-
-    /**
-     * @param fecModificacion the fecModificacion to set
-     */
-    public void setFecModificacion(Date fecModificacion) {
-        this.fecModificacion = fecModificacion;
-    }
-    
 }
