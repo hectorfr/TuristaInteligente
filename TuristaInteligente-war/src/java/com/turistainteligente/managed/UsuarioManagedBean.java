@@ -75,8 +75,8 @@ public class UsuarioManagedBean implements Serializable {
 
     public String update() {
         try {
-            usuario.setUsrRegistro(getRequestedUsuarioById().getEmail());
-            usuario.setFecRegistro(new Date());
+            usuario.setUsrModificacion(getRequestedUsuarioById().getEmail());
+            usuario.setFecModificacion(new Date());
             usuarioFacadeLocal.edit(getRequestedUsuarioById());
             log.log(Level.INFO, "Usuario {0} modificado con exito", getRequestedUsuarioById().getNombre() + getRequestedUsuarioById().getPrimerApellido());
             Util.addSuccessMessage("Usuario modificado con éxito");

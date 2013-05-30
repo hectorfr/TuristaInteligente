@@ -41,12 +41,10 @@ public class TipoPaqueteNac implements Serializable {
     @NotNull
     @Column(name = "ID_TIPO_PAQUETE_NAC")
     private Integer idTipoPaqueteNac;
-    @Basic(optional = false)
+   @Basic(optional = false)
     @NotNull
-    @Column(name = "IND_TIPO_PAQUETE")
-    private char indTipoPaquete;
-    @Column(name = "IND_TIPO_HABITACION")
-    private Character indTipoHabitacion;
+    @Column(name = "IND_TIPO_TARIFA")
+    private char indTipoTarifa;   
     @Size(max = 1000)
     @Column(name = "DESCRIPCION_SERVICIOS")
     private String descripcionServicios;
@@ -77,6 +75,9 @@ public class TipoPaqueteNac implements Serializable {
     @JoinColumn(name = "ID_TARIFA_PAQUETE", referencedColumnName = "ID_TARIFA_PAQUETE")
     @ManyToOne(fetch = FetchType.LAZY)
     private TarifaPaquete idTarifaPaquete;
+    @JoinColumn(name = "ID_TARIFA_HABITACION", referencedColumnName = "ID_TARIFA_HABITACION")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private TarifaHabitacion idTarifaHabitacion;
 
     public TipoPaqueteNac() {
     }
@@ -85,9 +86,9 @@ public class TipoPaqueteNac implements Serializable {
         this.idTipoPaqueteNac = idTipoPaqueteNac;
     }
 
-    public TipoPaqueteNac(Integer idTipoPaqueteNac, char indTipoPaquete, String usrRegistro, Date fecRegistro) {
+    public TipoPaqueteNac(Integer idTipoPaqueteNac, char indTipoTarifa, String usrRegistro, Date fecRegistro) {
         this.idTipoPaqueteNac = idTipoPaqueteNac;
-        this.indTipoPaquete = indTipoPaquete;
+        this.indTipoTarifa = indTipoTarifa;
         this.usrRegistro = usrRegistro;
         this.fecRegistro = fecRegistro;
     }
@@ -98,22 +99,6 @@ public class TipoPaqueteNac implements Serializable {
 
     public void setIdTipoPaqueteNac(Integer idTipoPaqueteNac) {
         this.idTipoPaqueteNac = idTipoPaqueteNac;
-    }
-
-    public char getIndTipoPaquete() {
-        return indTipoPaquete;
-    }
-
-    public void setIndTipoPaquete(char indTipoPaquete) {
-        this.indTipoPaquete = indTipoPaquete;
-    }
-
-    public Character getIndTipoHabitacion() {
-        return indTipoHabitacion;
-    }
-
-    public void setIndTipoHabitacion(Character indTipoHabitacion) {
-        this.indTipoHabitacion = indTipoHabitacion;
     }
 
     public String getDescripcionServicios() {
@@ -189,6 +174,14 @@ public class TipoPaqueteNac implements Serializable {
         this.idTarifaPaquete = idTarifaPaquete;
     }
 
+    public TarifaHabitacion getIdTarifaHabitacion() {
+        return idTarifaHabitacion;
+    }
+
+    public void setIdTarifaHabitacion(TarifaHabitacion idTarifaHabitacion) {
+        this.idTarifaHabitacion = idTarifaHabitacion;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -212,6 +205,20 @@ public class TipoPaqueteNac implements Serializable {
     @Override
     public String toString() {
         return "com.turistainteligente.model.TipoPaqueteNac[ idTipoPaqueteNac=" + idTipoPaqueteNac + " ]";
+    }
+
+    /**
+     * @return the indTipoTarifa
+     */
+    public char getIndTipoTarifa() {
+        return indTipoTarifa;
+    }
+
+    /**
+     * @param indTipoTarifa the indTipoTarifa to set
+     */
+    public void setIndTipoTarifa(char indTipoTarifa) {
+        this.indTipoTarifa = indTipoTarifa;
     }
     
 }

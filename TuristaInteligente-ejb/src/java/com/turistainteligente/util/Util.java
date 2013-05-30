@@ -38,12 +38,120 @@ public final class Util {
         }
     }
     
+    public enum TipoPaquete {
+        I, N;
+        
+        @Override
+        public String toString() {
+             switch (this) {
+                case I:
+                    return "Internacional";
+                case N:
+                    return "Nacional";
+                default:
+                    return "";
+            }
+        }
+    }
+    
+    public enum TipoTarifa {
+        H, P;
+        
+        @Override
+        public String toString() {
+             switch (this) {
+                case H:
+                    return "Habitaciones";
+                case P:
+                    return "Personas";
+                default:
+                    return "";
+            }
+        }
+    }
+    
+    public enum Localidad {
+        C, N, S, E;
+        
+        @Override
+        public String toString() {
+             switch (this) {
+                case N:
+                    return "Norteamérica";
+                case C:
+                    return "Centroamérica";
+                case S:
+                    return "Suramérica";
+                case E:
+                    return "Europa";
+                default:
+                    return "";
+            }
+        }
+    }
+    
+    public enum TipoTraslado {
+        C, I;
+        
+        @Override
+        public String toString() {
+             switch (this) {                
+                case C:
+                    return "Centroamérica";
+                case I:
+                    return "Individual";                
+                default:
+                    return "";
+            }
+        }
+    }
+    
     @Named
     @Produces
     public List<SelectItem> getTipoUsuarioValues() {
         List<SelectItem> items = new ArrayList<SelectItem>();
         for (Util.TipoUsuario tu : Util.TipoUsuario.values()) {
             items.add(new SelectItem(tu, tu.toString()));
+        }
+        return items;
+    }
+    
+    @Named
+    @Produces
+    public List<SelectItem> getTipoPaqueteValues() {
+        List<SelectItem> items = new ArrayList<SelectItem>();
+        for (Util.TipoPaquete tp : Util.TipoPaquete.values()) {
+            items.add(new SelectItem(tp, tp.toString()));
+        }
+        return items;
+    }
+    
+    @Named
+    @Produces
+    public List<SelectItem> getTipoTarifaValues() {
+        List<SelectItem> items = new ArrayList<SelectItem>();
+        for (Util.TipoTarifa tt : Util.TipoTarifa.values()) {
+            items.add(new SelectItem(tt, tt.toString()));
+        }
+        return items;
+    }
+    
+    @Named
+    @Produces
+    public List<SelectItem> getLocalidadValues() {
+        List<SelectItem> items = new ArrayList<SelectItem>();
+        for (Util.Localidad l : Util.Localidad.values()) {
+            items.add(new SelectItem(l, l.toString()));
+        }
+        return items;
+    }
+    
+    @Named
+    @Produces
+    public List<SelectItem> getTipoTrasladoValues() {
+        List<SelectItem> items = new ArrayList<SelectItem>();
+        for (Util.TipoTraslado t : Util.TipoTraslado.values()) {
+            items.add(new SelectItem(t, t.toString()));
         }
         return items;
     }

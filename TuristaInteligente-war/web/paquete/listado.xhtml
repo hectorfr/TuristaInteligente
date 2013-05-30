@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j"
+                template="/templates/template.xhtml"
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+    <ui:define name="content">
+        <h1 class="page-title factura-listado">Listado de Paquetes</h1>        
+        <h2 class="sub-title">Muestra el listado de los paquetes ingresados en el sistema. Se pueden buscar por diferentes parámetros además de poder modificarlos, eliminarlos y crear nuevos.</h2>
+        <br />
+        <h:form>
+            <rich:messages id="msgs"/> 
+            <br />
+            <a4j:commandLink value="Nuevo Paquete"                                               
+                             oncomplete="#{rich:component('crearPaquetePanel')}.show()"
+                             render="panelCrear" styleClass="btn primary"/>                  
+            <br /><br />
+            <rich:extendedDataTable  id="list" value="#{paquetesPaged}" var="_paquete"
+                                     rows="10" noDataLabel="No existen paquetes">
+
+                <rich:column filterValue="#{paqueteFilteringBean.nombreFilter}" width="300px"
+                             filterExpression="#{fn:containsIgnoreCase(_paquete.nombrePaquete,paqueteFilteringBean.nombreFilter)}"
+                             filterType="custom">
+                    <f:facet name="header">
+                        <h:panelGroup>
+                            <h:outputText value="Nombre" />
+                            <h:inputText value="#{paqueteFilteringBean.nombreFilter}" label="Nombre Filter" style="width: 250px" onkeypress="introKey();">
+                                <a4j:ajax event="blur" render="list" execute="@this"/>
+                            </h:inputText>
+                        </h:panelGroup>
+                    </f:facet>  
+                    <a4j:commandLink value="#{_paquete.nombrePaquete}" onclick="#{rich:component('verPaquetePanel')}.show();" 
+                                     render="panelVer" style="color: red; white-space: normal">    
+                        <f:param name="idPaquete" value="#{_paquete.idPaquete}"/>
+                    </a4j:commandLink>  
+                </rich:column>
+
+                <rich:column >
+                    <f:facet name="header">
+                        <h:panelGroup>
+                            <h:outputText value="Tipo" />                            
+                        </h:panelGroup>
+                    </f:facet>                             
+                    <h:outputText value="Nacional" rendered="#{!empty paquete.idTipoPaqueteNac}"/>
+                    <h:outputText value="Internacional" rendered="#{!empty paquete.idTipoPaqueteInt}"/>
+                </rich:column>                
+
+                <rich:column styleClass="rght"  width="350px" >                          
+                    <f:facet name="header">
+                        <h:outputText value="Acciones" />
+                    </f:facet>
+                    <a4j:commandLink styleClass="btn small primary"                                             
+                                     oncomplete="#{rich:component('modificarPaquetePanel')}.show()"
+                                     render="panelModificar">
+                        <span class="modificar"></span>
+                        <rich:tooltip value="Modificar" followMouse="false" />
+                        <f:param name="idPaquete" value="#{_paquete.idPaquete}"/>
+                    </a4j:commandLink>  
+
+                    <a4j:commandLink styleClass="btn small danger"                                               
+                                     oncomplete="#{rich:component('eliminarPaquetePanel')}.show()"
+                                     render="panelEliminar">
+                        <span class="eliminar"></span>
+                        <rich:tooltip value="Eliminar" followMouse="false" />
+                        <f:param name="idPaquete" value="#{_paquete.idPaquete}"/>
+                    </a4j:commandLink> 
+                </rich:column>
+                <f:facet name="footer">
+                    <rich:dataScroller  for="list" maxPages="10" renderIfSinglePage="false"/>                             
+                </f:facet>
+            </rich:extendedDataTable>   
+        </h:form>
+        <ui:include src="crearPaquete.xhtml"/>  
+        <ui:include src="modificarPaquete.xhtml"/>   
+        <ui:include src="eliminarPaquete.xhtml"/>
+        <ui:include src="verPaquete.xhtml"/>    
+    </ui:define>
+</ui:composition>
+

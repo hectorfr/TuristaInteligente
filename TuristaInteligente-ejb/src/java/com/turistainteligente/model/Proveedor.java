@@ -12,6 +12,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -106,7 +108,10 @@ public class Proveedor implements Serializable {
     @Column(name = "FEC_MODIFICACION")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fecModificacion;
-    @ManyToMany(mappedBy = "proveedorList", fetch = FetchType.LAZY)
+    @JoinTable(name = "proveedores_reservacion", joinColumns = {
+        @JoinColumn(name = "ID_PROVEEDOR", referencedColumnName = "ID_PROVEEDOR")}, inverseJoinColumns = {
+        @JoinColumn(name = "ID_RESERVACION", referencedColumnName = "ID_RESERVACION")})
+    @ManyToMany(fetch = FetchType.LAZY)
     private List<Reservacion> reservacionList;
 
     public Proveedor() {

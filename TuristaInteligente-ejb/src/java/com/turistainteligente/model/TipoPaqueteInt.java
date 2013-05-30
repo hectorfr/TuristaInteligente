@@ -85,6 +85,13 @@ public class TipoPaqueteInt implements Serializable {
     @JoinColumn(name = "ID_TARIFA_PAQUETE", referencedColumnName = "ID_TARIFA_PAQUETE")
     @ManyToOne(fetch = FetchType.LAZY)
     private TarifaPaquete idTarifaPaquete;
+    @JoinColumn(name = "ID_TARIFA_HABITACION", referencedColumnName = "ID_TARIFA_HABITACION")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private TarifaHabitacion idTarifaHabitacion;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "IND_TIPO_TARIFA")
+    private char indTipoTarifa;
 
     public TipoPaqueteInt() {
     }
@@ -221,6 +228,14 @@ public class TipoPaqueteInt implements Serializable {
         this.idTarifaPaquete = idTarifaPaquete;
     }
 
+    public TarifaHabitacion getIdTarifaHabitacion() {
+        return idTarifaHabitacion;
+    }
+
+    public void setIdTarifaHabitacion(TarifaHabitacion idTarifaHabitacion) {
+        this.idTarifaHabitacion = idTarifaHabitacion;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -244,6 +259,20 @@ public class TipoPaqueteInt implements Serializable {
     @Override
     public String toString() {
         return "com.turistainteligente.model.TipoPaqueteInt[ idTipoPaqueteInt=" + idTipoPaqueteInt + " ]";
+    }
+
+    /**
+     * @return the indTipoTarifa
+     */
+    public char getIndTipoTarifa() {
+        return indTipoTarifa;
+    }
+
+    /**
+     * @param indTipoTarifa the indTipoTarifa to set
+     */
+    public void setIndTipoTarifa(char indTipoTarifa) {
+        this.indTipoTarifa = indTipoTarifa;
     }
     
 }

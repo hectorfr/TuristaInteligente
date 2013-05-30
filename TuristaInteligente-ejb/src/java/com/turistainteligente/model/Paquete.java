@@ -71,12 +71,12 @@ public class Paquete implements Serializable {
     @Column(name = "FEC_MODIFICACION")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fecModificacion;
-    @JoinColumn(name = "ID_TIPO_PAQUETE_INT", referencedColumnName = "ID_TIPO_PAQUETE_INT")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private TipoPaqueteInt idTipoPaqueteInt;
     @JoinColumn(name = "ID_TIPO_PAQUETE_NAC", referencedColumnName = "ID_TIPO_PAQUETE_NAC")
     @ManyToOne(fetch = FetchType.LAZY)
     private TipoPaqueteNac idTipoPaqueteNac;
+    @JoinColumn(name = "ID_TIPO_PAQUETE_INT", referencedColumnName = "ID_TIPO_PAQUETE_INT")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private TipoPaqueteInt idTipoPaqueteInt;
     @OneToMany(mappedBy = "idPaquete", fetch = FetchType.LAZY)
     private List<Reservacion> reservacionList;
 
@@ -166,20 +166,20 @@ public class Paquete implements Serializable {
         this.fecModificacion = fecModificacion;
     }
 
-    public TipoPaqueteInt getIdTipoPaqueteInt() {
-        return idTipoPaqueteInt;
-    }
-
-    public void setIdTipoPaqueteInt(TipoPaqueteInt idTipoPaqueteInt) {
-        this.idTipoPaqueteInt = idTipoPaqueteInt;
-    }
-
     public TipoPaqueteNac getIdTipoPaqueteNac() {
         return idTipoPaqueteNac;
     }
 
     public void setIdTipoPaqueteNac(TipoPaqueteNac idTipoPaqueteNac) {
         this.idTipoPaqueteNac = idTipoPaqueteNac;
+    }
+
+    public TipoPaqueteInt getIdTipoPaqueteInt() {
+        return idTipoPaqueteInt;
+    }
+
+    public void setIdTipoPaqueteInt(TipoPaqueteInt idTipoPaqueteInt) {
+        this.idTipoPaqueteInt = idTipoPaqueteInt;
     }
 
     @XmlTransient

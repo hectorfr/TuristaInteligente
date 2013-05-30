@@ -13,7 +13,6 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -80,17 +79,14 @@ public class Reservacion implements Serializable {
     @Column(name = "FEC_MODIFICACION")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fecModificacion;
-    @JoinTable(name = "proveedores_reservacion", joinColumns = {
-        @JoinColumn(name = "ID_RESERVACION", referencedColumnName = "ID_RESERVACION")}, inverseJoinColumns = {
-        @JoinColumn(name = "ID_PROVEEDOR", referencedColumnName = "ID_PROVEEDOR")})
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "reservacionList", fetch = FetchType.LAZY)
     private List<Proveedor> proveedorList;
-    @JoinColumn(name = "ID_CLIENTE", referencedColumnName = "ID_CLIENTE")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Cliente idCliente;
     @JoinColumn(name = "ID_PAQUETE", referencedColumnName = "ID_PAQUETE")
     @ManyToOne(fetch = FetchType.LAZY)
     private Paquete idPaquete;
+    @JoinColumn(name = "ID_CLIENTE", referencedColumnName = "ID_CLIENTE")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Cliente idCliente;
 
     public Reservacion() {
     }
@@ -212,20 +208,20 @@ public class Reservacion implements Serializable {
         this.proveedorList = proveedorList;
     }
 
-    public Cliente getIdCliente() {
-        return idCliente;
-    }
-
-    public void setIdCliente(Cliente idCliente) {
-        this.idCliente = idCliente;
-    }
-
     public Paquete getIdPaquete() {
         return idPaquete;
     }
 
     public void setIdPaquete(Paquete idPaquete) {
         this.idPaquete = idPaquete;
+    }
+
+    public Cliente getIdCliente() {
+        return idCliente;
+    }
+
+    public void setIdCliente(Cliente idCliente) {
+        this.idCliente = idCliente;
     }
 
     @Override

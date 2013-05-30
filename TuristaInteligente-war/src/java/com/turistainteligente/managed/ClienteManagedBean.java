@@ -71,8 +71,8 @@ public class ClienteManagedBean implements Serializable {
 
     public String update() {
         try {
-            cliente.setUsrRegistro(getRequestedClienteById().getEmail());
-            cliente.setFecRegistro(new Date());
+            cliente.setUsrModificacion(currentUser.getEmail());
+            cliente.setFecModificacion(new Date());
             clienteFacadeLocal.edit(getRequestedClienteById());
             log.log(Level.INFO, "Cliente {0} modificado con exito", getRequestedClienteById().getNombre() + getRequestedClienteById().getPrimerApellido());
             Util.addSuccessMessage("Cliente modificado con éxito");
