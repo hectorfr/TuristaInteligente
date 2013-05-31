@@ -4,6 +4,7 @@
  */
 package com.turistainteligente.util;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.enterprise.inject.Produces;
@@ -19,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Hector-FlechaRoja
  */
-public final class Util {
+public final class Util implements Serializable{
 
     public static final char INTERNACIONAL = 'I';
     public static final char NACIONAL = 'N';
@@ -140,7 +141,7 @@ public final class Util {
     public List<SelectItem> getTipoPaqueteValues() {
         List<SelectItem> items = new ArrayList<SelectItem>();
         for (Util.TipoPaquete tp : Util.TipoPaquete.values()) {
-            items.add(new SelectItem(tp, tp.toString()));
+            items.add(new SelectItem(tp.toString(), tp.toString()));
         }
         return items;
     }
@@ -150,7 +151,7 @@ public final class Util {
     public List<SelectItem> getTipoTarifaValues() {
         List<SelectItem> items = new ArrayList<SelectItem>();
         for (Util.TipoTarifa tt : Util.TipoTarifa.values()) {
-            items.add(new SelectItem(tt, tt.toString()));
+            items.add(new SelectItem(tt.toString(), tt.toString()));
         }
         return items;
     }
@@ -160,7 +161,7 @@ public final class Util {
     public List<SelectItem> getLocalidadValues() {
         List<SelectItem> items = new ArrayList<SelectItem>();
         for (Util.Localidad l : Util.Localidad.values()) {
-            items.add(new SelectItem(l, l.toString()));
+            items.add(new SelectItem(l.toString(), l.toString()));
         }
         return items;
     }
@@ -170,7 +171,7 @@ public final class Util {
     public List<SelectItem> getTipoTrasladoValues() {
         List<SelectItem> items = new ArrayList<SelectItem>();
         for (Util.TipoTraslado t : Util.TipoTraslado.values()) {
-            items.add(new SelectItem(t, t.toString()));
+            items.add(new SelectItem(t.toString(), t.toString()));
         }
         return items;
     }
@@ -180,7 +181,7 @@ public final class Util {
     public List<SelectItem> getTipoVehiculoValues() {
         List<SelectItem> items = new ArrayList<SelectItem>();
         for (Util.TipoVehiculo t : Util.TipoVehiculo.values()) {
-            items.add(new SelectItem(t, t.toString()));
+            items.add(new SelectItem(t.toString(), t.toString()));
         }
         return items;
     }

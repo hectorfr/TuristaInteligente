@@ -16,9 +16,9 @@
         <h:form>
             <rich:messages id="msgs"/> 
             <br />
-            <a4j:commandLink value="Nuevo Paquete"                                               
-                             oncomplete="#{rich:component('crearPaquetePanel')}.show()"
-                             render="panelCrear" styleClass="btn primary"/>                  
+             <h:outputLink value="#{request.contextPath}/paquete/crearPaquete.jsf"  styleClass="btn primary" >
+                <h:outputText value="Nuevo Paquete"/>                              
+            </h:outputLink>                
             <br /><br />
             <rich:extendedDataTable  id="list" value="#{paquetesPaged}" var="_paquete"
                                      rows="10" noDataLabel="No existen paquetes">
@@ -75,7 +75,6 @@
                 </f:facet>
             </rich:extendedDataTable>   
         </h:form>
-        <ui:include src="crearPaquete.xhtml"/>  
         <ui:include src="modificarPaquete.xhtml"/>   
         <ui:include src="eliminarPaquete.xhtml"/>
         <ui:include src="verPaquete.xhtml"/>    
