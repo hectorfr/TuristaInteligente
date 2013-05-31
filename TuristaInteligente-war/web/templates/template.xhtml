@@ -60,7 +60,16 @@
                                 <h:outputLink class="inicio" value="#{request.contextPath}/inicio.jsf"  >
                                     <h:outputText value="Inicio"/>                              
                                 </h:outputLink> 
-                            </li>                            
+                            </li>
+                            <li class="f-level" ><a href="#">Paquetes</a>
+                                <ul class="nav-sub">
+                                    <li class="s-level">
+                                        <h:outputLink value="#{request.contextPath}/paquete/listado.jsf">
+                                            <h:outputText value="Listado"/>
+                                        </h:outputLink>                                        
+                                    </li>                                                                                   
+                                </ul>
+                            </li>
                             <li class="f-level" ><a href="#">Administraci&#243;n</a>
                                 <ul class="nav-sub">
                                     <li class="s-level">
@@ -69,7 +78,7 @@
                                         </h:outputLink>                                        
                                     </li>                                                                                   
                                 </ul>
-                            </li> 
+                            </li>                            
                         </ul>                          
                     </div>
                 </div>

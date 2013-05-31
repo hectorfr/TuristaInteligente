@@ -1,0 +1,137 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j">
+
+    <rich:popupPanel id="verPaquetePanel" modal="true" autosized="true"
+                     onmaskclick="#{rich:component('verPaquetePanel')}.hide()">
+        <f:facet name="header">
+            <h:outputText value="Información del paquete #{requestedPaqueteById.nombrePaquete}" />
+        </f:facet>
+        <f:facet name="controls">
+            <h:outputLink value="#" onclick="#{rich:component('verPaquetePanel')}.hide();
+                    return false;">
+                <h:graphicImage value="/images/crossed.png"/>  
+            </h:outputLink>
+        </f:facet>
+        <h:form>
+            <h:panelGrid columns="4" id="panelVer" styleClass="panel-grid">
+                <h:outputLabel for="nombrePaquete" value="Nombre*:"/>
+                <h:outputText id="nombrePaquete" value="#{requestedPaqueteById.nombrePaquete}" />
+
+                <h:outputLabel for="descServicio" value="Descripción Servicios*:"/>
+                <h:inputTextarea id="descServicio" rows="5" value="#{requestedPaqueteById.descripcionServicios}" 
+                                 disabled="true" />
+
+                <h:outputLabel for="fechaInicio" value="Fecha Inicio:" />
+                <h:outputText id="fechaInicio" value="#{requestedPaqueteById.fechaInicio}">
+                    <f:convertDateTime locale="es_CR" pattern="dd/MM/yyyy"/>
+                </h:outputText>               
+
+                <h:outputLabel for="fechaFinal" value="Fecha Final:" />
+                <h:outputText id="fechaFinal" value="#{requestedPaqueteById.fechaFinal}">
+                    <f:convertDateTime locale="es_CR" pattern="dd/MM/yyyy"/>
+                </h:outputText>   
+                
+                <!--Inician valores de paquete internacional-->
+                <h:outputLabel value="Localidad*:" rendered="#{paqueteManagedBean.tipoPaquete eq I}"/>
+                <h:outputText value="#{requestedTipoPaqueteIntById.localidad}" rendered="#{paqueteManagedBean.tipoPaquete eq I}"/>
+                
+                <h:outputText value="" rendered="#{paqueteManagedBean.tipoPaquete eq I}"/>
+                <h:outputText value="" rendered="#{paqueteManagedBean.tipoPaquete eq I}"/>
+                
+                <h:outputLabel value="Tipo de Vehículo:" rendered="#{paqueteManagedBean.tipoPaquete eq I}"/>
+                <h:outputText value="#{requestedTipoPaqueteIntById.tipoVehiculo}" rendered="#{paqueteManagedBean.tipoPaquete eq I}"/>                
+
+                <h:outputLabel value="Tipo de Traslado:" rendered="#{paqueteManagedBean.tipoPaquete eq I}"/>
+                <h:outputText value="#{requestedTipoPaqueteIntById.traslado}" rendered="#{paqueteManagedBean.tipoPaquete eq I}"/>                
+
+                <h:outputLabel for="lugarSalida" value="Lugar de Salida:" rendered="#{paqueteManagedBean.tipoPaquete eq I}"/>
+                <h:outputText id="lugarSalida" value="#{requestedTipoPaqueteIntById.lugarSalida}" rendered="#{paqueteManagedBean.tipoPaquete eq I}" />
+
+                <h:outputLabel for="lugarLlegada" value="Lugar de Llegada:" rendered="#{paqueteManagedBean.tipoPaquete eq I}"/>
+                <h:outputText id="lugarLlegada" value="#{requestedTipoPaqueteIntById.lugarLlegada}" rendered="#{paqueteManagedBean.tipoPaquete eq I}" />
+
+                <h:outputLabel for="hotel" value="Hotel:" rendered="#{paqueteManagedBean.tipoPaquete eq I}"/>
+                <h:outputText id="hotel" value="#{requestedTipoPaqueteIntById.hotel}" rendered="#{paqueteManagedBean.tipoPaquete eq I}" />
+
+                <h:outputLabel for="direccion" value="Dirección:" rendered="#{paqueteManagedBean.tipoPaquete eq I}"/>
+                <h:inputTextarea id="direccion" rows="5" value="#{requestedTipoPaqueteIntById.direccion}" 
+                                 rendered="#{paqueteManagedBean.tipoPaquete eq I}" disabled="true"/>
+
+                <h:outputLabel for="observaciones" value="Observaciones:" rendered="#{paqueteManagedBean.tipoPaquete eq I}"/>
+                <h:inputTextarea id="observaciones" rows="5" value="#{requestedTipoPaqueteIntById.observaciones}" 
+                                 rendered="#{paqueteManagedBean.tipoPaquete eq I}" disabled="true"/>
+
+                <h:outputText value="" rendered="#{paqueteManagedBean.tipoPaquete eq I}"/>
+                <h:outputText value="" rendered="#{paqueteManagedBean.tipoPaquete eq I}"/>
+                <!--Fin valores de paquete internacional-->
+
+                <!--Inician valores de paquete nacional-->
+                <h:outputLabel for="hotelN" value="Hotel:" rendered="#{paqueteManagedBean.tipoPaquete eq N}"/>
+                <h:outputText id="hotelN" value="#{requestedTipoPaqueteNacById.hotel}" rendered="#{paqueteManagedBean.tipoPaquete eq N}" />
+
+                <h:outputLabel for="observacionesP" value="Observaciones:" rendered="#{paqueteManagedBean.tipoPaquete eq N}"/>
+                <h:inputTextarea id="observacionesP" rows="5" value="#{requestedTipoPaqueteNacById.observaciones}" 
+                                 rendered="#{paqueteManagedBean.tipoPaquete eq N}" disabled="true" />
+                <!--Fin valores de paquete nacional-->
+
+                <!--Inician valores de tarifa habitacion-->
+                <h:outputLabel for="tipoHabitacion" value="Tipo Habitacion*:" rendered="#{paqueteManagedBean.tipoTarifa eq H}"/>
+                <h:outputText id="tipoHabitacion" value="#{requestedTarifaHabitacionById.tipoHabitacion}" rendered="#{paqueteManagedBean.tipoTarifa eq H}" />
+
+                <h:outputLabel for="cantidad" value="Cantidad de Habitaciones*:" rendered="#{paqueteManagedBean.tipoTarifa eq H}"/>
+                <h:outputText id="cantidad" value="#{requestedTarifaHabitacionById.cantidad}" rendered="#{paqueteManagedBean.tipoTarifa eq H}" />
+
+                <h:outputLabel for="montoPersona" value="Monto por persona*:" rendered="#{paqueteManagedBean.tipoTarifa eq H}"/>
+                <h:outputText id="montoPersona" value="#{requestedTarifaHabitacionById.montoPersona}" rendered="#{paqueteManagedBean.tipoTarifa eq H}" >
+                    <f:convertNumber pattern="$#,###,##0.00" type="number"/>
+                </h:outputText>
+
+                <h:outputLabel for="montoNinio" value="Monto por niño:" rendered="#{paqueteManagedBean.tipoTarifa eq H}"/>
+                <h:outputText id="montoNinio" value="#{requestedTarifaHabitacionById.montoNinio}" rendered="#{paqueteManagedBean.tipoTarifa eq H}" >
+                    <f:convertNumber pattern="$#,###,##0.00" type="number"/>
+                </h:outputText>
+                <!--Fin valores de tarifa habitacion-->
+
+                <!--Inician valores de tarifa paquete-->
+                <h:outputLabel for="cantAdNa" value="Cant Adulto Nac:" rendered="#{paqueteManagedBean.tipoTarifa eq P}"/>
+                <h:outputText id="cantAdNa" value="#{requestedTarifaPaqueteById.cantAdultoNac}" rendered="#{paqueteManagedBean.tipoTarifa eq P}" />
+
+                <h:outputLabel for="montoAdNa" value="Monto Adulto Nac:" rendered="#{paqueteManagedBean.tipoTarifa eq P}"/>
+                <h:outputText id="montoAdNa" value="#{requestedTarifaPaqueteById.montoAdultoNac}" rendered="#{paqueteManagedBean.tipoTarifa eq P}" >
+                    <f:convertNumber pattern="$#,###,##0.00" type="number"/>
+                </h:outputText>
+
+                <h:outputLabel for="cantAdInt" value="Cant Adulto Int:" rendered="#{paqueteManagedBean.tipoTarifa eq P}"/>
+                <h:outputText id="cantAdInt" value="#{requestedTarifaPaqueteById.cantAdultoInt}" rendered="#{paqueteManagedBean.tipoTarifa eq P}" />
+
+                <h:outputLabel for="montoAdInt" value="Monto Adulto Int:" rendered="#{paqueteManagedBean.tipoTarifa eq P}"/>
+                <h:outputText id="montoAdInt" value="#{requestedTarifaPaqueteById.montoAdultoInt}" rendered="#{paqueteManagedBean.tipoTarifa eq P}" >
+                    <f:convertNumber pattern="$#,###,##0.00" type="number"/>
+                </h:outputText>
+
+                <h:outputLabel for="cantNiNa" value="Cant Niño Nac:" rendered="#{paqueteManagedBean.tipoTarifa eq P}"/>
+                <h:outputText id="cantNiNa" value="#{requestedTarifaPaqueteById.cantNinioNac}" rendered="#{paqueteManagedBean.tipoTarifa eq P}"/>
+
+                <h:outputLabel for="montoNiNa" value="Monto Niño Nac:" rendered="#{paqueteManagedBean.tipoTarifa eq P}"/>
+                <h:outputText id="montoNiNa" value="#{requestedTarifaPaqueteById.montoNinioNac}" rendered="#{paqueteManagedBean.tipoTarifa eq P}" >
+                    <f:convertNumber pattern="$#,###,##0.00" type="number"/>
+                </h:outputText>
+
+                <h:outputLabel for="cantNiInt" value="Cant Niño Int:" rendered="#{paqueteManagedBean.tipoTarifa eq P}"/>
+                <h:outputText id="cantNiInt" value="#{requestedTarifaPaqueteById.cantNinioInt}" rendered="#{paqueteManagedBean.tipoTarifa eq P}" />
+
+                <h:outputLabel for="montoNiInt" value="Monto Niño Int:" rendered="#{paqueteManagedBean.tipoTarifa eq P}"/>
+                <h:outputText id="montoNiInt" value="#{requestedTarifaPaqueteById.montoNinioInt}" rendered="#{paqueteManagedBean.tipoTarifa eq P}" >
+                    <f:convertNumber pattern="$#,###,##0.00" type="number"/>
+                </h:outputText>
+            </h:panelGrid>
+        </h:form>
+    </rich:popupPanel>
+</ui:composition>
+

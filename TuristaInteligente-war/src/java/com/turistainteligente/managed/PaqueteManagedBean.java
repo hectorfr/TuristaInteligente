@@ -5,10 +5,10 @@
 package com.turistainteligente.managed;
 
 import com.turistainteligente.facade.PaqueteFacadeLocal;
-import com.turistainteligente.facade.TarifaHabitacionFacade;
-import com.turistainteligente.facade.TarifaPaqueteFacade;
-import com.turistainteligente.facade.TipoPaqueteIntFacade;
-import com.turistainteligente.facade.TipoPaqueteNacFacade;
+import com.turistainteligente.facade.TarifaHabitacionFacadeLocal;
+import com.turistainteligente.facade.TarifaPaqueteFacadeLocal;
+import com.turistainteligente.facade.TipoPaqueteIntFacadeLocal;
+import com.turistainteligente.facade.TipoPaqueteNacFacadeLocal;
 import com.turistainteligente.model.Paquete;
 import com.turistainteligente.model.TarifaHabitacion;
 import com.turistainteligente.model.TarifaPaquete;
@@ -45,13 +45,13 @@ public class PaqueteManagedBean {
     @EJB
     private PaqueteFacadeLocal paqueteFacadeLocal;
     @EJB
-    private TipoPaqueteIntFacade tipoPaqueteIntFacadeLocal;
+    private TipoPaqueteIntFacadeLocal tipoPaqueteIntFacadeLocal;
     @EJB
-    private TipoPaqueteNacFacade tipoPaqueteNacFacadeLocal;
+    private TipoPaqueteNacFacadeLocal tipoPaqueteNacFacadeLocal;
     @EJB
-    private TarifaHabitacionFacade tarifaHabitacionFacadeLocal;
+    private TarifaHabitacionFacadeLocal tarifaHabitacionFacadeLocal;
     @EJB
-    private TarifaPaqueteFacade tarifaPaqueteFacadeLocal;
+    private TarifaPaqueteFacadeLocal tarifaPaqueteFacadeLocal;
     private Paquete paquete;
     private Paquete requestedPaqueteById;
     private TarifaPaquete tarifaPaquete;
@@ -62,8 +62,10 @@ public class PaqueteManagedBean {
     private TipoPaqueteInt requestedTipoPaqueteIntById;
     private TipoPaqueteNac tipoPaqueteNac;
     private TipoPaqueteNac requestedTipoPaqueteNacById;
-    private char tipoPaquete;
-    private char tipoTarifa;
+    private String tipoPaquete;
+    private String tipoTarifa;
+    private char paquete;
+    private char tarifa;
     static final Logger log = Logger.getLogger(PaqueteManagedBean.class.getName());
     @Inject
     @LoggedIn
@@ -72,7 +74,7 @@ public class PaqueteManagedBean {
     public String create() {
         try {
 //            se crea primero el tipo de tarifa
-            if(getTipoTarifa() == Util.TipoTarifa.H.toString().charAt(0)) {
+            if(getTipoTarifa().equals(Util.TipoTarifa.H.toString())) {
                 tarifaHabitacion.setUsrRegistro(currentUser.getEmail());
                 tarifaHabitacion.setFecRegistro(new Date());
                 tarifaHabitacionFacadeLocal.create(tarifaHabitacion);                
@@ -82,12 +84,12 @@ public class PaqueteManagedBean {
                 tarifaPaqueteFacadeLocal.create(tarifaPaquete);  
             }
 //            se crea el tipo de paquete y se añade el tipo de tarifa
-            if(getTipoPaquete() == Util.TipoPaquete.I.toString().charAt(0)) {                
-                if(getTipoTarifa() == Util.TipoTarifa.H.toString().charAt(0)) {
-                    tipoPaqueteInt.setIndTipoTarifa(Util.TipoTarifa.H.toString().charAt(0));
+            if(getTipoPaquete().equals(Util.TipoPaquete.I.toString())) {                
+                if(getTipoTarifa().equals(Util.TipoTarifa.H.toString())) {
+                    tipoPaqueteInt.setTipoTarifa(Util.TipoTarifa.H.toString());
                     tipoPaqueteInt.setIdTarifaHabitacion(tarifaHabitacion);
                 } else {
-                    tipoPaqueteInt.setIndTipoTarifa(Util.TipoTarifa.P.toString().charAt(0));
+                    tipoPaqueteInt.setTipoTarifa(Util.TipoTarifa.P.toString());
                     tipoPaqueteInt.setIdTarifaPaquete(tarifaPaquete);
                 }
                 tipoPaqueteInt.setUsrRegistro(currentUser.getEmail());
@@ -95,11 +97,11 @@ public class PaqueteManagedBean {
                 tipoPaqueteIntFacadeLocal.create(tipoPaqueteInt);
                 paquete.setIdTipoPaqueteInt(tipoPaqueteInt);
             } else {
-                if(getTipoTarifa() == Util.TipoTarifa.H.toString().charAt(0)) {
-                    tipoPaqueteNac.setIndTipoTarifa(Util.TipoTarifa.H.toString().charAt(0));
+                if(getTipoTarifa().equals(Util.TipoTarifa.H.toString())) {
+                    tipoPaqueteNac.setTipoTarifa(Util.TipoTarifa.H.toString());
                     tipoPaqueteNac.setIdTarifaHabitacion(tarifaHabitacion);
                 } else {
-                    tipoPaqueteNac.setIndTipoTarifa(Util.TipoTarifa.P.toString().charAt(0));
+                    tipoPaqueteNac.setTipoTarifa(Util.TipoTarifa.P.toString());
                     tipoPaqueteNac.setIdTarifaPaquete(tarifaPaquete);
                 }
                 tipoPaqueteNac.setUsrRegistro(currentUser.getEmail());
@@ -121,31 +123,79 @@ public class PaqueteManagedBean {
             return null;
         }
     }
-
-    public String delete() {
+    
+    
+    public String update() {
         try {
-            paqueteFacadeLocal.remove(getRequestedPaqueteById());
-            Util.addSuccessMessage("Paquete eliminado con éxito");
-            log.log(Level.INFO, "Paquete {0} eliminado", getRequestedPaqueteById().getIdPaquete());
-            return "./listado.jsf?faces-redirect=true";
+            //            se crea primero el tipo de tarifa
+            if(getTipoTarifa().equals(Util.TipoTarifa.H.toString())) {
+                getRequestedTarifaHabitacionById().setUsrModificacion(currentUser.getEmail());
+                getRequestedTarifaHabitacionById().setFecModificacion(new Date());
+                tarifaHabitacionFacadeLocal.edit(getRequestedTarifaHabitacionById());
+            } else {
+                getRequestedTarifaPaqueteById().setUsrModificacion(currentUser.getEmail());
+                getRequestedTarifaPaqueteById().setFecModificacion(new Date());
+                tarifaPaqueteFacadeLocal.edit(getRequestedTarifaPaqueteById());  
+            }
+//            se crea el tipo de paquete y se añade el tipo de tarifa
+            if(getTipoPaquete().equals(Util.TipoPaquete.I.toString())) {                
+                if(getTipoTarifa().equals(Util.TipoTarifa.H.toString())) {
+                    getRequestedTipoPaqueteIntById().setTipoTarifa(Util.TipoTarifa.H.toString());
+                    getRequestedTipoPaqueteIntById().setIdTarifaHabitacion(getRequestedTarifaHabitacionById());
+                } else {
+                    getRequestedTipoPaqueteIntById().setTipoTarifa(Util.TipoTarifa.P.toString());
+                    getRequestedTipoPaqueteIntById().setIdTarifaPaquete(getRequestedTarifaPaqueteById());
+                }
+                getRequestedTipoPaqueteIntById().setUsrModificacion(currentUser.getEmail());
+                getRequestedTipoPaqueteIntById().setFecModificacion(new Date());
+                tipoPaqueteIntFacadeLocal.edit(getRequestedTipoPaqueteIntById());
+                getRequestedPaqueteById().setIdTipoPaqueteInt(getRequestedTipoPaqueteIntById());
+            } else {
+                if(getTipoTarifa().equals(Util.TipoTarifa.H.toString())) {
+                    getRequestedTipoPaqueteNacById().setTipoTarifa(Util.TipoTarifa.H.toString());
+                    getRequestedTipoPaqueteNacById().setIdTarifaHabitacion(getRequestedTarifaHabitacionById());
+                } else {
+                    getRequestedTipoPaqueteNacById().setTipoTarifa(Util.TipoTarifa.P.toString());
+                    getRequestedTipoPaqueteNacById().setIdTarifaPaquete(getRequestedTarifaPaqueteById());
+                }
+                getRequestedTipoPaqueteNacById().setUsrModificacion(currentUser.getEmail());
+                getRequestedTipoPaqueteNacById().setFecModificacion(new Date());
+                tipoPaqueteNacFacadeLocal.edit(getRequestedTipoPaqueteNacById());
+                getRequestedPaqueteById().setIdTipoPaqueteNac(getRequestedTipoPaqueteNacById());
+            }
+            getRequestedPaqueteById().setUsrModificacion(currentUser.getEmail());
+            getRequestedPaqueteById().setFecModificacion(new Date());
+            paqueteFacadeLocal.edit(getRequestedPaqueteById());
+            log.log(Level.INFO, "Paquete {0} modificado con exito", getRequestedPaqueteById().getIdPaquete());
+            Util.addSuccessMessage("Paquete modificado con éxito");
+            return "./listado.jsf";
         } catch (Exception e) {
-            log.log(Level.SEVERE, "Error al eliminar el paquete{0}", e.getMessage());
-            Util.addErrorMessage("Error al eliminar el paquete");
+            log.log(Level.SEVERE, "Error al modificar el paquete {0}", e.getMessage());
+            Util.addErrorMessage("Error al modificar el paquete");
             return null;
         }
     }
 
-    public String update() {
+    public String delete() {
         try {
-            paquete.setUsrRegistro(currentUser.getEmail());
-            paquete.setFecRegistro(new Date());
-            paqueteFacadeLocal.edit(getRequestedPaqueteById());
-            log.log(Level.INFO, "Paquete {0} modificado con exito", getRequestedPaqueteById().getIdPaquete());
-            Util.addSuccessMessage("Paquete modificado con éxito");
-            return "./listado.jsf?faces-redirect=true";
+            if(getRequestedTarifaHabitacionById() != null) {
+                tarifaHabitacionFacadeLocal.remove(getRequestedTarifaHabitacionById());
+            } else if(getRequestedTarifaPaqueteById() != null) {
+                tarifaPaqueteFacadeLocal.remove(getRequestedTarifaPaqueteById());
+            }
+            
+            if(getRequestedTipoPaqueteIntById() != null) {
+                tipoPaqueteIntFacadeLocal.remove(getRequestedTipoPaqueteIntById());
+            } else if(getRequestedTipoPaqueteNacById() != null) {
+                tipoPaqueteNacFacadeLocal.remove(getRequestedTipoPaqueteNacById());
+            }
+            paqueteFacadeLocal.remove(getRequestedPaqueteById());
+            Util.addSuccessMessage("Paquete eliminado con éxito");
+            log.log(Level.INFO, "Paquete {0} eliminado", getRequestedPaqueteById().getIdPaquete());
+            return "./listado.jsf";
         } catch (Exception e) {
-            log.log(Level.SEVERE, "Error al modificar el paquete {0}", e.getMessage());
-            Util.addErrorMessage("Error al modificar el paquete");
+            log.log(Level.SEVERE, "Error al eliminar el paquete{0}", e.getMessage());
+            Util.addErrorMessage("Error al eliminar el paquete");
             return null;
         }
     }
@@ -313,28 +363,34 @@ public class PaqueteManagedBean {
     /**
      * @return the tipoPaquete
      */
-    public char getTipoPaquete() {
+    public String getTipoPaquete() {
+        if(requestedTipoPaqueteIntById != null || requestedTipoPaqueteNacById != null) {
+            tipoPaquete = requestedTipoPaqueteIntById != null ? Util.TipoPaquete.I.toString() : Util.TipoPaquete.N.toString();
+        }
         return tipoPaquete;
     }
 
     /**
      * @param tipoPaquete the tipoPaquete to set
      */
-    public void setTipoPaquete(char tipoPaquete) {
+    public void setTipoPaquete(String tipoPaquete) {
         this.tipoPaquete = tipoPaquete;
     }
 
     /**
      * @return the tipoTarifa
      */
-    public char getTipoTarifa() {
+    public String getTipoTarifa() {
+        if(requestedTarifaHabitacionById != null || requestedTarifaPaqueteById != null) {
+            tipoTarifa = requestedTarifaHabitacionById != null ? Util.TipoTarifa.H.toString() : Util.TipoTarifa.P.toString();
+        }
         return tipoTarifa;
     }
 
     /**
      * @param tipoTarifa the tipoTarifa to set
      */
-    public void setTipoTarifa(char tipoTarifa) {
+    public void setTipoTarifa(String tipoTarifa) {
         this.tipoTarifa = tipoTarifa;
     }
 }

@@ -21,6 +21,11 @@ import javax.servlet.http.HttpServletResponse;
  */
 public final class Util {
 
+    public static final char INTERNACIONAL = 'I';
+    public static final char NACIONAL = 'N';
+    public static final char HABITACION = 'H';
+    public static final char PERSONA = 'P';
+    
     public enum TipoUsuario {
 
         A, N;
@@ -29,7 +34,7 @@ public final class Util {
         public String toString() {
             switch (this) {
                 case A:
-                    return "Adeministrador";
+                    return "Administrador";
                 case N:
                     return "Normal";
                 default:
@@ -97,9 +102,23 @@ public final class Util {
         public String toString() {
              switch (this) {                
                 case C:
-                    return "Centroamérica";
+                    return "Compartido";
                 case I:
                     return "Individual";                
+                default:
+                    return "";
+            }
+        }
+    }
+    
+    public enum TipoVehiculo {
+        C;
+        
+        @Override
+        public String toString() {
+             switch (this) {                
+                case C:
+                    return "Colectivo";                            
                 default:
                     return "";
             }
@@ -151,6 +170,16 @@ public final class Util {
     public List<SelectItem> getTipoTrasladoValues() {
         List<SelectItem> items = new ArrayList<SelectItem>();
         for (Util.TipoTraslado t : Util.TipoTraslado.values()) {
+            items.add(new SelectItem(t, t.toString()));
+        }
+        return items;
+    }
+    
+    @Named
+    @Produces
+    public List<SelectItem> getTipoVehiculoValues() {
+        List<SelectItem> items = new ArrayList<SelectItem>();
+        for (Util.TipoVehiculo t : Util.TipoVehiculo.values()) {
             items.add(new SelectItem(t, t.toString()));
         }
         return items;

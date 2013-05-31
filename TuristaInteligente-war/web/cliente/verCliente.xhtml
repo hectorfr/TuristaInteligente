@@ -34,9 +34,25 @@
 
                 <h:outputLabel for="cedula" value="Cédula:"/>
                 <h:outputText id="cedula" value="#{requestedClienteById.cedula}" />
-
+                
                 <h:outputLabel for="empresa" value="Empresa:"/>
-                <h:outputText id="empresa" value="#{requestedClienteById.empresa}" />                                
+                <h:outputText id="empresa" value="#{requestedClienteById.empresa}" />
+
+                <h:outputLabel for="usrRegistro" value="Usuario Registro:"/>
+                <h:outputText id="usrRegistro" value="#{requestedClienteById.usrRegistro}" />
+                
+                <h:outputLabel for="fecRegistro" value="Fecha Registro:"/>
+                <h:outputText id="fecRegistro" value="#{requestedClienteById.fecRegistro}" >
+                    <f:convertDateTime locale="es_CR" pattern="dd/MM/yyyy" />
+                </h:outputText>
+                
+                <h:outputLabel for="usrMod" value="Usuario Modificación:"/>
+                <h:outputText id="usrMod" value="#{requestedClienteById.usrModificacion}" />
+                
+                <h:outputLabel for="fecMod" value="Ultima Modificación:"/>
+                <h:outputText id="fecMod" value="#{requestedClienteById.fecModificacion}" >
+                    <f:convertDateTime locale="es_CR" pattern="dd/MM/yyyy" />
+                </h:outputText>                             
             </h:panelGrid>
         </h:form>
     </rich:popupPanel>

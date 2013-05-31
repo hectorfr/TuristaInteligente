@@ -43,8 +43,8 @@ public class TipoPaqueteNac implements Serializable {
     private Integer idTipoPaqueteNac;
    @Basic(optional = false)
     @NotNull
-    @Column(name = "IND_TIPO_TARIFA")
-    private char indTipoTarifa;   
+    @Column(name = "TIPO_TARIFA")
+    private String tipoTarifa;   
     @Size(max = 1000)
     @Column(name = "DESCRIPCION_SERVICIOS")
     private String descripcionServicios;
@@ -86,9 +86,9 @@ public class TipoPaqueteNac implements Serializable {
         this.idTipoPaqueteNac = idTipoPaqueteNac;
     }
 
-    public TipoPaqueteNac(Integer idTipoPaqueteNac, char indTipoTarifa, String usrRegistro, Date fecRegistro) {
+    public TipoPaqueteNac(Integer idTipoPaqueteNac, String tipoTarifa, String usrRegistro, Date fecRegistro) {
         this.idTipoPaqueteNac = idTipoPaqueteNac;
-        this.indTipoTarifa = indTipoTarifa;
+        this.tipoTarifa = tipoTarifa;
         this.usrRegistro = usrRegistro;
         this.fecRegistro = fecRegistro;
     }
@@ -208,17 +208,17 @@ public class TipoPaqueteNac implements Serializable {
     }
 
     /**
-     * @return the indTipoTarifa
+     * @return the tipoTarifa
      */
-    public char getIndTipoTarifa() {
-        return indTipoTarifa;
+    public String getTipoTarifa() {
+        return tipoTarifa;
     }
 
     /**
-     * @param indTipoTarifa the indTipoTarifa to set
+     * @param tipoTarifa the tipoTarifa to set
      */
-    public void setIndTipoTarifa(char indTipoTarifa) {
-        this.indTipoTarifa = indTipoTarifa;
+    public void setTipoTarifa(String tipoTarifa) {
+        this.tipoTarifa = tipoTarifa;
     }
     
 }

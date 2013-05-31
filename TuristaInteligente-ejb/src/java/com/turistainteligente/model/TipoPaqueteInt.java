@@ -4,6 +4,7 @@
  */
 package com.turistainteligente.model;
 
+import com.turistainteligente.util.Util;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -43,12 +44,12 @@ public class TipoPaqueteInt implements Serializable {
     private Integer idTipoPaqueteInt;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "IND_LOCALIDAD")
-    private char indLocalidad;
-    @Column(name = "INT_TIPO_VEHICULO")
-    private Character intTipoVehiculo;
-    @Column(name = "IND_TIPO_TRASLADO")
-    private Character indTipoTraslado;
+    @Column(name = "LOCALIDAD")
+    private String localidad;
+    @Column(name = "TIPO_VEHICULO")
+    private String tipoVehiculo;
+    @Column(name = "TIPO_TRASLADO")
+    private String TipoTraslado;
     @Size(max = 100)
     @Column(name = "LUGAR_SALIDA")
     private String lugarSalida;
@@ -90,8 +91,8 @@ public class TipoPaqueteInt implements Serializable {
     private TarifaHabitacion idTarifaHabitacion;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "IND_TIPO_TARIFA")
-    private char indTipoTarifa;
+    @Column(name = "TIPO_TARIFA")
+    private String tipoTarifa;
 
     public TipoPaqueteInt() {
     }
@@ -100,9 +101,9 @@ public class TipoPaqueteInt implements Serializable {
         this.idTipoPaqueteInt = idTipoPaqueteInt;
     }
 
-    public TipoPaqueteInt(Integer idTipoPaqueteInt, char indLocalidad, String usrRegistro, Date fecRegistro) {
+    public TipoPaqueteInt(Integer idTipoPaqueteInt, String localidad, String usrRegistro, Date fecRegistro) {
         this.idTipoPaqueteInt = idTipoPaqueteInt;
-        this.indLocalidad = indLocalidad;
+        this.localidad = localidad;
         this.usrRegistro = usrRegistro;
         this.fecRegistro = fecRegistro;
     }
@@ -113,31 +114,7 @@ public class TipoPaqueteInt implements Serializable {
 
     public void setIdTipoPaqueteInt(Integer idTipoPaqueteInt) {
         this.idTipoPaqueteInt = idTipoPaqueteInt;
-    }
-
-    public char getIndLocalidad() {
-        return indLocalidad;
-    }
-
-    public void setIndLocalidad(char indLocalidad) {
-        this.indLocalidad = indLocalidad;
-    }
-
-    public Character getIntTipoVehiculo() {
-        return intTipoVehiculo;
-    }
-
-    public void setIntTipoVehiculo(Character intTipoVehiculo) {
-        this.intTipoVehiculo = intTipoVehiculo;
-    }
-
-    public Character getIndTipoTraslado() {
-        return indTipoTraslado;
-    }
-
-    public void setIndTipoTraslado(Character indTipoTraslado) {
-        this.indTipoTraslado = indTipoTraslado;
-    }
+    }   
 
     public String getLugarSalida() {
         return lugarSalida;
@@ -259,20 +236,61 @@ public class TipoPaqueteInt implements Serializable {
     @Override
     public String toString() {
         return "com.turistainteligente.model.TipoPaqueteInt[ idTipoPaqueteInt=" + idTipoPaqueteInt + " ]";
+    }           
+
+    /**
+     * @return the localidad
+     */
+    public String getLocalidad() {
+        return localidad;
     }
 
     /**
-     * @return the indTipoTarifa
+     * @param localidad the localidad to set
      */
-    public char getIndTipoTarifa() {
-        return indTipoTarifa;
+    public void setLocalidad(String localidad) {
+        this.localidad = localidad;
     }
 
     /**
-     * @param indTipoTarifa the indTipoTarifa to set
+     * @return the tipoVehiculo
      */
-    public void setIndTipoTarifa(char indTipoTarifa) {
-        this.indTipoTarifa = indTipoTarifa;
+    public String getTipoVehiculo() {
+        return tipoVehiculo;
     }
-    
+
+    /**
+     * @param tipoVehiculo the tipoVehiculo to set
+     */
+    public void setTipoVehiculo(String tipoVehiculo) {
+        this.tipoVehiculo = tipoVehiculo;
+    }
+
+    /**
+     * @return the TipoTraslado
+     */
+    public String getTipoTraslado() {
+        return TipoTraslado;
+    }
+
+    /**
+     * @param TipoTraslado the TipoTraslado to set
+     */
+    public void setTipoTraslado(String TipoTraslado) {
+        this.TipoTraslado = TipoTraslado;
+    }
+
+    /**
+     * @return the tipoTarifa
+     */
+    public String getTipoTarifa() {
+        return tipoTarifa;
+    }
+
+    /**
+     * @param tipoTarifa the tipoTarifa to set
+     */
+    public void setTipoTarifa(String tipoTarifa) {
+        this.tipoTarifa = tipoTarifa;
+    }
 }

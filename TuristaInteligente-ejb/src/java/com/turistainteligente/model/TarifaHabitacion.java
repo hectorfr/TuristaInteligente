@@ -72,7 +72,7 @@ public class TarifaHabitacion implements Serializable {
     @NotNull
     @Column(name = "MONTO_PERSONA")
     private BigDecimal montoPersona;
-    @Column(name = "MONTO_PERSONA")
+    @Column(name = "MONTO_NINIO")
     private BigDecimal montoNinio;
 
     public TarifaHabitacion() {
