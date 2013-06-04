@@ -16,22 +16,17 @@
         <h:form>
             <rich:messages id="msgs"/> 
             <br />
-             <h:outputLink value="#{request.contextPath}/paquete/crearPaquete.jsf"  styleClass="btn primary" >
+            <h:outputLink value="#{request.contextPath}/paquete/crearPaquete.jsf"  styleClass="btn primary" >
                 <h:outputText value="Nuevo Paquete"/>                              
             </h:outputLink>                
             <br /><br />
             <rich:extendedDataTable  id="list" value="#{paquetesPaged}" var="_paquete"
                                      rows="10" noDataLabel="No existen paquetes">
 
-                <rich:column filterValue="#{paqueteFilteringBean.nombreFilter}" width="300px"
-                             filterExpression="#{fn:containsIgnoreCase(_paquete.nombrePaquete,paqueteFilteringBean.nombreFilter)}"
-                             filterType="custom">
+                <rich:column>
                     <f:facet name="header">
                         <h:panelGroup>
                             <h:outputText value="Nombre" />
-                            <h:inputText value="#{paqueteFilteringBean.nombreFilter}" label="Nombre Filter" style="width: 250px" onkeypress="introKey();">
-                                <a4j:ajax event="blur" render="list" execute="@this"/>
-                            </h:inputText>
                         </h:panelGroup>
                     </f:facet>  
                     <a4j:commandLink value="#{_paquete.nombrePaquete}" onclick="#{rich:component('verPaquetePanel')}.show();" 
@@ -46,17 +41,17 @@
                             <h:outputText value="Tipo" />                            
                         </h:panelGroup>
                     </f:facet>                             
-                    <h:outputText value="Nacional" rendered="#{!empty paquete.idTipoPaqueteNac}"/>
-                    <h:outputText value="Internacional" rendered="#{!empty paquete.idTipoPaqueteInt}"/>
+                    <h:outputText value="Nacional" rendered="#{!empty _paquete.idTipoPaqueteNac}"/>
+                    <h:outputText value="Internacional" rendered="#{!empty _paquete.idTipoPaqueteInt}"/>
                 </rich:column>                
 
                 <rich:column styleClass="rght"  width="350px" >                          
                     <f:facet name="header">
                         <h:outputText value="Acciones" />
                     </f:facet>
-                    <a4j:commandLink styleClass="btn small primary"                                             
-                                     oncomplete="#{rich:component('modificarPaquetePanel')}.show()"
-                                     render="panelModificar">
+                    <a4j:commandLink id="modificar"
+                                     styleClass="btn small primary"                                             
+                                     action="#{paqueteManagedBean.redirectModificar}">
                         <span class="modificar"></span>
                         <rich:tooltip value="Modificar" followMouse="false" />
                         <f:param name="idPaquete" value="#{_paquete.idPaquete}"/>
@@ -74,8 +69,7 @@
                     <rich:dataScroller  for="list" maxPages="10" renderIfSinglePage="false"/>                             
                 </f:facet>
             </rich:extendedDataTable>   
-        </h:form>
-        <ui:include src="modificarPaquete.xhtml"/>   
+        </h:form>        
         <ui:include src="eliminarPaquete.xhtml"/>
         <ui:include src="verPaquete.xhtml"/>    
     </ui:define>

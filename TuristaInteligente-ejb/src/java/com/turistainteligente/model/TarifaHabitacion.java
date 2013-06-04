@@ -5,13 +5,14 @@
 package com.turistainteligente.model;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -36,8 +37,8 @@ import javax.xml.bind.annotation.XmlTransient;
 public class TarifaHabitacion implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "ID_TARIFA_HABITACION")
     private Integer idTarifaHabitacion;
     @Basic(optional = false)
@@ -65,15 +66,16 @@ public class TarifaHabitacion implements Serializable {
     @Column(name = "FEC_MODIFICACION")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fecModificacion;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "MONTO_PERSONA")
+    private int montoPersona;
+    @Column(name = "MONTO_NINIO")
+    private Integer montoNinio;
     @OneToMany(mappedBy = "idTarifaHabitacion", fetch = FetchType.LAZY)
     private List<TipoPaqueteNac> tipoPaqueteNacList;
     @OneToMany(mappedBy = "idTarifaHabitacion", fetch = FetchType.LAZY)
     private List<TipoPaqueteInt> tipoPaqueteIntList;
-    @NotNull
-    @Column(name = "MONTO_PERSONA")
-    private BigDecimal montoPersona;
-    @Column(name = "MONTO_NINIO")
-    private BigDecimal montoNinio;
 
     public TarifaHabitacion() {
     }
@@ -82,12 +84,13 @@ public class TarifaHabitacion implements Serializable {
         this.idTarifaHabitacion = idTarifaHabitacion;
     }
 
-    public TarifaHabitacion(Integer idTarifaHabitacion, String tipoHabitacion, short cantidad, String usrRegistro, Date fecRegistro) {
+    public TarifaHabitacion(Integer idTarifaHabitacion, String tipoHabitacion, short cantidad, String usrRegistro, Date fecRegistro, int montoPersona) {
         this.idTarifaHabitacion = idTarifaHabitacion;
         this.tipoHabitacion = tipoHabitacion;
         this.cantidad = cantidad;
         this.usrRegistro = usrRegistro;
         this.fecRegistro = fecRegistro;
+        this.montoPersona = montoPersona;
     }
 
     public Integer getIdTarifaHabitacion() {
@@ -146,6 +149,22 @@ public class TarifaHabitacion implements Serializable {
         this.fecModificacion = fecModificacion;
     }
 
+    public int getMontoPersona() {
+        return montoPersona;
+    }
+
+    public void setMontoPersona(int montoPersona) {
+        this.montoPersona = montoPersona;
+    }
+
+    public Integer getMontoNinio() {
+        return montoNinio;
+    }
+
+    public void setMontoNinio(Integer montoNinio) {
+        this.montoNinio = montoNinio;
+    }
+
     @XmlTransient
     public List<TipoPaqueteNac> getTipoPaqueteNacList() {
         return tipoPaqueteNacList;
@@ -187,34 +206,6 @@ public class TarifaHabitacion implements Serializable {
     @Override
     public String toString() {
         return "com.turistainteligente.model.TarifaHabitacion[ idTarifaHabitacion=" + idTarifaHabitacion + " ]";
-    }
-
-    /**
-     * @return the montoPersona
-     */
-    public BigDecimal getMontoPersona() {
-        return montoPersona;
-    }
-
-    /**
-     * @param montoPersona the montoPersona to set
-     */
-    public void setMontoPersona(BigDecimal montoPersona) {
-        this.montoPersona = montoPersona;
-    }
-
-    /**
-     * @return the montoNinio
-     */
-    public BigDecimal getMontoNinio() {
-        return montoNinio;
-    }
-
-    /**
-     * @param montoNinio the montoNinio to set
-     */
-    public void setMontoNinio(BigDecimal montoNinio) {
-        this.montoNinio = montoNinio;
     }
     
 }

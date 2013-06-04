@@ -11,6 +11,8 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -37,8 +39,8 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Paquete implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "ID_PAQUETE")
     private Integer idPaquete;
     @Basic(optional = false)
@@ -71,12 +73,12 @@ public class Paquete implements Serializable {
     @Column(name = "FEC_MODIFICACION")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fecModificacion;
-    @JoinColumn(name = "ID_TIPO_PAQUETE_NAC", referencedColumnName = "ID_TIPO_PAQUETE_NAC")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private TipoPaqueteNac idTipoPaqueteNac;
     @JoinColumn(name = "ID_TIPO_PAQUETE_INT", referencedColumnName = "ID_TIPO_PAQUETE_INT")
     @ManyToOne(fetch = FetchType.LAZY)
     private TipoPaqueteInt idTipoPaqueteInt;
+    @JoinColumn(name = "ID_TIPO_PAQUETE_NAC", referencedColumnName = "ID_TIPO_PAQUETE_NAC")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private TipoPaqueteNac idTipoPaqueteNac;
     @OneToMany(mappedBy = "idPaquete", fetch = FetchType.LAZY)
     private List<Reservacion> reservacionList;
 
@@ -166,20 +168,20 @@ public class Paquete implements Serializable {
         this.fecModificacion = fecModificacion;
     }
 
-    public TipoPaqueteNac getIdTipoPaqueteNac() {
-        return idTipoPaqueteNac;
-    }
-
-    public void setIdTipoPaqueteNac(TipoPaqueteNac idTipoPaqueteNac) {
-        this.idTipoPaqueteNac = idTipoPaqueteNac;
-    }
-
     public TipoPaqueteInt getIdTipoPaqueteInt() {
         return idTipoPaqueteInt;
     }
 
     public void setIdTipoPaqueteInt(TipoPaqueteInt idTipoPaqueteInt) {
         this.idTipoPaqueteInt = idTipoPaqueteInt;
+    }
+
+    public TipoPaqueteNac getIdTipoPaqueteNac() {
+        return idTipoPaqueteNac;
+    }
+
+    public void setIdTipoPaqueteNac(TipoPaqueteNac idTipoPaqueteNac) {
+        this.idTipoPaqueteNac = idTipoPaqueteNac;
     }
 
     @XmlTransient

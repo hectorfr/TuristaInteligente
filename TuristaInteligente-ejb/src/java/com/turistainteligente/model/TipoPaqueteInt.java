@@ -4,7 +4,6 @@
  */
 package com.turistainteligente.model;
 
-import com.turistainteligente.util.Util;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -12,6 +11,8 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -38,18 +39,26 @@ import javax.xml.bind.annotation.XmlTransient;
 public class TipoPaqueteInt implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "ID_TIPO_PAQUETE_INT")
     private Integer idTipoPaqueteInt;
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 25)
     @Column(name = "LOCALIDAD")
     private String localidad;
+    @Size(max = 25)
     @Column(name = "TIPO_VEHICULO")
     private String tipoVehiculo;
+    @Size(max = 25)
     @Column(name = "TIPO_TRASLADO")
-    private String TipoTraslado;
+    private String tipoTraslado;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 25)
+    @Column(name = "TIPO_TARIFA")
+    private String tipoTarifa;
     @Size(max = 100)
     @Column(name = "LUGAR_SALIDA")
     private String lugarSalida;
@@ -89,10 +98,6 @@ public class TipoPaqueteInt implements Serializable {
     @JoinColumn(name = "ID_TARIFA_HABITACION", referencedColumnName = "ID_TARIFA_HABITACION")
     @ManyToOne(fetch = FetchType.LAZY)
     private TarifaHabitacion idTarifaHabitacion;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "TIPO_TARIFA")
-    private String tipoTarifa;
 
     public TipoPaqueteInt() {
     }
@@ -101,9 +106,10 @@ public class TipoPaqueteInt implements Serializable {
         this.idTipoPaqueteInt = idTipoPaqueteInt;
     }
 
-    public TipoPaqueteInt(Integer idTipoPaqueteInt, String localidad, String usrRegistro, Date fecRegistro) {
+    public TipoPaqueteInt(Integer idTipoPaqueteInt, String localidad, String tipoTarifa, String usrRegistro, Date fecRegistro) {
         this.idTipoPaqueteInt = idTipoPaqueteInt;
         this.localidad = localidad;
+        this.tipoTarifa = tipoTarifa;
         this.usrRegistro = usrRegistro;
         this.fecRegistro = fecRegistro;
     }
@@ -114,7 +120,39 @@ public class TipoPaqueteInt implements Serializable {
 
     public void setIdTipoPaqueteInt(Integer idTipoPaqueteInt) {
         this.idTipoPaqueteInt = idTipoPaqueteInt;
-    }   
+    }
+
+    public String getLocalidad() {
+        return localidad;
+    }
+
+    public void setLocalidad(String localidad) {
+        this.localidad = localidad;
+    }
+
+    public String getTipoVehiculo() {
+        return tipoVehiculo;
+    }
+
+    public void setTipoVehiculo(String tipoVehiculo) {
+        this.tipoVehiculo = tipoVehiculo;
+    }
+
+    public String getTipoTraslado() {
+        return tipoTraslado;
+    }
+
+    public void setTipoTraslado(String tipoTraslado) {
+        this.tipoTraslado = tipoTraslado;
+    }
+
+    public String getTipoTarifa() {
+        return tipoTarifa;
+    }
+
+    public void setTipoTarifa(String tipoTarifa) {
+        this.tipoTarifa = tipoTarifa;
+    }
 
     public String getLugarSalida() {
         return lugarSalida;
@@ -236,61 +274,6 @@ public class TipoPaqueteInt implements Serializable {
     @Override
     public String toString() {
         return "com.turistainteligente.model.TipoPaqueteInt[ idTipoPaqueteInt=" + idTipoPaqueteInt + " ]";
-    }           
-
-    /**
-     * @return the localidad
-     */
-    public String getLocalidad() {
-        return localidad;
     }
-
-    /**
-     * @param localidad the localidad to set
-     */
-    public void setLocalidad(String localidad) {
-        this.localidad = localidad;
-    }
-
-    /**
-     * @return the tipoVehiculo
-     */
-    public String getTipoVehiculo() {
-        return tipoVehiculo;
-    }
-
-    /**
-     * @param tipoVehiculo the tipoVehiculo to set
-     */
-    public void setTipoVehiculo(String tipoVehiculo) {
-        this.tipoVehiculo = tipoVehiculo;
-    }
-
-    /**
-     * @return the TipoTraslado
-     */
-    public String getTipoTraslado() {
-        return TipoTraslado;
-    }
-
-    /**
-     * @param TipoTraslado the TipoTraslado to set
-     */
-    public void setTipoTraslado(String TipoTraslado) {
-        this.TipoTraslado = TipoTraslado;
-    }
-
-    /**
-     * @return the tipoTarifa
-     */
-    public String getTipoTarifa() {
-        return tipoTarifa;
-    }
-
-    /**
-     * @param tipoTarifa the tipoTarifa to set
-     */
-    public void setTipoTarifa(String tipoTarifa) {
-        this.tipoTarifa = tipoTarifa;
-    }
+    
 }

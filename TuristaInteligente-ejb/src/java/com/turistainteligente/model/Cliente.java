@@ -11,6 +11,8 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -21,7 +23,6 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -35,8 +36,8 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Cliente implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "ID_CLIENTE")
     private Integer idCliente;
     @Basic(optional = false)
@@ -88,9 +89,9 @@ public class Cliente implements Serializable {
     @Column(name = "FEC_MODIFICACION")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fecModificacion;
-    @OneToMany(mappedBy = "idCliente", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "idCliente", fetch = FetchType.LAZY)      
     private List<Reservacion> reservacionList;
-
+    
     public Cliente() {
     }
 
@@ -212,15 +213,6 @@ public class Cliente implements Serializable {
         this.fecModificacion = fecModificacion;
     }
 
-    @XmlTransient
-    public List<Reservacion> getReservacionList() {
-        return reservacionList;
-    }
-
-    public void setReservacionList(List<Reservacion> reservacionList) {
-        this.reservacionList = reservacionList;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -244,6 +236,20 @@ public class Cliente implements Serializable {
     @Override
     public String toString() {
         return "com.turistainteligente.model.Cliente[ idCliente=" + idCliente + " ]";
+    }
+
+    /**
+     * @return the reservacionList
+     */
+    public List<Reservacion> getReservacionList() {
+        return reservacionList;
+    }
+
+    /**
+     * @param reservacionList the reservacionList to set
+     */
+    public void setReservacionList(List<Reservacion> reservacionList) {
+        this.reservacionList = reservacionList;
     }
     
     public String getNombreCliente() {

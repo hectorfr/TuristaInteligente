@@ -11,6 +11,8 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -37,14 +39,15 @@ import javax.xml.bind.annotation.XmlTransient;
 public class TipoPaqueteNac implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "ID_TIPO_PAQUETE_NAC")
     private Integer idTipoPaqueteNac;
-   @Basic(optional = false)
+    @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 25)
     @Column(name = "TIPO_TARIFA")
-    private String tipoTarifa;   
+    private String tipoTarifa;
     @Size(max = 1000)
     @Column(name = "DESCRIPCION_SERVICIOS")
     private String descripcionServicios;
@@ -99,6 +102,14 @@ public class TipoPaqueteNac implements Serializable {
 
     public void setIdTipoPaqueteNac(Integer idTipoPaqueteNac) {
         this.idTipoPaqueteNac = idTipoPaqueteNac;
+    }
+
+    public String getTipoTarifa() {
+        return tipoTarifa;
+    }
+
+    public void setTipoTarifa(String tipoTarifa) {
+        this.tipoTarifa = tipoTarifa;
     }
 
     public String getDescripcionServicios() {
@@ -205,20 +216,6 @@ public class TipoPaqueteNac implements Serializable {
     @Override
     public String toString() {
         return "com.turistainteligente.model.TipoPaqueteNac[ idTipoPaqueteNac=" + idTipoPaqueteNac + " ]";
-    }
-
-    /**
-     * @return the tipoTarifa
-     */
-    public String getTipoTarifa() {
-        return tipoTarifa;
-    }
-
-    /**
-     * @param tipoTarifa the tipoTarifa to set
-     */
-    public void setTipoTarifa(String tipoTarifa) {
-        this.tipoTarifa = tipoTarifa;
     }
     
 }

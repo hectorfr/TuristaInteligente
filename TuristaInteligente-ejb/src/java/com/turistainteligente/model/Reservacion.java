@@ -11,8 +11,11 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -37,12 +40,10 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Reservacion implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "ID_RESERVACION")
     private Integer idReservacion;
-    @Column(name = "ID_TARIFA_RESERVACION")
-    private Integer idTarifaReservacion;
     @Basic(optional = false)
     @NotNull
     @Column(name = "IND_ESTADO")
@@ -79,8 +80,14 @@ public class Reservacion implements Serializable {
     @Column(name = "FEC_MODIFICACION")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fecModificacion;
-    @ManyToMany(mappedBy = "reservacionList", fetch = FetchType.LAZY)
+    @JoinTable(name = "proveedores_reservacion", joinColumns = {
+        @JoinColumn(name = "ID_RESERVACION", referencedColumnName = "ID_RESERVACION")}, inverseJoinColumns = {
+        @JoinColumn(name = "ID_PROVEEDOR", referencedColumnName = "ID_PROVEEDOR")})
+    @ManyToMany(fetch = FetchType.LAZY)
     private List<Proveedor> proveedorList;
+    @JoinColumn(name = "ID_TARIFA_RESERVACION", referencedColumnName = "ID_TARIFA_RESERVACION")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private TarifaReservacion idTarifaReservacion;
     @JoinColumn(name = "ID_PAQUETE", referencedColumnName = "ID_PAQUETE")
     @ManyToOne(fetch = FetchType.LAZY)
     private Paquete idPaquete;
@@ -109,14 +116,6 @@ public class Reservacion implements Serializable {
 
     public void setIdReservacion(Integer idReservacion) {
         this.idReservacion = idReservacion;
-    }
-
-    public Integer getIdTarifaReservacion() {
-        return idTarifaReservacion;
-    }
-
-    public void setIdTarifaReservacion(Integer idTarifaReservacion) {
-        this.idTarifaReservacion = idTarifaReservacion;
     }
 
     public char getIndEstado() {
@@ -208,20 +207,20 @@ public class Reservacion implements Serializable {
         this.proveedorList = proveedorList;
     }
 
+    public TarifaReservacion getIdTarifaReservacion() {
+        return idTarifaReservacion;
+    }
+
+    public void setIdTarifaReservacion(TarifaReservacion idTarifaReservacion) {
+        this.idTarifaReservacion = idTarifaReservacion;
+    }
+
     public Paquete getIdPaquete() {
         return idPaquete;
     }
 
     public void setIdPaquete(Paquete idPaquete) {
         this.idPaquete = idPaquete;
-    }
-
-    public Cliente getIdCliente() {
-        return idCliente;
-    }
-
-    public void setIdCliente(Cliente idCliente) {
-        this.idCliente = idCliente;
     }
 
     @Override
@@ -247,6 +246,20 @@ public class Reservacion implements Serializable {
     @Override
     public String toString() {
         return "com.turistainteligente.model.Reservacion[ idReservacion=" + idReservacion + " ]";
+    }
+
+    /**
+     * @return the idCliente
+     */
+    public Cliente getIdCliente() {
+        return idCliente;
+    }
+
+    /**
+     * @param idCliente the idCliente to set
+     */
+    public void setIdCliente(Cliente idCliente) {
+        this.idCliente = idCliente;
     }
     
 }

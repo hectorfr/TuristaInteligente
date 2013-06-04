@@ -31,17 +31,17 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author HectorFlechaRoja
  */
 @Entity
-@Table(name = "tarifa_paquete")
+@Table(name = "tarifa_reservacion")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "TarifaPaquete.findAll", query = "SELECT t FROM TarifaPaquete t")})
-public class TarifaPaquete implements Serializable {
+    @NamedQuery(name = "TarifaReservacion.findAll", query = "SELECT t FROM TarifaReservacion t")})
+public class TarifaReservacion implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "ID_TARIFA_PAQUETE")
-    private Integer idTarifaPaquete;
+    @Column(name = "ID_TARIFA_RESERVACION")
+    private Integer idTarifaReservacion;
     @Column(name = "CANT_ADULTO_NAC")
     private Integer cantAdultoNac;
     @Column(name = "CANT_ADULTO_INT")
@@ -75,30 +75,37 @@ public class TarifaPaquete implements Serializable {
     @Column(name = "FEC_MODIFICACION")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fecModificacion;
-    @OneToMany(mappedBy = "idTarifaPaquete", fetch = FetchType.LAZY)
-    private List<TipoPaqueteNac> tipoPaqueteNacList;
-    @OneToMany(mappedBy = "idTarifaPaquete", fetch = FetchType.LAZY)
-    private List<TipoPaqueteInt> tipoPaqueteIntList;
+    @Size(max = 20)
+    @Column(name = "TIPO_HABITACION")
+    private String tipoHabitacion;
+    @Column(name = "CANTIDAD")
+    private Short cantidad;
+    @Column(name = "MONTO_PERSONA")
+    private BigDecimal montoPersona;
+    @Column(name = "MONTO_NINIO")
+    private BigDecimal montoNinio;
+    @OneToMany(mappedBy = "idTarifaReservacion", fetch = FetchType.LAZY)
+    private List<Reservacion> reservacionList;
 
-    public TarifaPaquete() {
+    public TarifaReservacion() {
     }
 
-    public TarifaPaquete(Integer idTarifaPaquete) {
-        this.idTarifaPaquete = idTarifaPaquete;
+    public TarifaReservacion(Integer idTarifaReservacion) {
+        this.idTarifaReservacion = idTarifaReservacion;
     }
 
-    public TarifaPaquete(Integer idTarifaPaquete, String usrRegistro, Date fecRegistro) {
-        this.idTarifaPaquete = idTarifaPaquete;
+    public TarifaReservacion(Integer idTarifaReservacion, String usrRegistro, Date fecRegistro) {
+        this.idTarifaReservacion = idTarifaReservacion;
         this.usrRegistro = usrRegistro;
         this.fecRegistro = fecRegistro;
     }
 
-    public Integer getIdTarifaPaquete() {
-        return idTarifaPaquete;
+    public Integer getIdTarifaReservacion() {
+        return idTarifaReservacion;
     }
 
-    public void setIdTarifaPaquete(Integer idTarifaPaquete) {
-        this.idTarifaPaquete = idTarifaPaquete;
+    public void setIdTarifaReservacion(Integer idTarifaReservacion) {
+        this.idTarifaReservacion = idTarifaReservacion;
     }
 
     public Integer getCantAdultoNac() {
@@ -197,39 +204,62 @@ public class TarifaPaquete implements Serializable {
         this.fecModificacion = fecModificacion;
     }
 
+    public String getTipoHabitacion() {
+        return tipoHabitacion;
+    }
+
+    public void setTipoHabitacion(String tipoHabitacion) {
+        this.tipoHabitacion = tipoHabitacion;
+    }
+
+    public Short getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(Short cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public BigDecimal getMontoPersona() {
+        return montoPersona;
+    }
+
+    public void setMontoPersona(BigDecimal montoPersona) {
+        this.montoPersona = montoPersona;
+    }
+
+    public BigDecimal getMontoNinio() {
+        return montoNinio;
+    }
+
+    public void setMontoNinio(BigDecimal montoNinio) {
+        this.montoNinio = montoNinio;
+    }
+
     @XmlTransient
-    public List<TipoPaqueteNac> getTipoPaqueteNacList() {
-        return tipoPaqueteNacList;
+    public List<Reservacion> getReservacionList() {
+        return reservacionList;
     }
 
-    public void setTipoPaqueteNacList(List<TipoPaqueteNac> tipoPaqueteNacList) {
-        this.tipoPaqueteNacList = tipoPaqueteNacList;
-    }
-
-    @XmlTransient
-    public List<TipoPaqueteInt> getTipoPaqueteIntList() {
-        return tipoPaqueteIntList;
-    }
-
-    public void setTipoPaqueteIntList(List<TipoPaqueteInt> tipoPaqueteIntList) {
-        this.tipoPaqueteIntList = tipoPaqueteIntList;
+    public void setReservacionList(List<Reservacion> reservacionList) {
+        this.reservacionList = reservacionList;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idTarifaPaquete != null ? idTarifaPaquete.hashCode() : 0);
+        hash += (idTarifaReservacion != null ? idTarifaReservacion.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof TarifaPaquete)) {
+        if (!(object instanceof TarifaReservacion)) {
             return false;
         }
-        TarifaPaquete other = (TarifaPaquete) object;
-        if ((this.idTarifaPaquete == null && other.idTarifaPaquete != null) || (this.idTarifaPaquete != null && !this.idTarifaPaquete.equals(other.idTarifaPaquete))) {
+        TarifaReservacion other = (TarifaReservacion) object;
+        if ((this.idTarifaReservacion == null && other.idTarifaReservacion != null) || (this.idTarifaReservacion != null && !this.idTarifaReservacion.equals(other.idTarifaReservacion))) {
             return false;
         }
         return true;
@@ -237,7 +267,7 @@ public class TarifaPaquete implements Serializable {
 
     @Override
     public String toString() {
-        return "com.turistainteligente.model.TarifaPaquete[ idTarifaPaquete=" + idTarifaPaquete + " ]";
+        return "com.turistainteligente.model.TarifaReservacion[ idTarifaReservacion=" + idTarifaReservacion + " ]";
     }
     
 }
