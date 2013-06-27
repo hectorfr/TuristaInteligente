@@ -15,10 +15,11 @@
         <br />
         <h:form>
             <rich:messages id="msgs"/> 
-            <br />
-            <h:outputLink value="#{request.contextPath}/paquete/crearPaquete.jsf"  styleClass="btn primary" >
-                <h:outputText value="Nuevo Paquete"/>                              
-            </h:outputLink>                
+            <br />           
+            <a4j:commandLink value="Nuevo Paquete"
+                             styleClass="btn primary"                                             
+                             action="#{paqueteManagedBean.redirectCrear}">                        
+            </a4j:commandLink> 
             <br /><br />
             <rich:extendedDataTable  id="list" value="#{paquetesPaged}" var="_paquete"
                                      rows="10" noDataLabel="No existen paquetes">
@@ -55,6 +56,7 @@
                         <span class="modificar"></span>
                         <rich:tooltip value="Modificar" followMouse="false" />
                         <f:param name="idPaquete" value="#{_paquete.idPaquete}"/>
+                        <f:setPropertyActionListener target="#{paqueteManagedBean.idPaq}" value="#{_paquete.idPaquete}" />
                     </a4j:commandLink>  
 
                     <a4j:commandLink styleClass="btn small danger"                                               

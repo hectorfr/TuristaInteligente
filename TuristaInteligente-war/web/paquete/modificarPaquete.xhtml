@@ -9,6 +9,11 @@
                 template="/templates/template.xhtml">
 
     <ui:define name="content">
+
+        <f:metadata>
+            <f:viewParam name="idPaquete" value="#{paqueteManagedBean.idPaq}" />
+        </f:metadata>
+
         <h1 class="page-title factura-listado">Modificar un nuevo paquete</h1>        
         <h2 class="sub-title">Los campos marcados con un asterisco son campos obligatorios.</h2>
         <br />
@@ -18,13 +23,13 @@
             <h:panelGrid columns="2" id="panelModificar" styleClass="panel-grid">
                 <h:panelGroup >
                     <h:panelGrid columns="2" styleClass="panel-grid">
-                        <h:outputLabel for="nombrePaquete" value="Nombre*:"/>
-                        <h:inputText id="nombrePaquete" value="#{resquestedPaqueteById.nombrePaquete}" 
+                        <h:outputLabel for="nombrePaquete" value="Nombre*: "/>
+                        <h:inputText id="nombrePaquete" value="#{paqueteManagedBean.nombrePaquete}" 
                                      required="true" requiredMessage="Debe ingresar un nombre del paquete"
                                      maxlength="50"/>
-                        
+
                         <h:outputLabel for="descServicio" value="Descripción Servicios*:"/>
-                        <h:inputTextarea id="descServicio" rows="5" value="#{resquestedPaqueteById.descripcionServicios}" 
+                        <h:inputTextarea id="descServicio" rows="5" value="#{paqueteManagedBean.descripcionServicios}" 
                                          required="true" requiredMessage="Debe ingresar una descripción de los servicios">
                             <f:validateLength maximum="500" />
                         </h:inputTextarea>                                                
@@ -34,19 +39,19 @@
                 <h:panelGroup >
                     <h:panelGrid columns="2" styleClass="panel-grid">
                         <h:outputLabel for="fechaInicio" value="Fecha Inicio:" />
-                        <rich:calendar locale="es_CR" value="#{resquestedPaqueteById.fechaInicio}" id="fechaInicio"
+                        <rich:calendar locale="es_CR" value="#{paqueteManagedBean.fechaInicio}" id="fechaInicio"
                                        datePattern="dd/MM/yyyy" 
                                        showWeeksBar="false">
                             <f:convertDateTime locale="es_CR" pattern="dd/MM/yyyy"/>                                
                         </rich:calendar>
 
                         <h:outputLabel for="fechaFinal" value="Fecha Final:" />
-                        <rich:calendar locale="es_CR" value="#{resquestedPaqueteById.fechaFinal}" id="fechaFinal"
+                        <rich:calendar locale="es_CR" value="#{paqueteManagedBean.fechaFinal}" id="fechaFinal"
                                        datePattern="dd/MM/yyyy" 
                                        showWeeksBar="false">
                             <f:convertDateTime locale="es_CR" pattern="dd/MM/yyyy"/>                                
                         </rich:calendar>
-                        
+
                         <h:outputLabel value="Tipo Paquete*:" />
                         <h:selectOneMenu value="#{paqueteManagedBean.tipoPaquete}" 
                                          required="true" requiredMessage="Debe escoger un tipo de paquete">
@@ -64,7 +69,7 @@
                         </h:selectOneMenu>    
                     </h:panelGrid>
                 </h:panelGroup>
-                
+
                 <h:panelGroup id="paquete" styleClass="panel-grid" >
                     <h:panelGrid columns="2" styleClass="panel-grid">
                         <h:outputLabel value="Localidad*:" rendered="#{paqueteManagedBean.indPaquete eq 'I'}"/>
@@ -126,7 +131,7 @@
                         </h:inputTextarea>
                     </h:panelGrid>
                 </h:panelGroup>
-                
+
                 <h:panelGroup id="tarifa" styleClass="panel-grid" >
                     <h:panelGrid columns="2" styleClass="panel-grid">
                         <h:outputLabel for="tipoHabitacion" value="Tipo Habitacion*:" rendered="#{paqueteManagedBean.indTarifa eq 'H'}"/>
@@ -146,7 +151,7 @@
                         <h:outputLabel for="montoNinio" value="Monto por niño:" rendered="#{paqueteManagedBean.indTarifa eq 'H'}"/>
                         <h:inputText id="montoNinio" value="#{paqueteManagedBean.tarifaHabitacion.montoNinio}"  rendered="#{paqueteManagedBean.indTarifa eq 'H'}"                             
                                      validatorMessage="Debe ingresar solo números en el monto por niño y separar los decimales con un punto"/>                
-                
+
                         <h:outputLabel for="cantAdNa" value="Cant Adulto Nac:" rendered="#{paqueteManagedBean.indTarifa eq 'P'}"/>
                         <h:inputText id="cantAdNa" value="#{paqueteManagedBean.tarifaPaquete.cantAdultoNac}" rendered="#{paqueteManagedBean.indTarifa eq 'P'}"                            
                                      validatorMessage="Debe ingresar solo números en la cantidad de adultos nacionales"/>
@@ -182,7 +187,7 @@
                 </h:panelGroup>
             </h:panelGrid>             
             <a4j:commandButton action="#{paqueteManagedBean.update}" value="Modificar" render="msg2" styleClass="btn primary">
-                <f:param name="idPaquete" value="#{requestedPaqueteById.idPaquete}" />
+                <f:param name="idPaquete" value="#{paqueteManagedBean.idPaq}" />
             </a4j:commandButton>
             <br /><br />            
         </h:form>
