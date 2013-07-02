@@ -19,13 +19,13 @@
             </h:outputLink>
         </f:facet>
         <h:form>
-            <h:panelGrid columns="4" id="panelVer" styleClass="panel-grid">
+            <h:panelGrid columns="4" id="panelVer" styleClass="panel-grid" width="500">
                 <h:outputLabel for="nombrePaquete" value="Nombre*:"/>
                 <h:outputText id="nombrePaquete" value="#{requestedPaqueteById.nombrePaquete}" />
 
                 <h:outputLabel for="descServicio" value="Descripción Servicios*:"/>
-                <h:inputTextarea id="descServicio" rows="5" value="#{requestedPaqueteById.descripcionServicios}" 
-                                 disabled="true" />
+                <h:outputText id="descServicio"  value="#{requestedPaqueteById.descripcionServicios}" 
+                                 style="white-space: normal"/>
 
                 <h:outputLabel for="fechaInicio" value="Fecha Inicio:" />
                 <h:outputText id="fechaInicio" value="#{requestedPaqueteById.fechaInicio}">

@@ -559,7 +559,7 @@ form#crearFacturaForm input[type="text"],
 /* calendar
 ================================================== */
 .rich-calendar-popup td {
-	padding: 0;
+	
 }
 
 /* Subir reportes
@@ -815,6 +815,14 @@ table.rich-table {
 
 .rf-fu-hdr {
 	border: 0 !important;
+}
+
+.rf-cal-extr {
+    
+	background: #ccc;
+	-webkit-box-shadow: none !important;
+	   -moz-box-shadow: none !important;
+	        box-shadow: none !important;
 }
 
 /* idiomas  */

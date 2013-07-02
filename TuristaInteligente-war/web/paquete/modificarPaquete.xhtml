@@ -11,10 +11,11 @@
     <ui:define name="content">
 
         <f:metadata>
-            <f:viewParam name="idPaquete" value="#{paqueteManagedBean.idPaq}" />
+            <f:viewParam name="idPaquete" value="#{requestedPaqueteById.idPaquete}" />
+            <f:event type="preValidate" listener="#{paqueteManagedBean.initNewPaquete()}" />
         </f:metadata>
 
-        <h1 class="page-title factura-listado">Modificar un nuevo paquete</h1>        
+        <h1 class="page-title factura-listado">Modificar el paquete #{requestedPaqueteById.idPaquete}</h1>        
         <h2 class="sub-title">Los campos marcados con un asterisco son campos obligatorios.</h2>
         <br />
         <h:form >
@@ -24,12 +25,12 @@
                 <h:panelGroup >
                     <h:panelGrid columns="2" styleClass="panel-grid">
                         <h:outputLabel for="nombrePaquete" value="Nombre*: "/>
-                        <h:inputText id="nombrePaquete" value="#{paqueteManagedBean.nombrePaquete}" 
+                        <h:inputText id="nombrePaquete" value="#{requestedPaqueteById.nombrePaquete}" 
                                      required="true" requiredMessage="Debe ingresar un nombre del paquete"
                                      maxlength="50"/>
 
                         <h:outputLabel for="descServicio" value="Descripción Servicios*:"/>
-                        <h:inputTextarea id="descServicio" rows="5" value="#{paqueteManagedBean.descripcionServicios}" 
+                        <h:inputTextarea id="descServicio" rows="5" value="#{requestedPaqueteById.descripcionServicios}" 
                                          required="true" requiredMessage="Debe ingresar una descripción de los servicios">
                             <f:validateLength maximum="500" />
                         </h:inputTextarea>                                                
@@ -39,14 +40,14 @@
                 <h:panelGroup >
                     <h:panelGrid columns="2" styleClass="panel-grid">
                         <h:outputLabel for="fechaInicio" value="Fecha Inicio:" />
-                        <rich:calendar locale="es_CR" value="#{paqueteManagedBean.fechaInicio}" id="fechaInicio"
+                        <rich:calendar locale="es_CR" value="#{requestedPaqueteById.fechaInicio}" id="fechaInicio"
                                        datePattern="dd/MM/yyyy" 
                                        showWeeksBar="false">
                             <f:convertDateTime locale="es_CR" pattern="dd/MM/yyyy"/>                                
                         </rich:calendar>
 
                         <h:outputLabel for="fechaFinal" value="Fecha Final:" />
-                        <rich:calendar locale="es_CR" value="#{paqueteManagedBean.fechaFinal}" id="fechaFinal"
+                        <rich:calendar locale="es_CR" value="#{requestedPaqueteById.fechaFinal}" id="fechaFinal"
                                        datePattern="dd/MM/yyyy" 
                                        showWeeksBar="false">
                             <f:convertDateTime locale="es_CR" pattern="dd/MM/yyyy"/>                                
@@ -141,53 +142,53 @@
                         <h:outputLabel for="cantidad" value="Cant Habitaciones*:" rendered="#{paqueteManagedBean.indTarifa eq 'H'}"/>
                         <h:inputText id="cantidad" value="#{paqueteManagedBean.tarifaHabitacion.cantidad}"  rendered="#{paqueteManagedBean.indTarifa eq 'H'}"
                                      required="true" requiredMessage="Debe ingresar la cantidad de habitaciones"
-                                     validatorMessage="Debe ingresar solo números enteros en la cantidad de habitaciones"/>
+                                     converterMessage="Debe ingresar solo números enteros en la cantidad de habitaciones"/>
 
                         <h:outputLabel for="montoPersona" value="Monto por persona*:" rendered="#{paqueteManagedBean.indTarifa eq 'H'}"/>
                         <h:inputText id="montoPersona" value="#{paqueteManagedBean.tarifaHabitacion.montoPersona}" rendered="#{paqueteManagedBean.indTarifa eq 'H'}"
                                      required="true" requiredMessage="Debe ingresar el monto por persona"
-                                     validatorMessage="Debe ingresar solo números en monto por persona y separar los decimales con un punto"/>
+                                     converterMessage="Debe ingresar solo números en monto por persona y separar los decimales con un punto"/>
 
                         <h:outputLabel for="montoNinio" value="Monto por niño:" rendered="#{paqueteManagedBean.indTarifa eq 'H'}"/>
                         <h:inputText id="montoNinio" value="#{paqueteManagedBean.tarifaHabitacion.montoNinio}"  rendered="#{paqueteManagedBean.indTarifa eq 'H'}"                             
-                                     validatorMessage="Debe ingresar solo números en el monto por niño y separar los decimales con un punto"/>                
+                                     converterMessage="Debe ingresar solo números en el monto por niño y separar los decimales con un punto"/>                
 
                         <h:outputLabel for="cantAdNa" value="Cant Adulto Nac:" rendered="#{paqueteManagedBean.indTarifa eq 'P'}"/>
                         <h:inputText id="cantAdNa" value="#{paqueteManagedBean.tarifaPaquete.cantAdultoNac}" rendered="#{paqueteManagedBean.indTarifa eq 'P'}"                            
-                                     validatorMessage="Debe ingresar solo números en la cantidad de adultos nacionales"/>
+                                     converterMessage="Debe ingresar solo números en la cantidad de adultos nacionales"/>
 
                         <h:outputLabel for="montoAdNa" value="Monto Adulto Nac:" rendered="#{paqueteManagedBean.indTarifa eq 'P'}"/>
                         <h:inputText id="montoAdNa" value="#{paqueteManagedBean.tarifaPaquete.montoAdultoNac}"  rendered="#{paqueteManagedBean.indTarifa eq 'P'}"                             
-                                     validatorMessage="Debe ingresar solo números en el monto de adulto nacional y separar los decimales con un punto"/>
+                                     converterMessage="Debe ingresar solo números en el monto de adulto nacional y separar los decimales con un punto"/>
 
                         <h:outputLabel for="cantAdInt" value="Cant Adulto Int:" rendered="#{paqueteManagedBean.indTarifa eq 'P'}"/>
                         <h:inputText id="cantAdInt" value="#{paqueteManagedBean.tarifaPaquete.cantAdultoInt}" rendered="#{paqueteManagedBean.indTarifa eq 'P'}"                             
-                                     validatorMessage="Debe ingresar solo números en la cantidad de adultos internacionales"/>
+                                     converterMessage="Debe ingresar solo números en la cantidad de adultos internacionales"/>
 
                         <h:outputLabel for="montoAdInt" value="Monto Adulto Int:" rendered="#{paqueteManagedBean.indTarifa eq 'P'}"/>
                         <h:inputText id="montoAdInt" value="#{paqueteManagedBean.tarifaPaquete.montoAdultoInt}" rendered="#{paqueteManagedBean.indTarifa eq 'P'}"                               
-                                     validatorMessage="Debe ingresar solo números en el monto de adulto internacional y separar los decimales con un punto"/>
+                                     converterMessage="Debe ingresar solo números en el monto de adulto internacional y separar los decimales con un punto"/>
 
                         <h:outputLabel for="cantNiNa" value="Cant Niño Nac:" rendered="#{paqueteManagedBean.indTarifa eq 'P'}"/>
                         <h:inputText id="cantNiNa" value="#{paqueteManagedBean.tarifaPaquete.cantNinioNac}" rendered="#{paqueteManagedBean.indTarifa eq 'P'}"                              
-                                     validatorMessage="Debe ingresar solo números en la cantidad de niños nacionales"/>
+                                     converterMessage="Debe ingresar solo números en la cantidad de niños nacionales"/>
 
                         <h:outputLabel for="montoNiNa" value="Monto Niño Nac:" rendered="#{paqueteManagedBean.indTarifa eq 'P'}"/>
                         <h:inputText id="montoNiNa" value="#{paqueteManagedBean.tarifaPaquete.montoNinioNac}" rendered="#{paqueteManagedBean.indTarifa eq 'P'}"                              
-                                     validatorMessage="Debe ingresar solo números en el monto de niño nacional y separar los decimales con un punto"/>
+                                     converterMessage="Debe ingresar solo números en el monto de niño nacional y separar los decimales con un punto"/>
 
                         <h:outputLabel for="cantNiInt" value="Cant Niño Int:" rendered="#{paqueteManagedBean.indTarifa eq 'P'}"/>
                         <h:inputText id="cantNiInt" value="#{paqueteManagedBean.tarifaPaquete.cantNinioInt}" rendered="#{paqueteManagedBean.indTarifa eq 'P'}"                              
-                                     validatorMessage="Debe ingresar solo números en la cantidad de niños internacionales"/>
+                                     converterMessage="Debe ingresar solo números en la cantidad de niños internacionales"/>
 
                         <h:outputLabel for="montoNiInt" value="Monto Niño Int:" rendered="#{paqueteManagedBean.indTarifa eq 'P'}"/>
                         <h:inputText id="montoNiInt" value="#{paqueteManagedBean.tarifaPaquete.montoNinioInt}" rendered="#{paqueteManagedBean.indTarifa eq 'P'}"                               
-                                     validatorMessage="Debe ingresar solo números en el monto de niño internacional y separar los decimales con un punto"/>
+                                     converterMessage="Debe ingresar solo números en el monto de niño internacional y separar los decimales con un punto"/>
                     </h:panelGrid>
                 </h:panelGroup>
             </h:panelGrid>             
             <a4j:commandButton action="#{paqueteManagedBean.update}" value="Modificar" render="msg2" styleClass="btn primary">
-                <f:param name="idPaquete" value="#{paqueteManagedBean.idPaq}" />
+                <f:param name="idPaquete" value="#{requestedPaqueteById.idPaquete}" />
             </a4j:commandButton>
             <br /><br />            
         </h:form>

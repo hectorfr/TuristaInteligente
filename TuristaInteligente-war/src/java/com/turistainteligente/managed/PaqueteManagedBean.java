@@ -67,11 +67,11 @@ public class PaqueteManagedBean implements Serializable {
     @Inject
     @LoggedIn
     private Usuario currentUser;
-    private int idPaq;
-    private String nombrePaquete;
-    private String descripcionServicios;
-    private Date fechaInicio;
-    private Date fechaFinal;
+//    private int idPaq;
+//    private String nombrePaquete;
+//    private String descripcionServicios;
+//    private Date fechaInicio;
+//    private Date fechaFinal;
 
     public String create() {
         try {
@@ -242,10 +242,10 @@ public class PaqueteManagedBean implements Serializable {
                 }
                 getRequestedPaqueteById().setIdTipoPaqueteNac(getTipoPaqueteNac());
             }
-            getRequestedPaqueteById().setNombrePaquete(getNombrePaquete());
-            getRequestedPaqueteById().setDescripcionServicios(getDescripcionServicios());
-            getRequestedPaqueteById().setFechaInicio(getFechaInicio());
-            getRequestedPaqueteById().setFechaFinal(getFechaFinal());
+//            getRequestedPaqueteById().setNombrePaquete(getNombrePaquete());
+//            getRequestedPaqueteById().setDescripcionServicios(getDescripcionServicios());
+//            getRequestedPaqueteById().setFechaInicio(getFechaInicio());
+//            getRequestedPaqueteById().setFechaFinal(getFechaFinal());
             getRequestedPaqueteById().setUsrModificacion(currentUser.getEmail());
             getRequestedPaqueteById().setFecModificacion(new Date());
             paqueteFacadeLocal.edit(getRequestedPaqueteById());
@@ -258,14 +258,14 @@ public class PaqueteManagedBean implements Serializable {
             if (borrarTarifaPaquete) {
                 tarifaPaqueteFacadeLocal.remove(getTarifaPaquete());
             }
-            if (borrarTarifaPaquete) {
+            if (borrarTarifaHabitacion) {
                 tarifaHabitacionFacadeLocal.remove(getTarifaHabitacion());
             }
-            setIdPaq(0);
-            setNombrePaquete(null);
-            setDescripcionServicios(null);
-            setFechaInicio(null);
-            setFechaFinal(null);
+//            setIdPaq(0);
+//            setNombrePaquete(null);
+//            setDescripcionServicios(null);
+//            setFechaInicio(null);
+//            setFechaFinal(null);
             initNewPaquete();
             log.log(Level.INFO, "Paquete {0} modificado con exito", getRequestedPaqueteById().getIdPaquete());
             Util.addSuccessMessage("Paquete modificado con éxito");
@@ -275,10 +275,10 @@ public class PaqueteManagedBean implements Serializable {
             Util.addErrorMessage("Error al modificar el paquete");
             success = false;
         } finally {
-            setNombrePaquete(null);
-            setDescripcionServicios(null);
-            setFechaInicio(null);
-            setFechaFinal(null);
+//            setNombrePaquete(null);
+//            setDescripcionServicios(null);
+//            setFechaInicio(null);
+//            setFechaFinal(null);
             initNewPaquete();
             if (success) {
                 return "./listado.jsf?faces-redirect=true";
@@ -290,27 +290,73 @@ public class PaqueteManagedBean implements Serializable {
 
     public String delete() {
         try {
-            setIdPaq(0);
+            TarifaHabitacion tarHabitacion = null;
+            TarifaPaquete tarPaquete = null;
+            TipoPaqueteInt paqInt = null;
+            TipoPaqueteNac paqNac = null;
+            if (getRequestedPaqueteById().getIdTipoPaqueteInt() != null) {
+                if (getRequestedPaqueteById().getIdTipoPaqueteInt().getIdTarifaHabitacion() != null) {
+                    tarHabitacion = getRequestedPaqueteById().getIdTipoPaqueteInt().getIdTarifaHabitacion();
+                    getRequestedPaqueteById().getIdTipoPaqueteInt().setIdTarifaHabitacion(null);
+//                    tarifaHabitacionFacadeLocal.remove(tarHabitacion);
+                } else {
+                    tarPaquete = getRequestedPaqueteById().getIdTipoPaqueteInt().getIdTarifaPaquete();
+                    getRequestedPaqueteById().getIdTipoPaqueteInt().setIdTarifaPaquete(null);
+//                    tarifaPaqueteFacadeLocal.remove(tarPaquete);
+                }
+                paqInt = getRequestedPaqueteById().getIdTipoPaqueteInt();
+                getRequestedPaqueteById().setIdTipoPaqueteInt(null);
+//                tipoPaqueteIntFacadeLocal.remove(paqInt);
+            } else {
+                if (getRequestedPaqueteById().getIdTipoPaqueteNac().getIdTarifaHabitacion() != null) {
+                    tarHabitacion = getRequestedPaqueteById().getIdTipoPaqueteNac().getIdTarifaHabitacion();
+                    getRequestedPaqueteById().getIdTipoPaqueteNac().setIdTarifaHabitacion(null);
+//                    tarifaHabitacionFacadeLocal.remove(tarHabitacion);
+                } else {
+                    tarPaquete = getRequestedPaqueteById().getIdTipoPaqueteNac().getIdTarifaPaquete();
+                    getRequestedPaqueteById().getIdTipoPaqueteNac().setIdTarifaPaquete(null);
+//                    tarifaPaqueteFacadeLocal.remove(tarPaquete);
+                }
+                paqNac = getRequestedPaqueteById().getIdTipoPaqueteNac();
+                getRequestedPaqueteById().setIdTipoPaqueteNac(null);
+//                tipoPaqueteNacFacadeLocal.remove(paqNac);
+            }
+
             paqueteFacadeLocal.remove(getRequestedPaqueteById());
+
+            if (paqInt != null) {
+                tipoPaqueteIntFacadeLocal.remove(paqInt);
+            } else {
+                tipoPaqueteNacFacadeLocal.remove(paqNac);
+            }
+
+            if (tarHabitacion != null) {
+                tarifaHabitacionFacadeLocal.remove(tarHabitacion);
+            } else {
+                tarifaPaqueteFacadeLocal.remove(tarPaquete);
+            }
+//            setIdPaq(0);            
             Util.addSuccessMessage("Paquete eliminado con éxito");
             log.log(Level.INFO, "Paquete {0} eliminado", getRequestedPaqueteById().getIdPaquete());
+            requestedPaqueteById = null;
             return "./listado.jsf?faces-redirect=true";
         } catch (Exception e) {
             log.log(Level.SEVERE, "Error al eliminar el paquete{0}", e.getMessage());
             Util.addErrorMessage("Error al eliminar el paquete");
+//            setIdPaq(0);
             return null;
         }
     }
 
-    public String redirectModificar() {
-        //setIdPaquete(Integer.parseInt(Util.getRequestParameter("idPaquete")));
-        return "./modificarPaquete.xhtml?faces-redirect=true&includeViewParams=true";
-    }
+//    public String redirectModificar() {
+//        //setIdPaquete(Integer.parseInt(Util.getRequestParameter("idPaquete")));
+//        return "./modificarPaquete.xhtml?faces-redirect=true&includeViewParams=true";
+//    }
 
     public String redirectCrear() {
         initNewPaquete();
         requestedPaqueteById = null;
-        setIdPaq(0);
+//        setIdPaq(0);
         return "./crearPaquete.xhtml?faces-redirect=true";
     }
 
@@ -326,7 +372,11 @@ public class PaqueteManagedBean implements Serializable {
 
     private Paquete findPaqueteById() {
         try {
-            return paqueteFacadeLocal.find(getIdPaq());
+//            if(Integer.valueOf(Util.getRequestParameter("idPaquete")) != null) {
+//                return paqueteFacadeLocal.find(Integer.valueOf(Util.getRequestParameter("idPaquete")));
+//            }
+//            return paqueteFacadeLocal.find(getIdPaq());
+            return paqueteFacadeLocal.find(Integer.valueOf(Util.getRequestParameter("idPaquete")));
         } catch (Exception e) {
             return null;
         }
@@ -469,16 +519,27 @@ public class PaqueteManagedBean implements Serializable {
      * @return the tarifaHabitacion
      */
     public TarifaHabitacion getTarifaHabitacion() {
-        if (tarifaHabitacion != null) {
-            if (getRequestedPaqueteById() != null && tarifaHabitacion.getIdTarifaHabitacion() == null) {
-                if (getRequestedPaqueteById().getIdTipoPaqueteInt() != null || getRequestedPaqueteById().getIdTipoPaqueteNac() != null) {
-                    if (getRequestedPaqueteById().getIdTipoPaqueteInt() != null) {
-                        tarifaHabitacion = getRequestedPaqueteById().getIdTipoPaqueteInt().getIdTarifaHabitacion() != null
-                                ? getRequestedPaqueteById().getIdTipoPaqueteInt().getIdTarifaHabitacion() : null;
-                    } else {
-                        tarifaHabitacion = getRequestedPaqueteById().getIdTipoPaqueteNac().getIdTarifaHabitacion() != null
-                                ? getRequestedPaqueteById().getIdTipoPaqueteNac().getIdTarifaHabitacion() : null;
-                    }
+//        if (tarifaHabitacion != null) {
+//            if (getRequestedPaqueteById() != null && tarifaHabitacion.getIdTarifaHabitacion() == null) {
+//                if (getRequestedPaqueteById().getIdTipoPaqueteInt() != null || getRequestedPaqueteById().getIdTipoPaqueteNac() != null) {
+//                    if (getRequestedPaqueteById().getIdTipoPaqueteInt() != null) {
+//                        tarifaHabitacion = getRequestedPaqueteById().getIdTipoPaqueteInt().getIdTarifaHabitacion() != null
+//                                ? getRequestedPaqueteById().getIdTipoPaqueteInt().getIdTarifaHabitacion() : null;
+//                    } else {
+//                        tarifaHabitacion = getRequestedPaqueteById().getIdTipoPaqueteNac().getIdTarifaHabitacion() != null
+//                                ? getRequestedPaqueteById().getIdTipoPaqueteNac().getIdTarifaHabitacion() : null;
+//                    }
+//                }
+//            }
+//        }
+        if (getRequestedPaqueteById() != null) {
+            if (getRequestedPaqueteById().getIdTipoPaqueteInt() != null || getRequestedPaqueteById().getIdTipoPaqueteNac() != null) {
+                if (getRequestedPaqueteById().getIdTipoPaqueteInt() != null) {
+                    tarifaHabitacion = getRequestedPaqueteById().getIdTipoPaqueteInt().getIdTarifaHabitacion() != null
+                            ? getRequestedPaqueteById().getIdTipoPaqueteInt().getIdTarifaHabitacion() : tarifaHabitacion;
+                } else {
+                    tarifaHabitacion = getRequestedPaqueteById().getIdTipoPaqueteNac().getIdTarifaHabitacion() != null
+                            ? getRequestedPaqueteById().getIdTipoPaqueteNac().getIdTarifaHabitacion() : tarifaHabitacion;
                 }
             }
         }
@@ -496,16 +557,27 @@ public class PaqueteManagedBean implements Serializable {
      * @return the tarifaPaquete
      */
     public TarifaPaquete getTarifaPaquete() {
-        if (tarifaPaquete != null) {
-            if (getRequestedPaqueteById() != null && tarifaPaquete.getIdTarifaPaquete() == null) {
-                if (getRequestedPaqueteById().getIdTipoPaqueteInt() != null || getRequestedPaqueteById().getIdTipoPaqueteNac() != null) {
-                    if (getRequestedPaqueteById().getIdTipoPaqueteInt() != null) {
-                        tarifaPaquete = getRequestedPaqueteById().getIdTipoPaqueteInt().getIdTarifaPaquete() != null
-                                ? getRequestedPaqueteById().getIdTipoPaqueteInt().getIdTarifaPaquete() : null;
-                    } else {
-                        tarifaPaquete = getRequestedPaqueteById().getIdTipoPaqueteNac().getIdTarifaPaquete() != null
-                                ? getRequestedPaqueteById().getIdTipoPaqueteNac().getIdTarifaPaquete() : null;
-                    }
+//        if (tarifaPaquete != null) {
+//            if (getRequestedPaqueteById() != null && tarifaPaquete.getIdTarifaPaquete() == null) {
+//                if (getRequestedPaqueteById().getIdTipoPaqueteInt() != null || getRequestedPaqueteById().getIdTipoPaqueteNac() != null) {
+//                    if (getRequestedPaqueteById().getIdTipoPaqueteInt() != null) {
+//                        tarifaPaquete = getRequestedPaqueteById().getIdTipoPaqueteInt().getIdTarifaPaquete() != null
+//                                ? getRequestedPaqueteById().getIdTipoPaqueteInt().getIdTarifaPaquete() : null;
+//                    } else {
+//                        tarifaPaquete = getRequestedPaqueteById().getIdTipoPaqueteNac().getIdTarifaPaquete() != null
+//                                ? getRequestedPaqueteById().getIdTipoPaqueteNac().getIdTarifaPaquete() : null;
+//                    }
+//                }
+//            }
+//        }
+        if (getRequestedPaqueteById() != null) {
+            if (getRequestedPaqueteById().getIdTipoPaqueteInt() != null || getRequestedPaqueteById().getIdTipoPaqueteNac() != null) {
+                if (getRequestedPaqueteById().getIdTipoPaqueteInt() != null) {
+                    tarifaPaquete = getRequestedPaqueteById().getIdTipoPaqueteInt().getIdTarifaPaquete() != null
+                            ? getRequestedPaqueteById().getIdTipoPaqueteInt().getIdTarifaPaquete() : tarifaPaquete;
+                } else {
+                    tarifaPaquete = getRequestedPaqueteById().getIdTipoPaqueteNac().getIdTarifaPaquete() != null
+                            ? getRequestedPaqueteById().getIdTipoPaqueteNac().getIdTarifaPaquete() : tarifaPaquete;
                 }
             }
         }
@@ -553,85 +625,85 @@ public class PaqueteManagedBean implements Serializable {
         this.tipoPaqueteNac = tipoPaqueteNac;
     }
 
-    /**
-     * @return the idPaquete
-     */
-    public int getIdPaq() {
-        return idPaq;
-    }
-
-    /**
-     * @param idPaquete the idPaquete to set
-     */
-    public void setIdPaq(int idPaq) {
-        this.idPaq = idPaq;
-    }
-
-    /**
-     * @return the nombrePaquete
-     */
-    public String getNombrePaquete() {
-        if (getRequestedPaqueteById() != null && nombrePaquete == null) {
-            nombrePaquete = getRequestedPaqueteById().getNombrePaquete();
-        }
-        return nombrePaquete;
-    }
-
-    /**
-     * @param nombrePaquete the nombrePaquete to set
-     */
-    public void setNombrePaquete(String nombrePaquete) {
-        this.nombrePaquete = nombrePaquete;
-    }
-
-    /**
-     * @return the descripcionServicios
-     */
-    public String getDescripcionServicios() {
-        if (getRequestedPaqueteById() != null && descripcionServicios == null) {
-            descripcionServicios = getRequestedPaqueteById().getDescripcionServicios();
-        }
-        return descripcionServicios;
-    }
-
-    /**
-     * @param descripcionServicios the descripcionServicios to set
-     */
-    public void setDescripcionServicios(String descripcionServicios) {
-        this.descripcionServicios = descripcionServicios;
-    }
-
-    /**
-     * @return the fechaInicio
-     */
-    public Date getFechaInicio() {
-        if (getRequestedPaqueteById() != null && fechaInicio == null) {
-            fechaInicio = getRequestedPaqueteById().getFechaInicio();
-        }
-        return fechaInicio;
-    }
-
-    /**
-     * @param fechaInicio the fechaInicio to set
-     */
-    public void setFechaInicio(Date fechaInicio) {
-        this.fechaInicio = fechaInicio;
-    }
-
-    /**
-     * @return the fechaFinal
-     */
-    public Date getFechaFinal() {
-        if (getRequestedPaqueteById() != null && fechaFinal == null) {
-            fechaFinal = getRequestedPaqueteById().getFechaFinal();
-        }
-        return fechaFinal;
-    }
-
-    /**
-     * @param fechaFinal the fechaFinal to set
-     */
-    public void setFechaFinal(Date fechaFinal) {
-        this.fechaFinal = fechaFinal;
-    }
+//    /**
+//     * @return the idPaquete
+//     */
+//    public int getIdPaq() {
+//        return idPaq;
+//    }
+//
+//    /**
+//     * @param idPaquete the idPaquete to set
+//     */
+//    public void setIdPaq(int idPaq) {
+//        this.idPaq = idPaq;
+//    }
+//
+//    /**
+//     * @return the nombrePaquete
+//     */
+//    public String getNombrePaquete() {
+//        if (getRequestedPaqueteById() != null && nombrePaquete == null) {
+//            nombrePaquete = getRequestedPaqueteById().getNombrePaquete();
+//        }
+//        return nombrePaquete;
+//    }
+//
+//    /**
+//     * @param nombrePaquete the nombrePaquete to set
+//     */
+//    public void setNombrePaquete(String nombrePaquete) {
+//        this.nombrePaquete = nombrePaquete;
+//    }
+//
+//    /**
+//     * @return the descripcionServicios
+//     */
+//    public String getDescripcionServicios() {
+//        if (getRequestedPaqueteById() != null && descripcionServicios == null) {
+//            descripcionServicios = getRequestedPaqueteById().getDescripcionServicios();
+//        }
+//        return descripcionServicios;
+//    }
+//
+//    /**
+//     * @param descripcionServicios the descripcionServicios to set
+//     */
+//    public void setDescripcionServicios(String descripcionServicios) {
+//        this.descripcionServicios = descripcionServicios;
+//    }
+//
+//    /**
+//     * @return the fechaInicio
+//     */
+//    public Date getFechaInicio() {
+//        if (getRequestedPaqueteById() != null && fechaInicio == null) {
+//            fechaInicio = getRequestedPaqueteById().getFechaInicio();
+//        }
+//        return fechaInicio;
+//    }
+//
+//    /**
+//     * @param fechaInicio the fechaInicio to set
+//     */
+//    public void setFechaInicio(Date fechaInicio) {
+//        this.fechaInicio = fechaInicio;
+//    }
+//
+//    /**
+//     * @return the fechaFinal
+//     */
+//    public Date getFechaFinal() {
+//        if (getRequestedPaqueteById() != null && fechaFinal == null) {
+//            fechaFinal = getRequestedPaqueteById().getFechaFinal();
+//        }
+//        return fechaFinal;
+//    }
+//
+//    /**
+//     * @param fechaFinal the fechaFinal to set
+//     */
+//    public void setFechaFinal(Date fechaFinal) {
+//        this.fechaFinal = fechaFinal;
+//    }
 }

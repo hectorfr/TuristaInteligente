@@ -30,10 +30,11 @@
                             <h:outputText value="Nombre" />
                         </h:panelGroup>
                     </f:facet>  
-                    <a4j:commandLink value="#{_paquete.nombrePaquete}" onclick="#{rich:component('verPaquetePanel')}.show();" 
+                    <h:outputText value="#{_paquete.nombrePaquete}" />
+                    <!--<a4j:commandLink value="#{_paquete.nombrePaquete}" onclick="#{rich:component('verPaquetePanel')}.show();" 
                                      render="panelVer" style="color: red; white-space: normal">    
                         <f:param name="idPaquete" value="#{_paquete.idPaquete}"/>
-                    </a4j:commandLink>  
+                    </a4j:commandLink>-->
                 </rich:column>
 
                 <rich:column >
@@ -50,16 +51,16 @@
                     <f:facet name="header">
                         <h:outputText value="Acciones" />
                     </f:facet>
-                    <a4j:commandLink id="modificar"
-                                     styleClass="btn small primary"                                             
-                                     action="#{paqueteManagedBean.redirectModificar}">
+                    
+                    <h:link id="modificar"
+                            styleClass="btn small primary"   
+                            outcome="modificarPaquete?includeViewParams=true">
                         <span class="modificar"></span>
                         <rich:tooltip value="Modificar" followMouse="false" />
                         <f:param name="idPaquete" value="#{_paquete.idPaquete}"/>
-                        <f:setPropertyActionListener target="#{paqueteManagedBean.idPaq}" value="#{_paquete.idPaquete}" />
-                    </a4j:commandLink>  
+                    </h:link>
 
-                    <a4j:commandLink styleClass="btn small danger"                                               
+                    <a4j:commandLink styleClass="btn small danger" 
                                      oncomplete="#{rich:component('eliminarPaquetePanel')}.show()"
                                      render="panelEliminar">
                         <span class="eliminar"></span>
