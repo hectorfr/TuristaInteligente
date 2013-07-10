@@ -4,6 +4,7 @@
  */
 package com.turistainteligente.model;
 
+import com.turistainteligente.util.Util;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -51,7 +52,7 @@ public class Reservacion implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "NUM_CONFIRMACION")
-    private int numConfirmacion;
+    private String numConfirmacion;
     @Column(name = "FECHA_PAGO_INICIO")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaPagoInicio;
@@ -94,6 +95,9 @@ public class Reservacion implements Serializable {
     @JoinColumn(name = "ID_CLIENTE", referencedColumnName = "ID_CLIENTE")
     @ManyToOne(fetch = FetchType.LAZY)
     private Cliente idCliente;
+    @JoinColumn(name = "ID_TIPO_PAQUETE_RESERVACION", referencedColumnName = "ID_TIPO_PAQUETE_RESERVACION")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private TipoPaqueteReservacion idTipoPaqueteReservacion;
 
     public Reservacion() {
     }
@@ -102,7 +106,7 @@ public class Reservacion implements Serializable {
         this.idReservacion = idReservacion;
     }
 
-    public Reservacion(Integer idReservacion, char indEstado, int numConfirmacion, String usrRegistro, Date fecRegistro) {
+    public Reservacion(Integer idReservacion, char indEstado, String numConfirmacion, String usrRegistro, Date fecRegistro) {
         this.idReservacion = idReservacion;
         this.indEstado = indEstado;
         this.numConfirmacion = numConfirmacion;
@@ -126,11 +130,11 @@ public class Reservacion implements Serializable {
         this.indEstado = indEstado;
     }
 
-    public int getNumConfirmacion() {
+    public String getNumConfirmacion() {
         return numConfirmacion;
     }
 
-    public void setNumConfirmacion(int numConfirmacion) {
+    public void setNumConfirmacion(String numConfirmacion) {
         this.numConfirmacion = numConfirmacion;
     }
 
@@ -260,6 +264,30 @@ public class Reservacion implements Serializable {
      */
     public void setIdCliente(Cliente idCliente) {
         this.idCliente = idCliente;
+    }
+
+    /**
+     * @return the idTipoPaqueteReservacion
+     */
+    public TipoPaqueteReservacion getIdTipoPaqueteReservacion() {
+        return idTipoPaqueteReservacion;
+    }
+
+    /**
+     * @param idTipoPaqueteReservacion the idTipoPaqueteReservacion to set
+     */
+    public void setIdTipoPaqueteReservacion(TipoPaqueteReservacion idTipoPaqueteReservacion) {
+        this.idTipoPaqueteReservacion = idTipoPaqueteReservacion;
+    }
+    
+    public String getEstadoFormat() {
+        if(getIndEstado() == Util.RES_CONFIRMADA) {
+            return "Confirmada";
+        } else if(getIndEstado() == Util.RES_COTIZADA) {
+            return "Cotizada";
+        } else {
+            return "Pagada";
+        }
     }
     
 }

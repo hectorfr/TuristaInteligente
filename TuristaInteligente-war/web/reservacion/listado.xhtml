@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j"
+                template="/templates/template.xhtml"
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+    <ui:define name="content">
+        <h1 class="page-title factura-listado">Listado de Reservaciones</h1>        
+        <h2 class="sub-title">Muestra el listado de las reservaciones ingresadas en el sistema. Se pueden buscar por diferentes parámetros además de poder modificarlos, eliminarlos y crear nuevos.</h2>
+        <br />
+        <h:form>
+            <rich:messages id="msgs"/> 
+            <br />
+            <h:link value="Nueva Reservación" styleClass="btn small primary"   
+                outcome="infoReservacion" />                  
+            <br /><br />
+            <rich:extendedDataTable  id="list" value="#{reservacionesPaged}" var="_reservacion"
+                                     rows="10" noDataLabel="No existen reservaciones">
+
+                <rich:column >
+                    <f:facet name="header">
+                        <h:panelGroup>
+                            <h:outputText value="Num Confirmación" />
+                        </h:panelGroup>
+                    </f:facet>  
+                    <h:outputText value="#{_reservacion.numConfirmacion}" style="white-space: normal"/>                    
+                </rich:column>
+                
+                <rich:column >
+                    <f:facet name="header">
+                        <h:panelGroup>
+                            <h:outputText value="Estado" />
+                        </h:panelGroup>
+                    </f:facet>  
+                    <h:outputText value="#{_reservacion.estadoFormat}" style="white-space: normal"/>                    
+                </rich:column> 
+                
+                <rich:column >
+                    <f:facet name="header">
+                        <h:panelGroup>
+                            <h:outputText value="Cliente" />
+                        </h:panelGroup>
+                    </f:facet>  
+                    <h:outputText value="#{_reservacion.idCliente.nombreCliente}" style="white-space: normal"/>                    
+                </rich:column>
+                
+                <rich:column >
+                    <f:facet name="header">
+                        <h:panelGroup>
+                            <h:outputText value="Paquete" />
+                        </h:panelGroup>
+                    </f:facet>  
+                    <h:outputText value="#{_reservacion.idPaquete.nombrePaquete}" style="white-space: normal"/>                    
+                </rich:column> 
+
+                <rich:column styleClass="rght"  width="350px" >                          
+                    <f:facet name="header">
+                        <h:outputText value="Acciones" />
+                    </f:facet>
+
+                    <h:link id="modificar"
+                            styleClass="btn small primary"   
+                            outcome="modificarReservacion?includeViewParams=true">
+                        <span class="modificar"></span>
+                        <rich:tooltip value="Modificar" followMouse="false" />
+                        <f:param name="idReservacion" value="#{_reservacion.idReservacion}"/>
+                    </h:link>
+
+                    <a4j:commandLink styleClass="btn small danger" 
+                                     oncomplete="#{rich:component('eliminarReservacionPanel')}.show()"
+                                     render="panelEliminar">
+                        <span class="eliminar"></span>
+                        <rich:tooltip value="Eliminar" followMouse="false" />
+                        <f:param name="idReservacion" value="#{_reservacion.idReservacion}"/>
+                    </a4j:commandLink> 
+                </rich:column>
+                <f:facet name="footer">
+                    <rich:dataScroller  for="list" maxPages="10" renderIfSinglePage="false"/>                             
+                </f:facet>
+            </rich:extendedDataTable>   
+        </h:form>        
+        <ui:include src="eliminarPaquete.xhtml"/>
+        <ui:include src="crearCliente.xhtml"/> 
+    </ui:define>
+</ui:composition>
+

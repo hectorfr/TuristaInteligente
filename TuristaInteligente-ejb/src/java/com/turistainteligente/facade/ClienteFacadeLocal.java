@@ -29,4 +29,5 @@ public interface ClienteFacadeLocal {
 
     int count();
     
+    List<Cliente> buscarPorNombreCompleto(String nombre);
 }

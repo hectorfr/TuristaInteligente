@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j">
+
+    <rich:popupPanel id="crearClientePanel" modal="true" autosized="true"
+                     onmaskclick="#{rich:component('crearClientePanel')}.hide()">
+        <f:facet name="header">
+            <h:outputText value="Nuevo Cliente" />
+        </f:facet>
+        <f:facet name="controls">
+            <h:outputLink value="#" onclick="#{rich:component('crearClientePanel')}.hide();
+                    return false;">
+                <h:graphicImage value="/images/crossed.png"/>  
+            </h:outputLink>
+        </f:facet>
+        <h:form>
+            <h:panelGrid columns="2" id="panelCrear" styleClass="panel-grid">
+                <h:outputLabel for="nombreCliente" value="Nombre*:"/>
+                <h:inputText id="nombreCliente" value="#{cliente.nombre}" 
+                             required="true" requiredMessage="Debe ingresar un nombre del cliente"
+                             maxlength="25"/>
+
+                <h:outputLabel for="primerApellido" value="Primer Apellido*:"/>
+                <h:inputText id="primerApellido" value="#{cliente.primerApellido}" 
+                             required="true" requiredMessage="Debe ingresar el primer apellido del cliente"
+                             maxlength="25"/>
+
+                <h:outputLabel for="segundoApellido" value="Segundo Apellido:"/>
+                <h:inputText id="segundoApellido" value="#{cliente.segundoApellido}" maxlength="25"/>
+                                
+
+                <h:outputLabel for="email" value="Email*:"/>
+                <h:inputText id="email" value="#{cliente.email}" 
+                             required="true" requiredMessage="Debe ingresar el email del cliente"
+                             maxlength="100"/>
+
+                <h:outputLabel for="primerTelefono" value="Télefono*:"/>
+                <h:inputText id="primerTelefono" value="#{cliente.telefono}" 
+                             required="true" requiredMessage="Debe ingresar el teléfono del cliente"
+                             maxlength="25"/>
+
+                <h:outputLabel for="segundoTelefono" value="Segundo Teléfono:"/>
+                <h:inputText id="segundoTelefono" value="#{cliente.segundoTelefono}" maxlength="25"/>
+                
+                <h:outputLabel for="cedula" value="Cédula:"/>
+                <h:inputText id="cedula" value="#{cliente.cedula}" maxlength="20"/>
+
+                <h:outputLabel for="empresa" value="Empresa:"/>
+                <h:inputText id="empresa" value="#{cliente.empresa}" maxlength="100"/>
+            </h:panelGrid>
+            <br />
+            <a4j:commandButton action="#{clienteManagedBean.create}" value="Crear"  styleClass="btn primary"/>
+            <br /><br />
+            <rich:messages id="msgs2"/>
+        </h:form>
+    </rich:popupPanel>
+</ui:composition>
+

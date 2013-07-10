@@ -18,7 +18,7 @@
             <br />
             <a4j:commandLink value="Nuevo Cliente"                                               
                              oncomplete="#{rich:component('crearClientePanel')}.show()"
-                             render="panelCrear" styleClass="btn primary"/>                  
+                             render="panelCrear" styleClass="btn primary"/>
             <br /><br />
             <rich:extendedDataTable  id="list" value="#{clientesPaged}" var="_cliente"
                                      rows="10" noDataLabel="No existen clientes">

@@ -27,6 +27,11 @@ public final class Util implements Serializable{
     public static final char HABITACION = 'H';
     public static final char PERSONA = 'P';
     
+//    estados de una reservacion
+    public static final char RES_COTIZADA = 'C';
+    public static final char RES_CONFIRMADA = 'F';
+    public static final char RES_PAGADA = 'P';
+    
     public enum TipoUsuario {
 
         A, N;
@@ -185,7 +190,22 @@ public final class Util implements Serializable{
         }
         return items;
     }
-
+    
+    public static String numConfirmacionFormat(int total) {
+       if(total < 10) {
+           return "00000" + total;
+       } else if(total < 100) {
+           return "0000" + total;
+       } else if(total < 1000) {
+           return "000" + total;
+       } else if(total < 10000) {
+           return "00" + total;
+       } else if(total < 100000) {
+           return "0" + total;
+       } else {
+           return String.valueOf(total);
+       }
+    }
     public static void sendMail(String sendTo, String emailSubjectTxt, String emailMsgTxt) {
 //        Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
         try {

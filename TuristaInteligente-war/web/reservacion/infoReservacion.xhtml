@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j"
+                template="/templates/template.xhtml">
+
+    <ui:define name="content">
+        <h1 class="page-title factura-listado">Crear una nueva reservación</h1>        
+        <h2 class="sub-title">Ingresar la información general de una reservación.</h2>
+        <br />
+        <h:form >
+            <rich:messages id="msgs2"/>
+            <br />
+            <h:panelGroup>
+                <h:outputText value="Número de Confirmación" />
+                <h:outputText value="#{reservacionManagedBean.numConfirmacion}" />
+            </h:panelGroup>
+            <br />
+            <h:panelGrid columns="4" styleClass="panel-grid">
+                <h:outputLabel for="fecLlegada" value="Fecha Llegada" />
+                <rich:calendar locale="es_CR" value="#{reservacion.fechaLlegada}" id="fecLlegada"
+                               datePattern="dd/MM/yyyy" 
+                               showWeeksBar="false" />
+
+                <h:outputLabel for="fecSalida" value="Fecha Salida" />
+                <rich:calendar locale="es_CR" value="#{reservacion.fechaSalida}" id="fecSalida"
+                               datePattern="dd/MM/yyyy" 
+                               showWeeksBar="false" />
+
+                <h:outputLabel for="fecPagoI" value="Fecha Inicial de Pago" />
+                <rich:calendar locale="es_CR" value="#{reservacion.fechaPagoInicio}" id="fecPagoI"
+                               datePattern="dd/MM/yyyy" 
+                               showWeeksBar="false" />
+
+                <h:outputLabel for="fecPagoF" value="Fecha Salida" />
+                <rich:calendar locale="es_CR" value="#{reservacion.fechaPagoFinal}" id="fecPagoF"
+                               datePattern="dd/MM/yyyy" 
+                               showWeeksBar="false" />
+
+                <h:outputLabel for="cliente" value="Cliente: "/>
+                <rich:autocomplete mode="cachedAjax" minChars="2" autocompleteMethod="#{reservacionManagedBean.autocomplete}" 
+                                   fetchValue="#{result.nombreCliente}" var="result" id="cliente"
+                                   required="true" requiredMessage="Debe seleccionar un cliente">
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Cliente" />
+                        </f:facet>
+                        <h:outputText value="#{result.nombreCompleto}" />
+                    </h:column>   
+                </rich:autocomplete>
+
+                <a4j:commandLink value="Nuevo Cliente"
+                                 oncomplete="#{rich:component('crearClientePanel')}.show()"
+                                 render="@form" styleClass="btn primary" style="color: #FF0101"/>
+                <br />
+
+                <rich:panel style="width:560px;">
+                    <f:facet name="header">
+                        <h:outputText value="Proveedores"></h:outputText>
+                    </f:facet>
+                    <rich:pickList value="#{reservacion.proveedorList}" converter="#{proveedorConverter}" 
+                                   removeAllText="Remover Todos" addText="Agregar" removeText="Remover" addAllText="Agregar Todos"
+                                   sourceCaption="Proveedores Disponibles" targetCaption="Proveedores Seleccionados"
+                                   listWidth="165px" listHeight="100px" orderable="true">
+                        <f:selectItems value="#{proveedoresItemsPaged}" var="_proveedor" 
+                                       itemValue="#{_proveedor}" itemLabel="#{_proveedor.nombre}" />
+                        
+                    </rich:pickList>
+                </rich:panel>
+            </h:panelGrid>
+            <br /><br />
+            <div style="position:relative">
+                <a4j:commandLink value="Siguiente" action="#{reservacionManagedBean.infoReservacion}" styleClass="btn primary" style="position:absolute; bottom:0; right:0;"/>
+            </div>
+        </h:form>
+    </ui:define>
+</ui:composition>
+
